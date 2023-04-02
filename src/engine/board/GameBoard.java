@@ -1,12 +1,10 @@
 package engine.board;
 
-import jdk.jshell.spi.ExecutionControl;
-
 import java.util.ArrayList;
 
 public class GameBoard {
     private static GameBoard instance;
-    private ArrayList<Node> nodes;
+    private ArrayList<Intersection> intersections;
 
     private int xWidth;
     private int yHeight;
@@ -23,20 +21,20 @@ public class GameBoard {
         return null;
     }
 
-    public boolean addNode(Node node) {
-        for (Node _node : this.nodes) {
-            if (_node.getId() == node.getId()) {
+    public boolean addNode(Intersection intersection) {
+        for (Intersection _intersection : this.intersections) {
+            if (_intersection.getId() == intersection.getId()) {
                 return false;
             }
         }
-        this.nodes.add(node);
+        this.intersections.add(intersection);
         return true;
     }
 
     public boolean removeNode(int id) {
-        for (Node _node : this.nodes) {
-            if (_node.getId() == id) {
-                this.nodes.remove(id);
+        for (Intersection _intersection : this.intersections) {
+            if (_intersection.getId() == id) {
+                this.intersections.remove(id);
                 return true;            }
         }
         return false;

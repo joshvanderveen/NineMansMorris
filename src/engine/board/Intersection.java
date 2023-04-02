@@ -2,15 +2,15 @@ package engine.board;
 
 import java.util.ArrayList;
 
-public class Node {
+public class Intersection {
 
     private int id;
     private int xCoordinate;
     private int yCoordinate;
 
-    private ArrayList<Edge> edges;
+    private ArrayList<Path> paths;
 
-    public Node(int id, int xCoordinate, int yCoordinate) {
+    public Intersection(int id, int xCoordinate, int yCoordinate) {
         this.id = id;
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
@@ -28,12 +28,12 @@ public class Node {
         return yCoordinate;
     }
 
-    public ArrayList<Edge> getEdges() {
-        return edges;
+    public ArrayList<Path> getEdges() {
+        return paths;
     }
 
-    public void addEdge(Edge edge) {
-        this.edges.add(edge);
+    public void addEdge(Path path) {
+        this.paths.add(path);
     }
 
     public String getFriendlyLocation() {
