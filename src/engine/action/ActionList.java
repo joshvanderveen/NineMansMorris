@@ -33,7 +33,7 @@ public class ActionList implements Iterable<Action> {
     }
 
     public void remove(int index) throws IllegalArgumentException {
-        if (this.size() < index) throw new IllegalArgumentException("Index out of range")
+        if (this.size() < index) throw new IllegalArgumentException("Index out of range");
         actions.remove(index);
     }
 

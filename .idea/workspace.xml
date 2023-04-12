@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="00f46a5c-cb0c-4eba-a70c-8325ecdb94c3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/engine/game/InputManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/engine/game/Menu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/game/actions/SelectPieceAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/Actor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Actor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/action/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/action/Action.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/action/ActionList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/action/ActionList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/ExitAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/ExitAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/HelpAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/HelpAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/MoveAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/MoveAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/PlaceAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/PlaceAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/RemoveAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/RemoveAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/RulesAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/RulesAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actors/ComputerPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actors/ComputerPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actors/HumanPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actors/HumanPlayer.java" afterDir="false" />
-    </list>
+    <list default="true" id="00f46a5c-cb0c-4eba-a70c-8325ecdb94c3" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
