@@ -1,8 +1,8 @@
 package game.actors;
 
-import engine.Action;
 import engine.Actor;
-import engine.GameBoard;
+import engine.action.Action;
+import engine.board.GameBoard;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,10 @@
 package game.actions;
 
-import engine.action.Action;
 import engine.Actor;
 import engine.game.Game;
+import engine.action.Action;
 
-public class RemoveAction extends Action {
+public class SelectPieceAction extends Action {
     @Override
     public String execute(Actor actor, Game game) {
         return null;
@@ -12,6 +12,6 @@ public class RemoveAction extends Action {
 
     @Override
     public String menuDescription(Actor actor) {
-        return null;
+        return "Select piece to move";
     }
 }

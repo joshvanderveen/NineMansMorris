@@ -1,13 +1,13 @@
-package engine;
+package engine.game;
+
+import engine.Actor;
+import engine.board.GameBoard;
 
 import java.util.ArrayList;
 
 public class Game {
-    protected ArrayList<GameBoard> gameBoards = new ArrayList<GameBoard>();
+    protected GameBoard gameBoard;
     protected ArrayList<Actor> players = new ArrayList<Actor>();
-    public void addGameBoard(GameBoard gameBoard) {
-        gameBoards.add(gameBoard);
-    }
 
     public void addPlayer(Actor player) {
         players.add(player);
@@ -17,6 +17,10 @@ public class Game {
         // pre logic checks
         if (players.size() == 0) {
             throw new IllegalStateException("Game cannot be started without players");
+        }
+
+        if (gameBoard == null) {
+            throw new IllegalStateException("Game cannot be started without a Game Board");
         }
 
         // game loop

@@ -1,5 +1,8 @@
 package engine;
 
+import engine.board.GameBoard;
+import engine.action.Action;
+
 import java.util.ArrayList;
 
 public abstract class Actor {

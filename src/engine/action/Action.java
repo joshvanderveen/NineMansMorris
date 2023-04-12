@@ -1,4 +1,7 @@
-package engine;
+package engine.action;
+
+import engine.Actor;
+import engine.game.Game;
 
 public abstract class Action {
     public abstract String execute(Actor actor, Game game);

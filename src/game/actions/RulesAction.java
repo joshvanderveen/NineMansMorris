@@ -1,8 +1,8 @@
 package game.actions;
 
-import engine.Action;
+import engine.action.Action;
 import engine.Actor;
-import engine.Game;
+import engine.game.Game;
 
 public class RulesAction extends Action {
     @Override
