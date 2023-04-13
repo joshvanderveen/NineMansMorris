@@ -8,5 +8,11 @@ public class Path {
         this.sourceIntersection = sourceIntersection;
         this.destinationIntersection = destinationIntersection;
     }
+    public Intersection getSourceIntersection() {
+        return sourceIntersection;
+    }
 
+    public Intersection getDestinationIntersection() {
+        return destinationIntersection;
+    }
 }

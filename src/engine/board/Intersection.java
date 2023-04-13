@@ -1,19 +1,18 @@
 package engine.board;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Intersection {
 
     private int id;
-    private int xCoordinate;
-    private int yCoordinate;
+    private Point coordinates;
 
-    private ArrayList<Path> paths;
+    private ArrayList<Path> paths = new ArrayList<>();
 
-    public Intersection(int id, int xCoordinate, int yCoordinate) {
+    public Intersection(int id, Point coordinate) {
         this.id = id;
-        this.xCoordinate = xCoordinate;
-        this.yCoordinate = yCoordinate;
+        this.coordinates = coordinate;
     }
 
     public int getId() {
@@ -21,18 +20,18 @@ public class Intersection {
     }
 
     public int getxCoordinate() {
-        return xCoordinate;
+        return coordinates.x;
     }
 
     public int getyCoordinate() {
-        return yCoordinate;
+        return coordinates.y;
     }
 
-    public ArrayList<Path> getEdges() {
+    public ArrayList<Path> getPaths() {
         return paths;
     }
 
-    public void addEdge(Path path) {
+    public void addPath(Path path) {
         this.paths.add(path);
     }
 
