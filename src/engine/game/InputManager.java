@@ -1,5 +1,6 @@
 package engine.game;
 
+import java.awt.*;
 import java.awt.event.WindowStateListener;
 import java.util.Scanner;
 
@@ -22,7 +23,10 @@ public class InputManager {
 
     public void waitForEnter() {
         System.out.println("Press enter to continue.....");
-        input.nextLine();
+
+        try {
+            System.in.read();
+        } catch (Exception e) {}
     }
 
     public boolean isValidCoordinate(String coordinate) {
@@ -33,6 +37,16 @@ public class InputManager {
         if (!isNumberValue(coordinate.charAt(1))) return false;
 
         return true;
+    }
+
+    public Point getInputCoordinate() {
+        String inputCoordinate;
+        do {
+            inputCoordinate = readInput();
+        } while (!isValidCoordinate(inputCoordinate));
+
+        Point coordinate = new Point("abcdefghijklmnopqrstuvwxyz".charAt(inputCoordinate.charAt(0) - 1), Integer.parseInt(String.valueOf(inputCoordinate.charAt(1))));
+        return coordinate;
     }
 
     public boolean isInAlphabet(char character) {

@@ -1,7 +1,9 @@
 package engine.game;
 
 import engine.Player;
+import engine.action.Action;
 import engine.action.ActionList;
+import engine.action.MenuAction;
 import engine.board.GameBoard;
 import engine.board.Intersection;
 import engine.board.Path;
@@ -17,31 +19,25 @@ public class Game {
     int NUMBER_PIECES_EACH = 9;
     protected GameBoard gameBoard;
     protected ArrayList<Player> players = new ArrayList<>();
-    protected ArrayList<Piece> unplacedPieces = new ArrayList<>();
-    protected ArrayList<Piece> placedPieces = new ArrayList<>();
-    protected ArrayList<Piece> removedPieces = new ArrayList<>();
+    protected ArrayList<Action> moves = new ArrayList<>();
 
 
     public void run() {
-
         setup();
-
         checkSetup();
-
         while (!isGameOver()) {
             loop();
         }
-
         endGame();
     }
 
     public void setup() {
 
-        HumanPlayer humanPlayer1 = new HumanPlayer();
-        HumanPlayer humanPlayer2 = new HumanPlayer();
+        HumanPlayer player1 = new HumanPlayer("Player 1", 'X');
+        HumanPlayer player2 = new HumanPlayer("Player 2", 'Y');
 
-        players.add(humanPlayer1);
-        players.add(humanPlayer2);
+        this.addPlayer(player1);
+        this.addPlayer(player2);
 
         gameBoard = new GameBoard();
 
@@ -89,7 +85,7 @@ public class Game {
 
         for (int i = 0; i < NUMBER_PIECES_EACH; i++) {
             for (Player player : players) {
-                unplacedPieces.add(new Piece(player, player.getDisplayChar()));
+                gameBoard.addUnplacedPiece(new Piece(player, player.getDisplayChar()));
             }
         }
     }
@@ -105,7 +101,8 @@ public class Game {
 
     public void loop() {
         for (Player player : players) {
-            processActorTurn(player);
+            Action action = processActorTurn(player);
+            moves.add(action);
         }
     }
 
@@ -113,7 +110,7 @@ public class Game {
 
     }
 
-    protected void processActorTurn(Player player) {
+    protected Action processActorTurn(Player player) {
         ActionList availableActions = new ActionList();
 
         if (!player.isComputerControlled()) {
@@ -122,17 +119,31 @@ public class Game {
             availableActions.add(new RulesAction());
         }
 
-        if (playerHasPlacedAPiece(player)) {
+        if (gameBoard.playerHasPlacedAPiece(player)) {
             availableActions.add(new SelectPieceAction());
         }
 
-        if (playerHasPieceToPlace(player)) {
+        if (gameBoard.playerHasPieceToPlace(player)) {
             availableActions.add(new PlaceAction());
         }
 
-        player.playTurn(availableActions, gameBoard);
+        Action action = player.playTurn(availableActions, gameBoard);
+
+        // TODO: Change from instance of
+        // Calls process actor turn as the player can do more than the single MenuAction per turn
+        if (action instanceof MenuAction) {
+            ((MenuAction) action).execute();
+            this.processActorTurn(player);
+        }
+
+        Action nextAction = ((MoveAction) action).execute(player, gameBoard);
+
+//        Menu.getInstance().printTurnResult();
+
+        return action;
     }
 
+    // TODO: Add validation?
     public void addPlayer(Player player) {
         players.add(player);
     }
@@ -143,24 +154,6 @@ public class Game {
      * @return true if game is over, false otherwise
      */
     protected boolean isGameOver() {
-        return false;
-    }
-
-    private boolean playerHasPlacedAPiece(Player player) {
-        for (Piece piece : placedPieces) {
-            if (piece.getOwner() == player) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean playerHasPieceToPlace(Player player) {
-        for (Piece piece : unplacedPieces) {
-            if (piece.getOwner() == player) {
-                return true;
-            }
-        }
         return false;
     }
 }

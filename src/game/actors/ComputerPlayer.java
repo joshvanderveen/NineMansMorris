@@ -6,10 +6,14 @@ import engine.action.ActionList;
 import engine.board.GameBoard;
 
 public class ComputerPlayer extends Player {
-    private static final String NAME = "COMPUTER";
-    private static final char DISPLAY_CHAR = 'X';
+    private static final String DEFAULT_NAME = "COMPUTER";
+    private static final char DEFAULT_DISPLAY_CHAR = 'Y';
     public ComputerPlayer() {
-        super(NAME, DISPLAY_CHAR);
+        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, true);
+    }
+
+    public ComputerPlayer(String name, char displayChar) {
+        super(name, displayChar, true);
     }
 
     @Override

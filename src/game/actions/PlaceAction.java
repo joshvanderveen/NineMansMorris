@@ -3,11 +3,12 @@ package game.actions;
 import engine.action.Action;
 import engine.Player;
 import engine.action.TurnAction;
+import engine.board.GameBoard;
 import engine.game.Game;
 
 public class PlaceAction extends TurnAction {
     @Override
-    public String execute(Player player, Game game) {
+    public String execute(Player player, GameBoard gameBoard) {
         return null;
     }
 

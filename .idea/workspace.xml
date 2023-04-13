@@ -5,37 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00f46a5c-cb0c-4eba-a70c-8325ecdb94c3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/engine/action/MenuAction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/engine/action/TurnAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/engine/Actor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/engine/action/Action.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/action/Action.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/engine/board/Piece.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/board/Piece.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/project/engine/board/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/board/GameBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/project/engine/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/game/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/project/engine/game/InputManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/game/InputManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/project/engine/game/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/game/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actions/ExitAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actions/ExitAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actions/HelpAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actions/HelpAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actions/MoveAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actions/MoveAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actions/PlaceAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actions/PlaceAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actions/RemoveAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actions/RemoveAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actions/RulesAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actions/RulesAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actions/SelectPieceAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actions/SelectPieceAction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actors/ComputerPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actors/ComputerPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/game/actors/HumanPlayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actors/HumanPlayer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/Actor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/action/Action.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/action/Action.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/action/TurnAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/action/TurnAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/board/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/board/GameBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/board/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/board/Piece.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/game/InputManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/game/InputManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/game/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/game/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/ExitAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/ExitAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/HelpAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/HelpAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/actions/MoveAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/MoveAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/actions/PlaceAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/PlaceAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/actions/RemoveAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/RemoveAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/RulesAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/RulesAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/actions/SelectPieceAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/SelectPieceAction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/actors/ComputerPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actors/ComputerPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/actors/HumanPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actors/HumanPlayer.java" afterDir="false" />
@@ -49,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -67,10 +50,21 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "create.test.in.the.same.root": "true",
     "last_opened_file_path": "C:/Users/jvanderveen/Coding/UNI/FIT3077/project.old",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="engine" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Application" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Application" />
