@@ -4,18 +4,21 @@ import engine.action.Action;
 import engine.Player;
 import engine.action.TurnAction;
 import engine.board.GameBoard;
+import engine.board.Piece;
 import engine.game.Game;
 
+import java.awt.*;
+
 public class MoveAction extends TurnAction {
-    public MoveAction() {
+    public MoveAction(Player player, Piece piece, Point point) {
     }
 
     @Override
     public String execute(Player player, GameBoard gameBoard) {
-//        Sudo code
-//       if(gameBoard.isValidMove(player, piece, position)) {
-//           gameBoard.executeMove(player, piece, position)
-//       }
+        // gameboard.hasNeighbour(coordinate) - either 1 or 2 adjacent
+        // gameboard.canMove(coordinate)
+        // gameboard.moveTo(coordinate)
+
         return null;
     }
 

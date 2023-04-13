@@ -6,13 +6,15 @@ import java.util.ArrayList;
 public class Intersection {
 
     private int id;
-    private Point coordinates;
+    private Coordinate coordinates;
+    private Piece piece;
 
     private ArrayList<Path> paths = new ArrayList<>();
 
-    public Intersection(int id, Point coordinate) {
+    public Intersection(int id, Coordinate coordinate) {
         this.id = id;
         this.coordinates = coordinate;
+        this.piece = null;
     }
 
     public int getId() {
@@ -37,5 +39,19 @@ public class Intersection {
 
     public String getFriendlyLocation() {
         return "Node " + id;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public boolean checkConnected(Intersection intersection) {
+        // compare coordinates x or y
+        // check intersection, then intersection of next (only ever be 1 or 2 adjacent)
+        return false;
     }
 }

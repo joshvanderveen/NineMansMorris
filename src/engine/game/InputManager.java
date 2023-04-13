@@ -45,7 +45,7 @@ public class InputManager {
             inputCoordinate = readInput();
         } while (!isValidCoordinate(inputCoordinate));
 
-        Point coordinate = new Point("abcdefghijklmnopqrstuvwxyz".charAt(inputCoordinate.charAt(0) - 1), Integer.parseInt(String.valueOf(inputCoordinate.charAt(1))));
+        Point coordinate = new Point("abcdefghijklmnopqrstuvwxyz".charAt(inputCoordinate.charAt(0) - 1), Integer.parseInt(String.valueOf(inputCoordinate.charAt(1))) - 1);
         return coordinate;
     }
 

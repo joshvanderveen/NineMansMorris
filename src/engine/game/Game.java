@@ -4,10 +4,7 @@ import engine.Player;
 import engine.action.Action;
 import engine.action.ActionList;
 import engine.action.MenuAction;
-import engine.board.GameBoard;
-import engine.board.Intersection;
-import engine.board.Path;
-import engine.board.Piece;
+import engine.board.*;
 import game.actions.*;
 import game.actors.HumanPlayer;
 
@@ -41,11 +38,11 @@ public class Game {
 
         gameBoard = new GameBoard();
 
-        /**
+        /*
          * Coordinates of each intersection
          */
         Point[] coords = {
-                new Point(0, 0), new Point(3, 0), new Point(6, 0),
+                new Coordinate(0, 0), new Point(3, 0), new Point(6, 0),
                 new Point(1, 1), new Point(3, 1), new Point(5, 1),
                 new Point(2, 2), new Point(3, 2), new Point(4, 2),
                 new Point(0, 3), new Point(1, 3), new Point(2, 3), new Point(4, 3), new Point(5, 3), new Point(6, 3),
@@ -123,7 +120,7 @@ public class Game {
             availableActions.add(new RulesAction());
         }
 
-        if (gameBoard.playerHasPlacedAPiece(player)) {
+        if (gameBoard.allPiecesHaveBeenPlaced()) {
             availableActions.add(new SelectPieceAction());
         }
 

@@ -7,6 +7,7 @@ import engine.board.Path;
 import engine.game.Game;
 import game.actions.MoveAction;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class GameBoard {
@@ -98,13 +99,8 @@ public class GameBoard {
         System.out.println("Number of paths: " + paths.size());
     }
 
-    public boolean playerHasPlacedAPiece(Player player) {
-        for (Piece piece : placedPieces) {
-            if (piece.getOwner() == player) {
-                return true;
-            }
-        }
-        return false;
+    public boolean allPiecesHaveBeenPlaced() {
+        return unplacedPieces.size() == 0;
     }
 
     public boolean playerHasPieceToPlace(Player player) {
@@ -114,5 +110,39 @@ public class GameBoard {
             }
         }
         return false;
+    }
+    // piece: source
+    // point: destination
+    public boolean isValidMove(Player player, Piece piece, Point point) {
+        if (!(piece.getOwner() == player)) return false;
+        // is there a piece at the destination - is the destination a neighbour of the source
+        Intersection intersectionAtPiece = null;
+
+        for (Intersection intersection: intersections) {
+            if (intersection.getPiece() != null && intersection.getPiece() == piece) {
+                intersectionAtPiece = intersection;
+            }
+        }
+
+        if (intersectionAtPiece == null) return false;
+
+        // check if there is an intersection at point
+
+        Intersection intersectionAtDestinationPoint = null;
+
+        for (Intersection intersection: intersections) {
+            // TODO: make a method that compares a point to an intersection
+            if (intersection.getxCoordinate() == point.x && intersection.getyCoordinate() == point.y) {
+                intersectionAtDestinationPoint = intersection;
+                break;
+            }
+        }
+
+        if (intersectionAtDestinationPoint == null) return false;
+
+        if (intersectionAtDestinationPoint.getPiece() != null) return false;
+
+        // check if intersectionAtPiece is a neighbour of intersectionAtPoint
+        return intersectionAtPiece.checkConnected(intersectionAtDestinationPoint);
     }
 }

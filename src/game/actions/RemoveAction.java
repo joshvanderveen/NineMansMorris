@@ -9,6 +9,8 @@ import engine.game.Game;
 public class RemoveAction extends TurnAction {
     @Override
     public String execute(Player player, GameBoard gameBoard) {
+        // gameBoard.hasEnemyPiece(coordinate)
+        // gameBoard.isPartOfMill(coordinate)
         return null;
     }
 

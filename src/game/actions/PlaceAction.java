@@ -9,6 +9,7 @@ import engine.game.Game;
 public class PlaceAction extends TurnAction {
     @Override
     public String execute(Player player, GameBoard gameBoard) {
+        // gameBoard.isPlaceEmpty(coordinate);
         return null;
     }
 
