@@ -1,19 +1,18 @@
 package engine.board;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class Intersection {
 
     private int id;
-    private Coordinate coordinates;
+    private Coordinate coordinate;
     private Piece piece;
 
     private ArrayList<Path> paths = new ArrayList<>();
 
     public Intersection(int id, Coordinate coordinate) {
         this.id = id;
-        this.coordinates = coordinate;
+        this.coordinate = coordinate;
         this.piece = null;
     }
 
@@ -22,11 +21,11 @@ public class Intersection {
     }
 
     public int getxCoordinate() {
-        return coordinates.x;
+        return coordinate.x;
     }
 
     public int getyCoordinate() {
-        return coordinates.y;
+        return coordinate.y;
     }
 
     public ArrayList<Path> getPaths() {
@@ -53,5 +52,13 @@ public class Intersection {
         // compare coordinates x or y
         // check intersection, then intersection of next (only ever be 1 or 2 adjacent)
         return false;
+    }
+
+    /**
+     * @param coordinate Coordinate to compare against current intersection location
+     * @return a boolean whether the intersection is at the given coordinate
+     */
+    public boolean intersectionAtCoordinate(Coordinate coordinate) {
+        return this.coordinate.compareCoordinate(coordinate);
     }
 }

@@ -15,7 +15,7 @@ public class Coordinate extends Point {
         super(x, y);
     }
 
-    public boolean comparePoint(Point otherPoint) {
-        return this.getX() == otherPoint.getX() && this.getY() == otherPoint.getY();
+    public boolean compareCoordinate(Coordinate otherCoordinate) {
+        return this.getX() == otherCoordinate.getX() && this.getY() == otherCoordinate.getY();
     }
 }

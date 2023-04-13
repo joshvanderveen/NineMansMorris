@@ -113,7 +113,7 @@ public class GameBoard {
     }
     // piece: source
     // point: destination
-    public boolean isValidMove(Player player, Piece piece, Point point) {
+    public boolean isValidMove(Player player, Piece piece, Coordinate coordinate) {
         if (!(piece.getOwner() == player)) return false;
         // is there a piece at the destination - is the destination a neighbour of the source
         Intersection intersectionAtPiece = null;
@@ -126,13 +126,13 @@ public class GameBoard {
 
         if (intersectionAtPiece == null) return false;
 
-        // check if there is an intersection at point
+        // check if there is an intersection at coordinate
 
         Intersection intersectionAtDestinationPoint = null;
 
         for (Intersection intersection: intersections) {
-            // TODO: make a method that compares a point to an intersection
-            if (intersection.getxCoordinate() == point.x && intersection.getyCoordinate() == point.y) {
+            // TODO: make a method that compares a coordinate to an intersection
+            if (intersection.getxCoordinate() == coordinate.x && intersection.getyCoordinate() == coordinate.y) {
                 intersectionAtDestinationPoint = intersection;
                 break;
             }
