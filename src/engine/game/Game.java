@@ -41,14 +41,14 @@ public class Game {
         /*
          * Coordinates of each intersection
          */
-        Point[] coords = {
-                new Coordinate(0, 0), new Point(3, 0), new Point(6, 0),
-                new Point(1, 1), new Point(3, 1), new Point(5, 1),
-                new Point(2, 2), new Point(3, 2), new Point(4, 2),
-                new Point(0, 3), new Point(1, 3), new Point(2, 3), new Point(4, 3), new Point(5, 3), new Point(6, 3),
-                new Point(2, 4), new Point(3, 4), new Point(4, 4),
-                new Point(1, 5), new Point(3, 5), new Point(5, 5),
-                new Point(0, 6), new Point(3, 6), new Point(6, 6)
+        Coordinate[] coords = {
+                new Coordinate(0, 0), new Coordinate(3, 0), new Coordinate(6, 0),
+                new Coordinate(1, 1), new Coordinate(3, 1), new Coordinate(5, 1),
+                new Coordinate(2, 2), new Coordinate(3, 2), new Coordinate(4, 2),
+                new Coordinate(0, 3), new Coordinate(1, 3), new Coordinate(2, 3), new Coordinate(4, 3), new Coordinate(5, 3), new Coordinate(6, 3),
+                new Coordinate(2, 4), new Coordinate(3, 4), new Coordinate(4, 4),
+                new Coordinate(1, 5), new Coordinate(3, 5), new Coordinate(5, 5),
+                new Coordinate(0, 6), new Coordinate(3, 6), new Coordinate(6, 6)
         };
 
         for (int i = 0; i < coords.length; i++) {
