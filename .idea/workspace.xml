@@ -5,22 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="00f46a5c-cb0c-4eba-a70c-8325ecdb94c3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/engine/board/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/board/GameBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/project/engine/action/TurnAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/action/TurnAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/project/engine/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/engine/game/InputManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/game/InputManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/project/engine/game/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/engine/game/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/action/TurnAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/action/TurnAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/board/GameBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/board/GameBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/project/game/actions/MoveAction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/project/game/actions/MoveAction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/game/InputManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/game/InputManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/engine/game/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/game/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/actions/MoveAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/MoveAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/PlaceAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/PlaceAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/RemoveAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/RemoveAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actions/SelectPieceAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actions/SelectPieceAction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actors/ComputerPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actors/ComputerPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/actors/HumanPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/actors/HumanPlayer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,11 +42,13 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
     "create.test.in.the.same.root": "true",
-    "last_opened_file_path": "C:/Users/jvanderveen/Coding/UNI/FIT3077/project.old",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "last_opened_file_path": "D:/FILES/Documents/UNI/UNI2023SEM1/FIT3077/Sprint 2/project",
+    "settings.editor.selected.configurable": "CodeWithMe"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -89,5 +83,9 @@
       <updated>1681188049040</updated>
     </task>
     <servers />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

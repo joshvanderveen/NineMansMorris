@@ -80,6 +80,10 @@ public class Game {
             }
         }
 
+//        node 1 - node 2
+
+
+
 //        gameBoard.printIntersections();
 //        gameBoard.printPaths();
 
@@ -136,7 +140,7 @@ public class Game {
             this.processActorTurn(player);
         }
 
-        Action nextAction = ((MoveAction) action).execute(player, gameBoard);
+        String result = ((MoveAction) action).execute(player, gameBoard);
 
 //        Menu.getInstance().printTurnResult();
 
