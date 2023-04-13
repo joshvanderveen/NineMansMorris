@@ -1,12 +1,28 @@
 package engine.game;
 
+import java.awt.event.WindowStateListener;
 import java.util.Scanner;
 
 public class InputManager {
+
+    private static InputManager instance;
+
+    public static InputManager getInstance() {
+        if (instance == null) {
+            instance = new InputManager();
+        }
+        return instance;
+    }
+
     private Scanner input = new Scanner(System.in);
 
     public String readInput() {
         return input.next();
+    }
+
+    public void waitForEnter() {
+        System.out.println("Press enter to continue.....");
+        input.nextLine();
     }
 
     public boolean isValidCoordinate(String coordinate) {

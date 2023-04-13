@@ -1,11 +1,11 @@
 package engine.action;
 
-import engine.Actor;
+import engine.Player;
 import engine.game.Game;
 
 public abstract class Action {
-    public abstract String execute(Actor actor, Game game);
-    public abstract String menuDescription(Actor actor);
+//    public abstract String execute(Player actor, Game game);
+    public abstract String menuDescription(Player actor);
     public String menuKey() {
         return null;
     }

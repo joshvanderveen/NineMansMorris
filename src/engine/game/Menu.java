@@ -1,16 +1,29 @@
 package engine.game;
 
-import engine.Actor;
+import engine.Player;
 import engine.action.Action;
 import engine.action.ActionList;
+import engine.action.MenuAction;
+import engine.board.GameBoard;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Menu {
-    public Action displayMenu(Actor actor, ActionList actions) {
+
+    private static Menu instance;
+
+    public static Menu getInstance() {
+        if (instance == null) {
+            instance = new Menu();
+        }
+        return instance;
+    }
+
+    public Action displayMenu(Player player, ActionList actions, GameBoard gameBoard) {
         ArrayList<Character> freeCharacters = new ArrayList<>();
         HashMap<String, Action> menuList = new HashMap<>();
+        HashMap<String, Action> turnList = new HashMap<>();
 
         for (char i = 'a'; i <= 'z'; i++)
             freeCharacters.add(i);
@@ -27,23 +40,37 @@ public class Menu {
             }
 
             freeCharacters.remove(0);
-            menuList.put(checkedMenuKey, action);
 
-            this.printAction(checkedMenuKey, action, actor);
+            // TODO: instanceof not good practice, should change
+            if (action instanceof MenuAction) {
+                menuList.put(checkedMenuKey, action);
+            } else {
+                turnList.put(checkedMenuKey, action);
+            }
         }
+
+        // Print menu options
+
+        menuList.forEach((String key, Action action) -> {
+            this.printAction(key, action, player);
+        });
+
+        gameBoard.printBoard();
+
+        turnList.forEach((String key, Action action) -> {
+            this.printAction(key, action, player);
+        });
 
         String key;
 
-        InputManager input = new InputManager();
-
         do {
-            key = input.readInput();
+            key = InputManager.getInstance().readInput();
         } while (!menuList.containsKey(key));
 
         return menuList.get(key);
     }
 
-    public void printAction(String menuCharacter, Action action, Actor actor) {
-        System.out.println(menuCharacter + " - " + action.menuDescription(actor));
+    private void printAction(String menuCharacter, Action action, Player player) {
+        System.out.println(menuCharacter + " - " + action.menuDescription(player));
     }
 }

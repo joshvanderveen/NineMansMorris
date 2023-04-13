@@ -41,6 +41,13 @@ public class GameBoard {
         intersections.set(index, newIntersection);
     }
 
+    // TODO: Implement
+    public void printBoard() {
+        System.out.println("\nPrint board implementation...\n");
+    }
+
+
+
     // TODO: Remove when submitting
     public void printIntersections() {
         for (Intersection intersection : intersections) {

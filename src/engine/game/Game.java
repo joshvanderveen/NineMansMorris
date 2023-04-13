@@ -1,29 +1,34 @@
 package engine.game;
 
-import engine.Actor;
+import engine.Player;
+import engine.action.ActionList;
 import engine.board.GameBoard;
 import engine.board.Intersection;
 import engine.board.Path;
+import engine.board.Piece;
+import game.actions.*;
 import game.actors.HumanPlayer;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Game {
+
+    int NUMBER_PIECES_EACH = 9;
     protected GameBoard gameBoard;
-    protected ArrayList<Actor> players = new ArrayList<Actor>();
-    public void addPlayer(Actor player) {
-        players.add(player);
-    }
+    protected ArrayList<Player> players = new ArrayList<>();
+    protected ArrayList<Piece> unplacedPieces = new ArrayList<>();
+    protected ArrayList<Piece> placedPieces = new ArrayList<>();
+    protected ArrayList<Piece> removedPieces = new ArrayList<>();
+
 
     public void run() {
 
         setup();
 
-//        checkSetup();
+        checkSetup();
 
-        while (isGameOver()) {
+        while (!isGameOver()) {
             loop();
         }
 
@@ -70,8 +75,6 @@ public class Game {
         for (int i = 0; i < relationships.length; i++) {
             for (int j = 0; j < relationships[i].length; j++) {
 
-                System.out.println("Create path?");
-
                 if (!gameBoard.doesPathExist(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]))) {
                     Path newPath = new Path(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]));
                     gameBoard.addPath(newPath);
@@ -81,8 +84,14 @@ public class Game {
             }
         }
 
-        gameBoard.printIntersections();
-        gameBoard.printPaths();
+//        gameBoard.printIntersections();
+//        gameBoard.printPaths();
+
+        for (int i = 0; i < NUMBER_PIECES_EACH; i++) {
+            for (Player player : players) {
+                unplacedPieces.add(new Piece(player, player.getDisplayChar()));
+            }
+        }
     }
 
     public void checkSetup() {
@@ -95,15 +104,37 @@ public class Game {
     }
 
     public void loop() {
-
+        for (Player player : players) {
+            processActorTurn(player);
+        }
     }
 
     public void endGame() {
 
     }
 
-    protected void processActorTurn(Actor actor) {
+    protected void processActorTurn(Player player) {
+        ActionList availableActions = new ActionList();
 
+        if (!player.isComputerControlled()) {
+            availableActions.add(new ExitAction());
+            availableActions.add(new HelpAction());
+            availableActions.add(new RulesAction());
+        }
+
+        if (playerHasPlacedAPiece(player)) {
+            availableActions.add(new SelectPieceAction());
+        }
+
+        if (playerHasPieceToPlace(player)) {
+            availableActions.add(new PlaceAction());
+        }
+
+        player.playTurn(availableActions, gameBoard);
+    }
+
+    public void addPlayer(Player player) {
+        players.add(player);
     }
 
     /**
@@ -112,6 +143,24 @@ public class Game {
      * @return true if game is over, false otherwise
      */
     protected boolean isGameOver() {
+        return false;
+    }
+
+    private boolean playerHasPlacedAPiece(Player player) {
+        for (Piece piece : placedPieces) {
+            if (piece.getOwner() == player) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean playerHasPieceToPlace(Player player) {
+        for (Piece piece : unplacedPieces) {
+            if (piece.getOwner() == player) {
+                return true;
+            }
+        }
         return false;
     }
 }

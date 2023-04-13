@@ -1,12 +1,11 @@
 package game.actors;
 
-import engine.Actor;
+import engine.Player;
 import engine.action.Action;
+import engine.action.ActionList;
 import engine.board.GameBoard;
 
-import java.util.ArrayList;
-
-public class ComputerPlayer extends Actor {
+public class ComputerPlayer extends Player {
     private static final String NAME = "COMPUTER";
     private static final char DISPLAY_CHAR = 'X';
     public ComputerPlayer() {
@@ -14,7 +13,7 @@ public class ComputerPlayer extends Actor {
     }
 
     @Override
-    public Action playTurn(ArrayList<Action> actions, GameBoard gameBoard) {
+    public Action playTurn(ActionList actions, GameBoard gameboard) {
         return null;
     }
 }
