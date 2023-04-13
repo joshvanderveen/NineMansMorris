@@ -1,12 +1,12 @@
 package game.actions;
 
-import engine.action.Action;
 import engine.Player;
 import engine.action.TurnAction;
 import engine.board.GameBoard;
 import engine.game.Game;
+import engine.action.Action;
 
-public class RemoveAction extends TurnAction {
+public class SelectPieceAction extends TurnAction {
     @Override
     public String execute(Player player, GameBoard gameBoard) {
         return null;
@@ -14,6 +14,6 @@ public class RemoveAction extends TurnAction {
 
     @Override
     public String menuDescription(Player player) {
-        return "Remove a piece";
+        return "Select piece to move";
     }
 }

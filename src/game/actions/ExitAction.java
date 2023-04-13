@@ -1,17 +1,24 @@
 package game.actions;
 
-import engine.Action;
-import engine.Actor;
-import engine.Game;
+import engine.action.Action;
+import engine.action.MenuAction;
+import engine.game.Game;
+import engine.Player;
 
-public class ExitAction extends Action {
+public class ExitAction extends MenuAction {
     @Override
-    public String execute(Actor actor, Game game) {
-        return null;
+    public void execute() {
+        System.out.println("Goodbye!");
+        System.exit(0);
     }
 
     @Override
-    public String menuDescription(Actor actor) {
-        return null;
+    public String menuDescription(Player player) {
+        return "Type " + this.menuKey() + " to exit the game";
+    }
+
+    @Override
+    public String menuKey() {
+        return "EXIT";
     }
 }

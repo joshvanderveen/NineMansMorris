@@ -1,17 +1,19 @@
 package game.actions;
 
-import engine.Action;
-import engine.Actor;
-import engine.Game;
+import engine.action.Action;
+import engine.Player;
+import engine.action.TurnAction;
+import engine.board.GameBoard;
+import engine.game.Game;
 
-public class PlaceAction extends Action {
+public class PlaceAction extends TurnAction {
     @Override
-    public String execute(Actor actor, Game game) {
+    public String execute(Player player, GameBoard gameBoard) {
         return null;
     }
 
     @Override
-    public String menuDescription(Actor actor) {
-        return null;
+    public String menuDescription(Player player) {
+        return "Place a piece";
     }
 }

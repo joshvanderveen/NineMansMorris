@@ -1,17 +1,27 @@
 package game.actions;
 
-import engine.Action;
-import engine.Actor;
-import engine.Game;
+import engine.action.Action;
+import engine.Player;
+import engine.action.TurnAction;
+import engine.board.GameBoard;
+import engine.game.Game;
 
-public class MoveAction extends Action {
-    @Override
-    public String execute(Actor actor, Game game) {
-        return null;
+public class MoveAction extends TurnAction {
+    public MoveAction() {
     }
 
     @Override
-    public String menuDescription(Actor actor) {
+    public String execute(Player player, GameBoard gameBoard) {
+//        Sudo code
+//       if(gameBoard.isValidMove(player, piece, position)) {
+//           gameBoard.executeMove(player, piece, position)
+//       }
         return null;
+    }
+
+
+    @Override
+    public String menuDescription(Player player) {
+        return "Move a piece";
     }
 }

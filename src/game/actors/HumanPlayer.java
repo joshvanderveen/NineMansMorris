@@ -1,20 +1,27 @@
 package game.actors;
 
-import engine.Action;
-import engine.Actor;
-import engine.GameBoard;
+import engine.Player;
+import engine.action.Action;
+import engine.action.ActionList;
+import engine.action.MenuAction;
+import engine.board.GameBoard;
+import engine.game.Menu;
 
-import java.util.ArrayList;
+public class HumanPlayer extends Player {
+    private static final String DEFAULT_NAME = "PLAYER";
+    private static final char DEFAULT_DISPLAY_CHAR = 'X';
 
-public class HumanPlayer extends Actor {
-    private static final String NAME = "PLAYER";
-    private static final char DISPLAY_CHAR = 'Y';
     public HumanPlayer() {
-        super(NAME, DISPLAY_CHAR);
+        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR);
     }
 
+    public HumanPlayer(String name, char displayChar) {
+        super(name, displayChar, false);
+    }
+
+
     @Override
-    public Action playTurn(ArrayList<Action> actions, GameBoard gameBoard) {
-        return null;
+    public Action playTurn(ActionList actions, GameBoard gameboard) {
+        return Menu.getInstance().displayMenu(this, actions, gameboard);
     }
 }
