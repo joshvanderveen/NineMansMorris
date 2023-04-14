@@ -8,7 +8,10 @@ import engine.game.Game;
 import game.actions.MoveAction;
 
 import java.awt.*;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GameBoard {
     protected ArrayList<Intersection> intersections = new ArrayList<>();
@@ -24,12 +27,12 @@ public class GameBoard {
         this.paths = paths;
     }
 
-    public ArrayList<Piece> getUnplacedPieces() {
-        return unplacedPieces;
+    public List<Piece> getUnplacedPieces() {
+        return Collections.unmodifiableList(unplacedPieces);
     }
 
-    public ArrayList<Piece> getPlacedPieces() {
-        return placedPieces;
+    public List<Piece> getPlacedPieces() {
+        return Collections.unmodifiableList(placedPieces);
     }
 
     public ArrayList<Piece> getRemovedPieces() {
@@ -70,6 +73,10 @@ public class GameBoard {
         return intersections.get(index);
     }
 
+    public int getIntersectionsSize() {
+        return intersections.size();
+    }
+
     public void setIntersection(int index, Intersection newIntersection) {
         intersections.set(index, newIntersection);
     }
@@ -78,8 +85,6 @@ public class GameBoard {
     public void printBoard() {
         System.out.println("\nPrint board implementation...\n");
     }
-
-
 
     // TODO: Remove when submitting
     public void printIntersections() {
@@ -145,4 +150,19 @@ public class GameBoard {
         // check if intersectionAtPiece is a neighbour of intersectionAtPoint
         return intersectionAtPiece.checkConnected(intersectionAtDestinationPoint);
     }
+
+    public boolean placePiece(Piece piece, Intersection intersection) {
+        if (!unplacedPieces.contains(piece)) return false;
+        if (intersection.getPiece() != null) return false;
+
+        Piece pieceToMove = unplacedPieces.get(unplacedPieces.indexOf(piece));
+
+        unplacedPieces.remove(pieceToMove);
+        placedPieces.add(pieceToMove);
+
+        intersection.setPiece(pieceToMove);
+
+        return true;
+    }
+
 }
