@@ -71,13 +71,11 @@ public class Game {
 
                 if (!gameBoard.doesPathExist(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]))) {
                     Path newPath = new Path(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]));
-                    gameBoard.addPath(newPath);
                     gameBoard.getIntersection(i).addPath(newPath);
                     gameBoard.getIntersection(relationships[i][j]).addPath(newPath);
                 }
             }
         }
-
 //        gameBoard.printIntersections();
 //        gameBoard.printPaths();
 
