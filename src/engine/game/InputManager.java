@@ -75,4 +75,8 @@ public class InputManager {
         }
         return true;
     }
+
+    public char characterAtIndex(int index) {
+        return "abcdefghijklmnopqrstuvwxyz".charAt(index);
+    }
 }

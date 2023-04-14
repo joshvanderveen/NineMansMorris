@@ -87,9 +87,9 @@ public class Menu {
 
     private void printAction(String menuCharacter, Action action, Player player) {
         System.out.println(menuCharacter + " - " + action.menuDescription(player));
-    }
+            }
 
-    public void printTurnResult(String result) {
+    public void print(String result) {
         System.out.println(result);
     }
 }

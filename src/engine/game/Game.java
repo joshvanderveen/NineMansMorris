@@ -77,13 +77,6 @@ public class Game {
             }
         }
 
-//        node 1 - node 2
-
-
-
-//        gameBoard.printIntersections();
-//        gameBoard.printPaths();
-
         for (int i = 0; i < NUMBER_PIECES_EACH; i++) {
             for (Player player : players) {
                 gameBoard.addUnplacedPiece(new Piece(player, player.getDisplayChar()));
