@@ -9,7 +9,8 @@ import game.actions.*;
 import game.actors.HumanPlayer;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 
 public class Game {
 
@@ -81,6 +82,17 @@ public class Game {
         for (int i = 0; i < NUMBER_PIECES_EACH; i++) {
             for (Player player : players) {
                 gameBoard.addUnplacedPiece(new Piece(player, player.getDisplayChar()));
+            }
+        }
+
+        // Just for sprint 1
+        // Places all pieces from unplacedPieces into the first intersections in the gameboard
+        int unplacedLength = gameBoard.getUnplacedPieces().size();
+        for (int i = 0; i < unplacedLength; i++) {
+            Piece piece = gameBoard.getUnplacedPieces().get(unplacedLength - i - 1);
+            boolean piecePlaced = false;
+            while (!piecePlaced) {
+                piecePlaced = gameBoard.placePiece(piece,gameBoard.getIntersection(i));
             }
         }
     }
