@@ -10,12 +10,13 @@ import engine.game.Menu;
 import game.actions.MoveAction;
 
 import java.awt.*;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class GameBoard {
     protected ArrayList<Intersection> intersections = new ArrayList<>();
-    protected ArrayList<Path> paths = new ArrayList<>();
-
     protected ArrayList<Piece> unplacedPieces = new ArrayList<>();
     protected ArrayList<Piece> placedPieces = new ArrayList<>();
     protected ArrayList<Piece> removedPieces = new ArrayList<>();
@@ -23,15 +24,14 @@ public class GameBoard {
     public GameBoard() {}
     public GameBoard(ArrayList<Intersection> intersections, ArrayList<Path> paths) {
         this.intersections = intersections;
-        this.paths = paths;
     }
 
-    public ArrayList<Piece> getUnplacedPieces() {
-        return unplacedPieces;
+    public List<Piece> getUnplacedPieces() {
+        return Collections.unmodifiableList(unplacedPieces);
     }
 
-    public ArrayList<Piece> getPlacedPieces() {
-        return placedPieces;
+    public List<Piece> getPlacedPieces() {
+        return Collections.unmodifiableList(placedPieces);
     }
 
     public ArrayList<Piece> getRemovedPieces() {
@@ -53,23 +53,24 @@ public class GameBoard {
     public void addIntersection(Intersection intersection) {
         this.intersections.add(intersection);
     }
-    public void addPath(Path path) {
-        this.paths.add(path);
-    }
 
-    public boolean doesPathExist(Intersection intersection1, Intersection intersection2) {
-        for (int i = 0; i < paths.size(); i++) {
-            Path path = paths.get(i);
-            if (
-                    path.getSourceIntersection() == intersection1 && path.getDestinationIntersection() == intersection2 ||
-                            path.getSourceIntersection() == intersection2 && path.getDestinationIntersection() == intersection1
-            ) return true;
+    public boolean doesPathExist(Intersection source, Intersection destination) {
+        // check if there is a path to intersection2 from intersection1
+        // since paths are added to both Intersections, we only need to check one case
+        for (Path path: source.getPaths()) {
+            if (path.getSourceIntersection() == source && path.getDestinationIntersection() == destination) {
+                return true;
+            }
         }
         return false;
     }
 
     public Intersection getIntersection(int index) {
         return intersections.get(index);
+    }
+
+    public int getIntersectionsSize() {
+        return intersections.size();
     }
 
     public void setIntersection(int index, Intersection newIntersection) {
@@ -129,24 +130,15 @@ public class GameBoard {
         return null;
     }
 
-
-
     // TODO: Remove when submitting
     public void printIntersections() {
         for (Intersection intersection : intersections) {
             System.out.print(intersection.getFriendlyLocation() + " " + intersection.getxCoordinate() + " " + intersection.getyCoordinate() + "\n");
+            for (Path path: intersection.getPaths()) {
+                System.out.println(path.getSourceIntersection().getId() + "<->" + path.getDestinationIntersection().getId());
+            }
         }
         System.out.println("Number of intersections: " + intersections.size());
-    }
-
-    // TODO: Remove when submitting
-    public void printPaths() {
-        for (Path path : paths) {
-            System.out.print("(x1:" + path.getSourceIntersection().getxCoordinate() + " y1:" + path.getSourceIntersection().getyCoordinate() + ")");
-            System.out.print(" - ");
-            System.out.println("(x2:" + path.getDestinationIntersection().getxCoordinate() + " y2:" + path.getDestinationIntersection().getyCoordinate() + ")");
-        }
-        System.out.println("Number of paths: " + paths.size());
     }
 
     public boolean allPiecesHaveBeenPlaced() {
@@ -195,4 +187,19 @@ public class GameBoard {
         // check if intersectionAtPiece is a neighbour of intersectionAtPoint
         return intersectionAtPiece.checkConnected(intersectionAtDestinationPoint);
     }
+
+    public boolean placePiece(Piece piece, Intersection intersection) {
+        if (!unplacedPieces.contains(piece)) return false;
+        if (intersection.getPiece() != null) return false;
+
+        Piece pieceToMove = unplacedPieces.get(unplacedPieces.indexOf(piece));
+
+        unplacedPieces.remove(pieceToMove);
+        placedPieces.add(pieceToMove);
+
+        intersection.setPiece(pieceToMove);
+
+        return true;
+    }
+
 }
