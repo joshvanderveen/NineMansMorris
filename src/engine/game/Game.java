@@ -75,6 +75,7 @@ public class Game {
 
         for (int i = 0; i < NUMBER_PIECES_EACH; i++) {
             for (Player player : players) {
+                // TODO change from Color.blue to change depending on player
                 gameBoard.addUnplacedPiece(new Piece(player, player.getDisplayChar()));
             }
         }
