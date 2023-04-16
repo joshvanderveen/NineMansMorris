@@ -5,6 +5,8 @@ import engine.action.Action;
 import engine.action.ActionList;
 import engine.action.MenuAction;
 import engine.board.*;
+import engine.ui.Board;
+import engine.ui.Gui;
 import game.actions.*;
 import game.actors.HumanPlayer;
 
@@ -30,12 +32,6 @@ public class Game {
     }
 
     public void setup() {
-
-        HumanPlayer player1 = new HumanPlayer("Player 1", 'X');
-        HumanPlayer player2 = new HumanPlayer("Player 2", 'Y');
-
-        this.addPlayer(player1);
-        this.addPlayer(player2);
 
         gameBoard = new GameBoard();
 
@@ -93,6 +89,14 @@ public class Game {
                 piecePlaced = gameBoard.placePiece(piece,gameBoard.getIntersection(i));
             }
         }
+
+//        Board board = new Board(gameBoard);
+//
+//        board.draw();
+
+        Gui gameGui = new Gui();
+
+        gameGui.setGameBoard(gameBoard);
     }
 
     public void checkSetup() {
@@ -132,20 +136,22 @@ public class Game {
             availableActions.add(new PlaceAction());
         }
 
-        Action action = player.playTurn(availableActions, gameBoard);
+//        Action action = player.playTurn(availableActions, gameBoard);
 
         // TODO: Change from instance of
         // Calls process actor turn as the player can do more than the single MenuAction per turn
-        if (action instanceof MenuAction) {
-            ((MenuAction) action).execute();
-            this.processActorTurn(player);
-        }
-
-        String result = ((MoveAction) action).execute(player, gameBoard);
+//        if (action instanceof MenuAction) {
+//            ((MenuAction) action).execute();
+//            this.processActorTurn(player);
+//        }
+//
+//        String result = ((MoveAction) action).execute(player, gameBoard);
 
 //        Menu.getInstance().printTurnResult();
 
-        return action;
+//        return action;
+
+        return null;
     }
 
     // TODO: Add validation?

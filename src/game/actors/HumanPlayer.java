@@ -22,6 +22,7 @@ public class HumanPlayer extends Player {
 
     @Override
     public Action playTurn(ActionList actions, GameBoard gameboard) {
-        return Menu.getInstance().displayMenu(this, actions, gameboard);
+//        return Menu.getInstance().displayMenu(this, actions, gameboard);
+        return null;
     }
 }
