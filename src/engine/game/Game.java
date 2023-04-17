@@ -91,13 +91,14 @@ public class Game {
             }
         }
 
-//        Board board = new Board(gameBoard);
-//
-//        board.draw();
-
         Gui gameGui = new Gui();
 
         gameGui.setGameBoard(gameBoard);
+    }
+
+    private void handleClick(int x, int y)  {
+        System.out.println(x);
+        System.out.println(y);
     }
 
     public void checkSetup() {
