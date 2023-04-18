@@ -5,7 +5,7 @@ import engine.Player;
 import javax.swing.*;
 import java.awt.*;
 
-public class PlayerDescription extends JPanel {
+public class UIPlayerDescriptionPanel extends JPanel {
 
     private Player player;
     private JLabel playerName;
@@ -13,7 +13,7 @@ public class PlayerDescription extends JPanel {
     private JLabel piecesToPlace;
     private JLabel piecesTaken;
 
-    public PlayerDescription(Player player) {
+    public UIPlayerDescriptionPanel(Player player) {
         super();
 
         this.player = player;

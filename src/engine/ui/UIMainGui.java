@@ -1,22 +1,18 @@
 package engine.ui;
 
-import engine.Player;
 import engine.board.GameBoard;
-import game.actors.ComputerPlayer;
-import game.actors.HumanPlayer;
+import engine.game.Game;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Gui extends JFrame {
-    private Board board;
+public class UIMainGui extends JFrame {
+    private UIBoardPanel UIBoardPanel;
     private JPanel buttons;
     private JPanel player;
 
     private GameBoard gameBoard;
-    public Gui() {
+    public UIMainGui() {
         super("Nine Man's Morris");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +31,7 @@ public class Gui extends JFrame {
         exitButton.setFocusPainted(false);
 
         rulesButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(board,
+            JOptionPane.showMessageDialog(UIBoardPanel,
                     "NINE MEN'S MORRIS - RULES\n" +
                             "- Each player starts with 9 pieces.\n" +
                             "- In the first phase of the game, players take turns to place their pieces on the board\n" +
@@ -49,18 +45,20 @@ public class Gui extends JFrame {
         });
 
         exitButton.addActionListener(e -> {
-            int choice = JOptionPane.showConfirmDialog(board,"Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
+            int choice = JOptionPane.showConfirmDialog(UIBoardPanel,"Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
             if (choice == 0) {
                 System.exit(0);
             }
         });
 
-        board = new Board();
+        UIBoardPanel = new UIBoardPanel();
+
+//        UIBoardPanel.addMouseListener(new BoardMouseListener(gameBoard));
 
         buttons.add(rulesButton);
         buttons.add(exitButton);
 
-        this.add(board, BorderLayout.CENTER);
+        this.add(UIBoardPanel, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.NORTH);
 
         // TODO: Implement properly
@@ -76,7 +74,7 @@ public class Gui extends JFrame {
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
 
-        board.setGameBoard(gameBoard);
+        UIBoardPanel.setGameBoard(gameBoard);
 
         repaint();
     }

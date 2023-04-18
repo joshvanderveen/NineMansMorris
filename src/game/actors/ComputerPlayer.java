@@ -11,7 +11,7 @@ public class ComputerPlayer extends Player {
     private static final String DEFAULT_NAME = "COMPUTER";
     private static final char DEFAULT_DISPLAY_CHAR = 'Y';
 
-    public static final Color DEFAULT_COLOR = Color.RED;
+    public static final Color DEFAULT_COLOR = Color.GREEN;
 
     public ComputerPlayer() {
         super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_COLOR, true);

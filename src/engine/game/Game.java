@@ -3,16 +3,11 @@ package engine.game;
 import engine.Player;
 import engine.action.Action;
 import engine.action.ActionList;
-import engine.action.MenuAction;
 import engine.board.*;
-import engine.ui.Board;
-import engine.ui.Gui;
+import engine.ui.UIMainGui;
 import game.actions.*;
-import game.actors.HumanPlayer;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class Game {
 
@@ -91,9 +86,9 @@ public class Game {
             }
         }
 
-        Gui gameGui = new Gui();
+        UIMainGui gameUIMainGui = new UIMainGui();
 
-        gameGui.setGameBoard(gameBoard);
+        gameUIMainGui.setGameBoard(gameBoard);
     }
 
     private void handleClick(int x, int y)  {

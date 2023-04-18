@@ -6,9 +6,8 @@ import engine.board.Piece;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseListener;
 
-public class Board extends JPanel {
+public class UIBoardPanel extends JPanel {
 
     private static final Color BOARD_COLOR = Color.WHITE;
     private static final Color NODE_COLOR = Color.BLACK;
@@ -19,13 +18,13 @@ public class Board extends JPanel {
 
     GameBoard gameBoard = null;
 
-    public Board(GameBoard gameBoard) {
+    public UIBoardPanel(GameBoard gameBoard) {
         super();
         this.gameBoard = gameBoard;
         repaint();
     }
 
-    public Board() {
+    public UIBoardPanel() {
         super();
     }
 
