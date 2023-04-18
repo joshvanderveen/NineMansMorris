@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 public class Gui extends JFrame {
     private Board board;
     private JPanel buttons;
-
     private JPanel player;
 
     private GameBoard gameBoard;
@@ -68,7 +67,7 @@ public class Gui extends JFrame {
 //        PlayerDescription player1 = new PlayerDescription(new HumanPlayer());
 //        PlayerDescription player2 = new PlayerDescription(new ComputerPlayer());
 
-//        this.add(player1, BorderLayout.WEST);
+//        this.add(player1, BorderLayout.SOUTH);
 //        this.add(player2, BorderLayout.EAST);
 
         this.setVisible(true);

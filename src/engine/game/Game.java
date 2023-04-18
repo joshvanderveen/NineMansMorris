@@ -111,10 +111,10 @@ public class Game {
     }
 
     public void loop() {
-        for (Player player : players) {
-            Action action = processActorTurn(player);
-            moves.add(action);
-        }
+//        for (Player player : players) {
+//            Action action = processActorTurn(player);
+//            moves.add(action);
+//        }
     }
 
     public void endGame() {
