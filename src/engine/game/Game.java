@@ -3,14 +3,11 @@ package engine.game;
 import engine.Player;
 import engine.action.Action;
 import engine.action.ActionList;
-import engine.action.MenuAction;
 import engine.board.*;
+import engine.ui.UIMainGui;
 import game.actions.*;
-import game.actors.HumanPlayer;
 
-import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class Game {
 
@@ -30,12 +27,6 @@ public class Game {
     }
 
     public void setup() {
-
-        HumanPlayer player1 = new HumanPlayer("Player 1", 'X');
-        HumanPlayer player2 = new HumanPlayer("Player 2", 'Y');
-
-        this.addPlayer(player1);
-        this.addPlayer(player2);
 
         gameBoard = new GameBoard();
 
@@ -76,11 +67,10 @@ public class Game {
                 }
             }
         }
-//        gameBoard.printIntersections();
-//        gameBoard.printPaths();
 
         for (int i = 0; i < NUMBER_PIECES_EACH; i++) {
             for (Player player : players) {
+                // TODO change from Color.blue to change depending on player
                 gameBoard.addUnplacedPiece(new Piece(player, player.getDisplayChar()));
             }
         }
@@ -95,6 +85,15 @@ public class Game {
                 piecePlaced = gameBoard.placePiece(piece,gameBoard.getIntersection(i));
             }
         }
+
+        UIMainGui gameUIMainGui = new UIMainGui();
+
+        gameUIMainGui.setGameBoard(gameBoard);
+    }
+
+    private void handleClick(int x, int y)  {
+        System.out.println(x);
+        System.out.println(y);
     }
 
     public void checkSetup() {
@@ -107,10 +106,10 @@ public class Game {
     }
 
     public void loop() {
-        for (Player player : players) {
-            Action action = processActorTurn(player);
-            moves.add(action);
-        }
+//        for (Player player : players) {
+//            Action action = processActorTurn(player);
+//            moves.add(action);
+//        }
     }
 
     public void endGame() {
@@ -134,20 +133,22 @@ public class Game {
             availableActions.add(new PlaceAction());
         }
 
-        Action action = player.playTurn(availableActions, gameBoard);
+//        Action action = player.playTurn(availableActions, gameBoard);
 
         // TODO: Change from instance of
         // Calls process actor turn as the player can do more than the single MenuAction per turn
-        if (action instanceof MenuAction) {
-            ((MenuAction) action).execute();
-            this.processActorTurn(player);
-        }
-
-        String result = ((MoveAction) action).execute(player, gameBoard);
+//        if (action instanceof MenuAction) {
+//            ((MenuAction) action).execute();
+//            this.processActorTurn(player);
+//        }
+//
+//        String result = ((MoveAction) action).execute(player, gameBoard);
 
 //        Menu.getInstance().printTurnResult();
 
-        return action;
+//        return action;
+
+        return null;
     }
 
     // TODO: Add validation?

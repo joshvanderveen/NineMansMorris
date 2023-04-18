@@ -49,8 +49,11 @@ public class Intersection {
     }
 
     public boolean checkConnected(Intersection intersection) {
-        // compare coordinates x or y
-        // check intersection, then intersection of next (only ever be 1 or 2 adjacent)
+        for (Path path : paths) {
+            if (path.getSourceIntersection() == intersection || path.getDestinationIntersection() == intersection) {
+                return true;
+            }
+        }
         return false;
     }
 
