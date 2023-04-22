@@ -9,20 +9,16 @@ import java.util.ArrayList;
 
 public abstract class Player {
     protected String name;
-    protected char displayChar;
-
     protected Color playerColor;
     protected boolean isComputerControlled = false;
 
-    public Player(String name, char displayChar, Color playerColor) {
+    public Player(String name, Color playerColor) {
         this.name = name;
-        this.displayChar = displayChar;
         this.playerColor = playerColor;
     }
 
-    public Player(String name, char displayChar, Color playerColor, boolean isComputerControlled) {
+    public Player(String name, Color playerColor, boolean isComputerControlled) {
         this.name = name;
-        this.displayChar = displayChar;
         this.playerColor = playerColor;
         this.isComputerControlled = isComputerControlled;
     }
@@ -36,10 +32,6 @@ public abstract class Player {
     }
 
     public abstract Action playTurn(ActionList actions, GameBoard gameboard);
-
-    public char getDisplayChar() {
-        return displayChar;
-    }
 
     public Color getPlayerColor() {
         return this.playerColor;

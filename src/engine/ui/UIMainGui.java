@@ -76,11 +76,14 @@ public class UIMainGui extends JFrame {
         this.gameBoard = gameBoard;
 
         UIBoardPanel.setGameBoard(gameBoard);
+        redraw();
+    }
 
+    public void redraw() {
         repaint();
     }
 
     public void addPieceListener(PieceListener pieceListener) {
-        
+         this.UIBoardPanel.addPieceListener(pieceListener);
     }
 }

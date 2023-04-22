@@ -7,9 +7,8 @@ import java.awt.*;
 public class Piece {
     Player owner;
     char displayChar;
-    public Piece(Player owner, char displayChar) {
+    public Piece(Player owner) {
         this.owner = owner;
-        this.displayChar = displayChar;
     }
 
     public Player getOwner() {

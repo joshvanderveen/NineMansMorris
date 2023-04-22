@@ -52,6 +52,10 @@ public class Intersection {
         return piece;
     }
 
+    public void removePiece() {
+        this.piece = null;
+    }
+
     public boolean checkConnected(Intersection intersection) {
         for (Path path : paths) {
             if (path.getSourceIntersection() == intersection || path.getDestinationIntersection() == intersection) {

@@ -1,13 +1,17 @@
 package engine.ui;
 
+import engine.board.Coordinate;
 import engine.board.GameBoard;
 import engine.board.Intersection;
 import engine.board.Piece;
+import engine.game.PieceListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class UIBoardPanel extends JPanel {
+public class UIBoardPanel extends JPanel implements MouseListener {
 
     private static final Color BOARD_COLOR = Color.WHITE;
     private static final Color NODE_COLOR = Color.BLACK;
@@ -16,16 +20,13 @@ public class UIBoardPanel extends JPanel {
     public static final int X_OFFSET = 30;
     public static final int Y_OFFSET = 30;
 
-    GameBoard gameBoard = null;
+    private PieceListener pieceListener;
 
-    public UIBoardPanel(GameBoard gameBoard) {
-        super();
-        this.gameBoard = gameBoard;
-        repaint();
-    }
+    private GameBoard gameBoard = null;
 
     public UIBoardPanel() {
         super();
+        addMouseListener(this);
     }
 
     public void redraw() {
@@ -70,6 +71,8 @@ public class UIBoardPanel extends JPanel {
             }
         }
 
+        System.out.println(numIntersections);
+
         for (int i = 0; i < numIntersections; i++) {
 
             Intersection intersection = gameBoard.getIntersection(i);
@@ -92,4 +95,74 @@ public class UIBoardPanel extends JPanel {
         }
 
     }
+
+    public void addPieceListener(PieceListener pieceListener) {
+        this.pieceListener = pieceListener;
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int xCoordinate = e.getX();
+        int yCoordinate = e.getY();
+
+        Intersection sourceIntersection = getIntersection(e);
+
+        if (sourceIntersection == null) return;
+
+        pieceListener.positionSelected(sourceIntersection);
+    }
+
+    private Intersection getIntersection(MouseEvent e) {
+
+        Point movePoint = e.getPoint();
+        movePoint.x = (movePoint.x - X_OFFSET) / GAP_SIZE;
+        movePoint.y = (movePoint.y - Y_OFFSET) / GAP_SIZE;
+
+        int circleX = movePoint.x * GAP_SIZE + X_OFFSET;
+        int circleY = movePoint.y * GAP_SIZE + Y_OFFSET;
+        int radius = 20;
+        int buffer = 10;
+
+        // Adjust the clicked point's coordinates to be within +/- radius from the center of the circle
+        int clickedX = e.getX();
+        int clickedY = e.getY();
+        if (clickedX < circleX - radius - buffer) {
+            movePoint.x--;
+        } else if (clickedX > circleX + radius + buffer) {
+            movePoint.x++;
+        }
+        if (clickedY < circleY - radius - buffer) {
+            movePoint.y--;
+        } else if (clickedY > circleY + radius + buffer) {
+            movePoint.y++;
+        }
+
+        // Recalculate the center of the circle based on the adjusted movePoint
+        circleX = movePoint.x * GAP_SIZE + X_OFFSET;
+        circleY = movePoint.y * GAP_SIZE + Y_OFFSET;
+
+        // Calculate the distance between the adjusted clicked point and the center of the circle
+        double distance = Math.sqrt(Math.pow(clickedX - circleX, 2) + Math.pow(clickedY - circleY, 2));
+        if (distance <= radius + buffer) {
+            // the point is within the circle
+            // get Intersection with these coordinates
+            Coordinate moveCoordinate = new Coordinate(movePoint);
+//            System.out.println("closest intersection coords: " + closestIntersection.getCoordinate());
+            return this.gameBoard.getIntersection(moveCoordinate);
+        }
+
+        return null;
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {}
+
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override
+    public void mouseExited(MouseEvent e) {}
 }

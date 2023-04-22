@@ -69,6 +69,10 @@ public class GameBoard {
         return intersections.get(index);
     }
 
+    public Intersection getIntersection(Coordinate coordinate) {
+        return getIntersectionAtCoordinate(coordinate);
+    }
+
     public int getIntersectionsSize() {
         return intersections.size();
     }
@@ -164,48 +168,63 @@ public class GameBoard {
     // piece: source
     // point: destination
     public boolean isValidMove(Player player, Piece piece, Coordinate coordinate) {
-        if (!(piece.getOwner() == player)) return false;
-        // is there a piece at the destination - is the destination a neighbour of the source
-        Intersection intersectionAtPiece = null;
 
-        for (Intersection intersection: intersections) {
-            if (intersection.getPiece() != null && intersection.getPiece() == piece) {
-                intersectionAtPiece = intersection;
-            }
-        }
+        return true;
 
-        if (intersectionAtPiece == null) return false;
+        // TODO: Implement validation for Sprint 1
 
-        // check if there is an intersection at coordinate
-
-        Intersection intersectionAtDestinationPoint = null;
-
-        for (Intersection intersection: intersections) {
-            // TODO: make a method that compares a coordinate to an intersection
-            if (intersection.getxCoordinate() == coordinate.x && intersection.getyCoordinate() == coordinate.y) {
-                intersectionAtDestinationPoint = intersection;
-                break;
-            }
-        }
-
-        if (intersectionAtDestinationPoint == null) return false;
-
-        if (intersectionAtDestinationPoint.getPiece() != null) return false;
-
-        // check if intersectionAtPiece is a neighbour of intersectionAtPoint
-        return intersectionAtPiece.checkConnected(intersectionAtDestinationPoint);
+//        if (!(piece.getOwner() == player)) return false;
+//        // is there a piece at the destination - is the destination a neighbour of the source
+//        Intersection intersectionAtPiece = null;
+//
+//        for (Intersection intersection: intersections) {
+//            if (intersection.getPiece() != null && intersection.getPiece() == piece) {
+//                intersectionAtPiece = intersection;
+//            }
+//        }
+//
+//        if (intersectionAtPiece == null) return false;
+//
+//        // check if there is an intersection at coordinate
+//
+//        Intersection intersectionAtDestinationPoint = null;
+//
+//        for (Intersection intersection: intersections) {
+//            // TODO: make a method that compares a coordinate to an intersection
+//            if (intersection.getxCoordinate() == coordinate.x && intersection.getyCoordinate() == coordinate.y) {
+//                intersectionAtDestinationPoint = intersection;
+//                break;
+//            }
+//        }
+//
+//        if (intersectionAtDestinationPoint == null) return false;
+//
+//        if (intersectionAtDestinationPoint.getPiece() != null) return false;
+//
+//        // check if intersectionAtPiece is a neighbour of intersectionAtPoint
+//        return intersectionAtPiece.checkConnected(intersectionAtDestinationPoint);
     }
 
-    public boolean placePiece(Piece piece, Intersection intersection) {
-        if (!unplacedPieces.contains(piece)) return false;
-        if (intersection.getPiece() != null) return false;
+    public boolean placePiece(Piece piece, Intersection destinationInteresection) {
+//        if (!unplacedPieces.contains(piece)) return false;
+        if (destinationInteresection.getPiece() != null) return false;
 
-        Piece pieceToMove = unplacedPieces.get(unplacedPieces.indexOf(piece));
+
+//        Piece pieceToMove = unplacedPieces.get(unplacedPieces.indexOf(piece));
+
+        Piece pieceToMove = piece;
 
         unplacedPieces.remove(pieceToMove);
         placedPieces.add(pieceToMove);
 
-        intersection.setPiece(pieceToMove);
+        for (Intersection intersection : intersections) {
+            if (intersection.getPiece() == piece) {
+                intersection.removePiece();
+                break;
+            }
+        }
+
+        destinationInteresection.setPiece(pieceToMove);
 
         return true;
     }
