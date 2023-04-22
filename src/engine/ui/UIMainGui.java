@@ -2,6 +2,7 @@ package engine.ui;
 
 import engine.board.GameBoard;
 import engine.game.Game;
+import engine.game.PieceListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,5 +78,9 @@ public class UIMainGui extends JFrame {
         UIBoardPanel.setGameBoard(gameBoard);
 
         repaint();
+    }
+
+    public void addPieceListener(PieceListener pieceListener) {
+        
     }
 }

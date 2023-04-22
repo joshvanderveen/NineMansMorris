@@ -153,6 +153,14 @@ public class GameBoard {
         }
         return false;
     }
+
+    public boolean makeMove(Player player, Piece pieceToMove, Intersection destinationIntersection) {
+        if (!isValidMove(player, pieceToMove, destinationIntersection.getCoordinate())) {
+            return false;
+        }
+        return placePiece(pieceToMove, destinationIntersection);
+    }
+
     // piece: source
     // point: destination
     public boolean isValidMove(Player player, Piece piece, Coordinate coordinate) {

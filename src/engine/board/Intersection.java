@@ -28,6 +28,10 @@ public class Intersection {
         return coordinate.y;
     }
 
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
     public ArrayList<Path> getPaths() {
         return paths;
     }
