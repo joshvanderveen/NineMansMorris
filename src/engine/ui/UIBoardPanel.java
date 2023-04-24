@@ -70,9 +70,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
                 }
             }
         }
-
-        System.out.println(numIntersections);
-
+        
         for (int i = 0; i < numIntersections; i++) {
 
             Intersection intersection = gameBoard.getIntersection(i);
