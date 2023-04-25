@@ -73,50 +73,6 @@ public class GameBoard {
         intersections.set(index, newIntersection);
     }
 
-    // TODO: Implement
-    public void printBoard() {
-        int xWidth = 0;
-        int yWidth = 0;
-
-        String ROW_GAP = "     ";
-
-
-        for (Intersection intersection : intersections) {
-            int xCoordinate = intersection.getxCoordinate();
-            int yCoordinate = intersection.getyCoordinate();
-
-            if (xCoordinate > xWidth) xWidth = xCoordinate;
-            if (yCoordinate > yWidth) yWidth = yCoordinate;
-        }
-
-        System.out.print("\n" + ROW_GAP);
-        for (int i = 0; i < xWidth + 1; i++) {
-            System.out.print(InputManager.getInstance().characterAtIndex(i));
-            System.out.print("     ");
-        }
-        System.out.print("\n\n");
-
-        for (int i = 0; i < yWidth + 1; i++) {
-            System.out.print(ROW_GAP);
-            for (int j = 0; j < xWidth + 1; j++) {
-                Intersection intersectionAtCoordinate = this.getIntersectionAtCoordinate(new Coordinate(i, j));
-                if (intersectionAtCoordinate == null) {
-                    System.out.print(" ");
-                }
-                else if (intersectionAtCoordinate.getPiece() == null) {
-                    System.out.print("*");
-                } else {
-                    System.out.print(intersectionAtCoordinate.getPiece().displayChar);
-                }
-                System.out.print(ROW_GAP);
-            }
-            System.out.print(i + 1);
-            System.out.print("\n\n");
-        }
-
-        System.out.print("\n");
-    }
-
     private Intersection getIntersectionAtCoordinate(Coordinate coordinate) {
         for (Intersection intersection : intersections) {
             if (intersection.intersectionAtCoordinate(coordinate)) {
@@ -124,17 +80,6 @@ public class GameBoard {
             }
         }
         return null;
-    }
-
-    // TODO: Remove when submitting
-    public void printIntersections() {
-        for (Intersection intersection : intersections) {
-            System.out.print(intersection.getFriendlyLocation() + " " + intersection.getxCoordinate() + " " + intersection.getyCoordinate() + "\n");
-            for (Path path: intersection.getPaths()) {
-                System.out.println(path.getSourceIntersection().getId() + "<->" + path.getDestinationIntersection().getId());
-            }
-        }
-        System.out.println("Number of intersections: " + intersections.size());
     }
 
     public boolean allPiecesHaveBeenPlaced() {
