@@ -16,7 +16,6 @@ public class Game implements PieceListener {
     protected UIMainGui gui;
     protected ArrayList<Player> players;
     private Intersection selectedIntersection = null;
-
     private Player currentPlayer;
 
     public Game(GameBoard gameBoard, UIMainGui gui, ArrayList<Player> players) {
@@ -81,7 +80,7 @@ public class Game implements PieceListener {
             currentPlayer = players.get(1 - players.indexOf(currentPlayer));
             selectedIntersection = null;
         }
-
+        gui.setSelectedIntersection(intersection);
         gui.redraw();
     }
 }

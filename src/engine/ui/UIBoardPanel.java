@@ -22,6 +22,8 @@ public class UIBoardPanel extends JPanel implements MouseListener {
 
     private PieceListener pieceListener;
 
+    private Intersection selectedIntersection;
+
     private GameBoard gameBoard = null;
 
     public UIBoardPanel() {
@@ -31,6 +33,10 @@ public class UIBoardPanel extends JPanel implements MouseListener {
 
     public void redraw() {
        repaint();
+    }
+
+    public void setSelectedIntersection(Intersection intersection) {
+        this.selectedIntersection = intersection;
     }
 
     public void setGameBoard(GameBoard gameBoard) {
@@ -70,7 +76,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
                 }
             }
         }
-        
+
         for (int i = 0; i < numIntersections; i++) {
 
             Intersection intersection = gameBoard.getIntersection(i);
@@ -82,7 +88,10 @@ public class UIBoardPanel extends JPanel implements MouseListener {
 
             Piece piece = intersection.getPiece();
 
-            if (piece != null) {
+            if (intersection == selectedIntersection && intersection.getPiece() != null) {
+                graphics.setColor(Color.RED);
+                nodeSize = NODE_SIZE * 3;
+            } else if (piece != null) {
                 graphics.setColor(piece.getOwner().getPlayerColor());
                 nodeSize = NODE_SIZE * 3;
             } else {
@@ -106,7 +115,6 @@ public class UIBoardPanel extends JPanel implements MouseListener {
         Intersection sourceIntersection = getIntersection(e);
 
         if (sourceIntersection == null) return;
-
         pieceListener.positionSelected(sourceIntersection);
     }
 
