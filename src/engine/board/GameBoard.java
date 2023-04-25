@@ -7,7 +7,6 @@ import engine.board.Path;
 import engine.game.Game;
 import engine.game.InputManager;
 import engine.game.Menu;
-import game.actions.MoveAction;
 
 import java.awt.*;
 import java.security.InvalidParameterException;
