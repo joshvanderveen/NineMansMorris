@@ -52,7 +52,7 @@ public class UIMainGui extends JFrame {
             JOptionPane.showMessageDialog(UIBoardPanel,
                     "NINE MEN'S MORRIS - CONTROLS\n" +
                             "- To select a piece that you want to move, click on a piece. This will cause it to turn red when it is successfully selected\n"+
-                            "- Once you have selected a piece, click on the intersection you want to move it to. This will cause the piece you selected to be moved to that intersection.\n"
+                            "- Once you have selected a piece, click on the position you want to move it to. This will cause the piece you selected to be moved to that position.\n"
             );
         });
 
