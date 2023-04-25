@@ -1,11 +1,6 @@
 package engine;
 
-import engine.action.ActionList;
-import engine.board.GameBoard;
-import engine.action.Action;
-
 import java.awt.*;
-import java.util.ArrayList;
 
 public abstract class Player {
     protected String name;
@@ -30,8 +25,6 @@ public abstract class Player {
     public boolean isComputerControlled() {
         return isComputerControlled;
     }
-
-    public abstract Action playTurn(ActionList actions, GameBoard gameboard);
 
     public Color getPlayerColor() {
         return this.playerColor;

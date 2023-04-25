@@ -1,15 +1,8 @@
 package engine.board;
 
 import engine.Player;
-import engine.action.Action;
-import engine.board.Intersection;
-import engine.board.Path;
-import engine.game.Game;
 import engine.game.InputManager;
-import engine.game.Menu;
 
-import java.awt.*;
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
