@@ -43,13 +43,13 @@ public class Game implements PieceListener {
             if (intersection.getPiece() == null) {
                 System.out.println("No piece to select");
                 return;
-            };
+            }
 
             // If selected intersection is occupied with other players piece
             if (intersection.getPiece().getOwner() != currentPlayer) {
                 System.out.println("Selected intersection has other players piece");
                 return;
-            };
+            }
 
             // Select intersection that has current players piece
             selectedIntersection = intersection;
@@ -57,8 +57,10 @@ public class Game implements PieceListener {
             // Select place to move
             // If place to move to is unoccupied
             if (intersection.getPiece() != null) {
-                selectedIntersection = null;
                 System.out.println("Selected destination intersection isn't empty");
+                selectedIntersection = null;
+                gui.setSelectedIntersection(selectedIntersection);
+                gui.redraw();
                 return;
             }
 
@@ -69,18 +71,20 @@ public class Game implements PieceListener {
                 // If move is invalid, return and wait to pick next destination
                 System.out.println("Invalid move");
                 selectedIntersection = null;
+                gui.setSelectedIntersection(selectedIntersection);
+                gui.redraw();
                 return;
             }
 
             System.out.println("Successful move");
+            selectedIntersection = null;
 
             // Turn logic
             // Set current player to other player since there's only ever 2 players
             System.out.println("Player index: " + players.indexOf(currentPlayer));
             currentPlayer = players.get(1 - players.indexOf(currentPlayer));
-            selectedIntersection = null;
         }
-        gui.setSelectedIntersection(intersection);
+        gui.setSelectedIntersection(selectedIntersection);
         gui.redraw();
     }
 }
