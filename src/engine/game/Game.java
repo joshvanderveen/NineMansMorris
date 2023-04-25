@@ -1,17 +1,14 @@
 package engine.game;
 
 import engine.Player;
-import engine.action.Action;
-import engine.action.ActionList;
 import engine.board.*;
 import engine.ui.UIMainGui;
-import game.actions.*;
 
 import java.util.*;
 
 public class Game implements PieceListener {
 
-    int NUMBER_PIECES_EACH = 9;
+    private final int NUMBER_PIECES_EACH = 9;
     protected GameBoard gameBoard;
     protected UIMainGui gui;
     protected ArrayList<Player> players;

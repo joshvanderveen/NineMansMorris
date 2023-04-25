@@ -28,8 +28,10 @@ public class UIMainGui extends JFrame {
         buttons.setLayout(new FlowLayout());
 
         JButton rulesButton = new JButton("Rules");
+        JButton controlsButton = new JButton(("Controls"));
         JButton exitButton = new JButton("Exit");
         rulesButton.setFocusPainted(false);
+        controlsButton.setFocusPainted(false);
         exitButton.setFocusPainted(false);
 
         rulesButton.addActionListener(e -> {
@@ -46,6 +48,14 @@ public class UIMainGui extends JFrame {
             );
         });
 
+        controlsButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(UIBoardPanel,
+                    "NINE MEN'S MORRIS - CONTROLS\n" +
+                            "- To select a piece that you want to move, click on a piece. This will cause it to turn red when it is successfully selected\n"+
+                            "- Once you have selected a piece, click on the position you want to move it to. This will cause the piece you selected to be moved to that position.\n"
+            );
+        });
+
         exitButton.addActionListener(e -> {
             int choice = JOptionPane.showConfirmDialog(UIBoardPanel,"Are you sure you want to exit?", "Confirm Exit", JOptionPane.YES_NO_OPTION);
             if (choice == 0) {
@@ -58,6 +68,7 @@ public class UIMainGui extends JFrame {
 //        UIBoardPanel.addMouseListener(new BoardMouseListener(gameBoard));
 
         buttons.add(rulesButton);
+        buttons.add(controlsButton);
         buttons.add(exitButton);
 
         this.add(UIBoardPanel, BorderLayout.CENTER);

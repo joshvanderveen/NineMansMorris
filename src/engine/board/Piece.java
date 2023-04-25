@@ -8,7 +8,7 @@ public class Piece {
     /**
      * {@link engine.Player} that the Piece belongs to
      */
-    Player owner;
+    private final Player owner;
     char displayChar;
     public Piece(Player owner) {
         this.owner = owner;
