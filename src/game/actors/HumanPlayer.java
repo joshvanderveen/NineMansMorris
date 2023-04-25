@@ -11,20 +11,18 @@ import java.awt.*;
 
 public class HumanPlayer extends Player {
     private static final String DEFAULT_NAME = "PLAYER";
-    private static final char DEFAULT_DISPLAY_CHAR = 'X';
-
     public static final Color DEFAULT_COLOR = Color.BLUE;
 
     public HumanPlayer() {
-        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_COLOR);
+        super(DEFAULT_NAME, DEFAULT_COLOR);
     }
 
-    public HumanPlayer(String name, char displayChar) {
-        super(name, displayChar, DEFAULT_COLOR);
+    public HumanPlayer(String name) {
+        super(name, DEFAULT_COLOR);
     }
 
-    public HumanPlayer(String name, char displayChar, Color playerColor) {
-        super(name, displayChar, playerColor, false);
+    public HumanPlayer(String name, Color playerColor) {
+        super(name, playerColor, false);
     }
 
     @Override

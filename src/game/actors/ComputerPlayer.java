@@ -9,16 +9,14 @@ import java.awt.*;
 
 public class ComputerPlayer extends Player {
     private static final String DEFAULT_NAME = "COMPUTER";
-    private static final char DEFAULT_DISPLAY_CHAR = 'Y';
-
     public static final Color DEFAULT_COLOR = Color.GREEN;
 
     public ComputerPlayer() {
-        super(DEFAULT_NAME, DEFAULT_DISPLAY_CHAR, DEFAULT_COLOR, true);
+        super(DEFAULT_NAME, DEFAULT_COLOR, true);
     }
 
-    public ComputerPlayer(String name, char displayChar, Color playerColor) {
-        super(name, displayChar, playerColor, true);
+    public ComputerPlayer(String name, Color playerColor) {
+        super(name, playerColor, true);
     }
 
     @Override

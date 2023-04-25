@@ -9,159 +9,82 @@ import game.actions.*;
 
 import java.util.*;
 
-public class Game {
+public class Game implements PieceListener {
 
     int NUMBER_PIECES_EACH = 9;
     protected GameBoard gameBoard;
-    protected ArrayList<Player> players = new ArrayList<>();
-    protected ArrayList<Action> moves = new ArrayList<>();
+    protected UIMainGui gui;
+    protected ArrayList<Player> players;
+    private Intersection selectedIntersection = null;
+    private Player currentPlayer;
 
+    public Game(GameBoard gameBoard, UIMainGui gui, ArrayList<Player> players) {
+        this.players = players;
+        this.gameBoard = gameBoard;
+        this.gui = gui;
+        gui.setGameBoard(this.gameBoard);
+        gui.addPieceListener(this);
 
-    public void run() {
-        setup();
-        checkSetup();
-        while (!isGameOver()) {
-            loop();
-        }
-        endGame();
+        currentPlayer = players.get(0);
     }
 
-    public void setup() {
+//    public void run() {
+//        gui.setGameBoard(this.gameBoard);
+//    }
 
-        gameBoard = new GameBoard();
+    @Override
+    public void positionSelected(Intersection intersection) {
+        // TODO: Place piece - implement in future sprints
 
-        /*
-         * Coordinates of each intersection
-         */
-        Coordinate[] coords = {
-                new Coordinate(0, 0), new Coordinate(3, 0), new Coordinate(6, 0),
-                new Coordinate(1, 1), new Coordinate(3, 1), new Coordinate(5, 1),
-                new Coordinate(2, 2), new Coordinate(3, 2), new Coordinate(4, 2),
-                new Coordinate(0, 3), new Coordinate(1, 3), new Coordinate(2, 3), new Coordinate(4, 3), new Coordinate(5, 3), new Coordinate(6, 3),
-                new Coordinate(2, 4), new Coordinate(3, 4), new Coordinate(4, 4),
-                new Coordinate(1, 5), new Coordinate(3, 5), new Coordinate(5, 5),
-                new Coordinate(0, 6), new Coordinate(3, 6), new Coordinate(6, 6)
-        };
-
-        for (int i = 0; i < coords.length; i++) {
-            gameBoard.addIntersection(new Intersection(i, coords[i]));
-        }
-
-        int[][] relationships = {
-                {1, 9}, {0, 2, 4}, {1, 14},
-                {4, 10}, {1, 3, 5, 7}, {4, 13},
-                {7, 11}, {4, 6, 8}, {7, 12},
-                {0, 10, 21}, {3, 9, 11, 18}, {6, 10, 15}, {8, 13, 17}, {5, 12, 14, 20}, {2, 13, 23},
-                {11, 16}, {15, 17, 19}, {12, 16},
-                {10, 19}, {16, 18, 20, 22}, {13, 19},
-                {9, 22}, {19, 21, 23}, {14, 22}
-        };
-
-        for (int i = 0; i < relationships.length; i++) {
-            for (int j = 0; j < relationships[i].length; j++) {
-
-                if (!gameBoard.doesPathExist(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]))) {
-                    Path newPath = new Path(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]));
-                    gameBoard.getIntersection(i).addPath(newPath);
-                    gameBoard.getIntersection(relationships[i][j]).addPath(newPath);
-                }
+        // If start of players turn or if they haven't played valid move
+        if(selectedIntersection == null) {
+            System.out.println("Select intersection");
+            // If no intersection selected and selection doesn't have a piece, don't allow turn
+            if (intersection.getPiece() == null) {
+                System.out.println("No piece to select");
+                return;
             }
-        }
 
-        for (int i = 0; i < NUMBER_PIECES_EACH; i++) {
-            for (Player player : players) {
-                // TODO change from Color.blue to change depending on player
-                gameBoard.addUnplacedPiece(new Piece(player, player.getDisplayChar()));
+            // If selected intersection is occupied with other players piece
+            if (intersection.getPiece().getOwner() != currentPlayer) {
+                System.out.println("Selected intersection has other players piece");
+                return;
             }
-        }
 
-        // Just for sprint 1
-        // Places all pieces from unplacedPieces into the first intersections in the gameboard
-        int unplacedLength = gameBoard.getUnplacedPieces().size();
-        for (int i = 0; i < unplacedLength; i++) {
-            Piece piece = gameBoard.getUnplacedPieces().get(unplacedLength - i - 1);
-            boolean piecePlaced = false;
-            while (!piecePlaced) {
-                piecePlaced = gameBoard.placePiece(piece,gameBoard.getIntersection(i));
+            // Select intersection that has current players piece
+            selectedIntersection = intersection;
+        } else {
+            // Select place to move
+            // If place to move to is unoccupied
+            if (intersection.getPiece() != null) {
+                System.out.println("Selected destination intersection isn't empty");
+                selectedIntersection = null;
+                gui.setSelectedIntersection(selectedIntersection);
+                gui.redraw();
+                return;
             }
+
+            System.out.println("Try move");
+
+            // Try to make move
+            if (!gameBoard.makeMove(currentPlayer, selectedIntersection.getPiece(), intersection)) {
+                // If move is invalid, return and wait to pick next destination
+                System.out.println("Invalid move");
+                selectedIntersection = null;
+                gui.setSelectedIntersection(selectedIntersection);
+                gui.redraw();
+                return;
+            }
+
+            System.out.println("Successful move");
+            selectedIntersection = null;
+
+            // Turn logic
+            // Set current player to other player since there's only ever 2 players
+            System.out.println("Player index: " + players.indexOf(currentPlayer));
+            currentPlayer = players.get(1 - players.indexOf(currentPlayer));
         }
-
-        UIMainGui gameUIMainGui = new UIMainGui();
-
-        gameUIMainGui.setGameBoard(gameBoard);
-    }
-
-    private void handleClick(int x, int y)  {
-        System.out.println(x);
-        System.out.println(y);
-    }
-
-    public void checkSetup() {
-        if (players.size() == 0) {
-            throw new IllegalStateException("Game cannot be started without players");
-        }
-        if (gameBoard == null) {
-            throw new IllegalStateException("Game cannot be started without a Game Board");
-        }
-    }
-
-    public void loop() {
-//        for (Player player : players) {
-//            Action action = processActorTurn(player);
-//            moves.add(action);
-//        }
-    }
-
-    public void endGame() {
-
-    }
-
-    protected Action processActorTurn(Player player) {
-        ActionList availableActions = new ActionList();
-
-        if (!player.isComputerControlled()) {
-            availableActions.add(new ExitAction());
-            availableActions.add(new HelpAction());
-            availableActions.add(new RulesAction());
-        }
-
-        if (gameBoard.allPiecesHaveBeenPlaced()) {
-            availableActions.add(new SelectPieceAction());
-        }
-
-        if (gameBoard.playerHasPieceToPlace(player)) {
-            availableActions.add(new PlaceAction());
-        }
-
-//        Action action = player.playTurn(availableActions, gameBoard);
-
-        // TODO: Change from instance of
-        // Calls process actor turn as the player can do more than the single MenuAction per turn
-//        if (action instanceof MenuAction) {
-//            ((MenuAction) action).execute();
-//            this.processActorTurn(player);
-//        }
-//
-//        String result = ((MoveAction) action).execute(player, gameBoard);
-
-//        Menu.getInstance().printTurnResult();
-
-//        return action;
-
-        return null;
-    }
-
-    // TODO: Add validation?
-    public void addPlayer(Player player) {
-        players.add(player);
-    }
-
-    /**
-     * Returns true if the game is still running
-     * Checks if players have less than three pieces or no legal moves remaining.
-     * @return true if game is over, false otherwise
-     */
-    protected boolean isGameOver() {
-        return false;
+        gui.setSelectedIntersection(selectedIntersection);
+        gui.redraw();
     }
 }

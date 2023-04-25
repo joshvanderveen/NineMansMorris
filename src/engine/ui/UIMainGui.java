@@ -1,7 +1,9 @@
 package engine.ui;
 
 import engine.board.GameBoard;
+import engine.board.Intersection;
 import engine.game.Game;
+import engine.game.PieceListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,7 +77,20 @@ public class UIMainGui extends JFrame {
         this.gameBoard = gameBoard;
 
         UIBoardPanel.setGameBoard(gameBoard);
+        redraw();
+    }
 
+    public void redraw() {
         repaint();
+    }
+
+
+    public void setSelectedIntersection(Intersection intersection) {
+        UIBoardPanel.setSelectedIntersection(intersection);
+        redraw();
+    }
+
+    public void addPieceListener(PieceListener pieceListener) {
+         this.UIBoardPanel.addPieceListener(pieceListener);
     }
 }

@@ -28,6 +28,10 @@ public class Intersection {
         return coordinate.y;
     }
 
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
     public ArrayList<Path> getPaths() {
         return paths;
     }
@@ -46,6 +50,10 @@ public class Intersection {
 
     public Piece getPiece() {
         return piece;
+    }
+
+    public void removePiece() {
+        this.piece = null;
     }
 
     public boolean checkConnected(Intersection intersection) {
