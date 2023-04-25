@@ -1,8 +1,8 @@
 package engine.board;
 
 public class Path {
-    private Intersection sourceIntersection;
-    private Intersection destinationIntersection;
+    private final Intersection sourceIntersection;
+    private final Intersection destinationIntersection;
 
     public Path(Intersection sourceIntersection, Intersection destinationIntersection) {
         this.sourceIntersection = sourceIntersection;
