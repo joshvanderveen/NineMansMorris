@@ -1,7 +1,6 @@
 package engine.board;
 
 import engine.Player;
-import engine.game.InputManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
