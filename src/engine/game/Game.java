@@ -25,10 +25,6 @@ public class Game implements PieceListener {
         currentPlayer = players.get(0);
     }
 
-//    public void run() {
-//        gui.setGameBoard(this.gameBoard);
-//    }
-
     @Override
     public void positionSelected(Intersection intersection) {
         // TODO: Place piece - implement in future sprints

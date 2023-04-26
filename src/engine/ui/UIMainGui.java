@@ -11,9 +11,7 @@ import java.awt.*;
 public class UIMainGui extends JFrame {
     private UIBoardPanel UIBoardPanel;
     private JPanel buttons;
-    private JPanel player;
 
-    private GameBoard gameBoard;
     public UIMainGui() {
         super("Nine Man's Morris");
 
@@ -85,8 +83,6 @@ public class UIMainGui extends JFrame {
     }
 
     public void setGameBoard(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
-
         UIBoardPanel.setGameBoard(gameBoard);
         redraw();
     }
