@@ -11,6 +11,7 @@ import java.awt.*;
 public class UIMainGui extends JFrame {
     private UIBoardPanel UIBoardPanel;
     private JPanel buttons;
+
     public UIMainGui() {
         super("Nine Man's Morris");
 
