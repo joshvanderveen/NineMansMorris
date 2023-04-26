@@ -5,11 +5,16 @@ import engine.board.GameBoard;
 import engine.board.Intersection;
 import engine.board.Piece;
 import engine.game.PieceListener;
+import engine.ui.piece.UIBoardPosition;
+import engine.ui.piece.UIBoardPositionEmpty;
+import engine.ui.piece.UIBoardPositionFull;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class UIBoardPanel extends JPanel implements MouseListener {
 
@@ -81,24 +86,32 @@ public class UIBoardPanel extends JPanel implements MouseListener {
 
             Intersection intersection = gameBoard.getIntersection(i);
 
-            int x = intersection.getxCoordinate();
-            int y = intersection.getyCoordinate();
-
-            int nodeSize = NODE_SIZE;
+            int intersectionXCoordinate = intersection.getxCoordinate();
+            int intersectionYCoordinate = intersection.getyCoordinate();
 
             Piece piece = intersection.getPiece();
 
-            if (intersection == selectedIntersection && intersection.getPiece() != null) {
-                graphics.setColor(Color.RED);
-                nodeSize = NODE_SIZE * 3;
-            } else if (piece != null) {
-                graphics.setColor(piece.getOwner().getPlayerColor());
-                nodeSize = NODE_SIZE * 3;
+            UIBoardPosition position;
+
+            if (piece != null) {
+                position = new UIBoardPositionFull(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET, piece, intersection == selectedIntersection);
             } else {
-                graphics.setColor(Color.BLACK);
+                position = new UIBoardPositionEmpty(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET);
             }
 
-            graphics.fillOval(x * GAP_SIZE + X_OFFSET - nodeSize / 2, y * GAP_SIZE + Y_OFFSET - nodeSize / 2, nodeSize, nodeSize);
+            position.draw(graphics);
+
+//            if (intersection == selectedIntersection && intersection.getPiece() != null) {
+//                graphics.setColor(Color.RED);
+//                nodeSize = NODE_SIZE * 3;
+//            } else if (piece != null) {
+//                graphics.setColor(piece.getOwner().getPlayerColor());
+//                nodeSize = NODE_SIZE * 3;
+//            } else {
+//                graphics.setColor(Color.BLACK);
+//            }
+//
+//            graphics.fillOval(x * GAP_SIZE + X_OFFSET - nodeSize / 2, y * GAP_SIZE + Y_OFFSET - nodeSize / 2, nodeSize, nodeSize);
         }
 
     }
@@ -109,12 +122,10 @@ public class UIBoardPanel extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int xCoordinate = e.getX();
-        int yCoordinate = e.getY();
-
         Intersection sourceIntersection = getIntersection(e);
 
         if (sourceIntersection == null) return;
+
         pieceListener.positionSelected(sourceIntersection);
     }
 
