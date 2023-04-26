@@ -11,9 +11,6 @@ import java.awt.*;
 public class UIMainGui extends JFrame {
     private UIBoardPanel UIBoardPanel;
     private JPanel buttons;
-    private JPanel player;
-
-    private GameBoard gameBoard;
     public UIMainGui() {
         super("Nine Man's Morris");
 
@@ -65,8 +62,6 @@ public class UIMainGui extends JFrame {
 
         UIBoardPanel = new UIBoardPanel();
 
-//        UIBoardPanel.addMouseListener(new BoardMouseListener(gameBoard));
-
         buttons.add(rulesButton);
         buttons.add(controlsButton);
         buttons.add(exitButton);
@@ -78,15 +73,10 @@ public class UIMainGui extends JFrame {
 //        PlayerDescription player1 = new PlayerDescription(new HumanPlayer());
 //        PlayerDescription player2 = new PlayerDescription(new ComputerPlayer());
 
-//        this.add(player1, BorderLayout.SOUTH);
-//        this.add(player2, BorderLayout.EAST);
-
         this.setVisible(true);
     }
 
     public void setGameBoard(GameBoard gameBoard) {
-        this.gameBoard = gameBoard;
-
         UIBoardPanel.setGameBoard(gameBoard);
         redraw();
     }
