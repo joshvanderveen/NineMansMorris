@@ -25,6 +25,14 @@ public class Game implements PieceListener {
         currentPlayer = players.get(0);
     }
 
+//    public void run() {
+//        gui.setGameBoard(this.gameBoard);
+//    }
+
+    /**
+     * Main method that takes care of Game logic and splits up tasks depending on game status
+     * @param intersection - input selected intersection from UI
+     */
     @Override
     public void positionSelected(Intersection intersection) {
         // TODO: Place piece - implement in future sprints

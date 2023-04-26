@@ -63,8 +63,6 @@ public class UIMainGui extends JFrame {
 
         UIBoardPanel = new UIBoardPanel();
 
-//        UIBoardPanel.addMouseListener(new BoardMouseListener(gameBoard));
-
         buttons.add(rulesButton);
         buttons.add(controlsButton);
         buttons.add(exitButton);
@@ -75,9 +73,6 @@ public class UIMainGui extends JFrame {
         // TODO: Implement properly
 //        PlayerDescription player1 = new PlayerDescription(new HumanPlayer());
 //        PlayerDescription player2 = new PlayerDescription(new ComputerPlayer());
-
-//        this.add(player1, BorderLayout.SOUTH);
-//        this.add(player2, BorderLayout.EAST);
 
         this.setVisible(true);
     }
