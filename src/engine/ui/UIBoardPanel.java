@@ -52,7 +52,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
     @Override
     public void paintComponent(Graphics _graphics) {
 
-//        if (gameBoard != null) return;
+        if (gameBoard == null) return;
 
         super.paintComponent(_graphics);
 
@@ -100,20 +100,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
             }
 
             position.draw(graphics);
-
-//            if (intersection == selectedIntersection && intersection.getPiece() != null) {
-//                graphics.setColor(Color.RED);
-//                nodeSize = NODE_SIZE * 3;
-//            } else if (piece != null) {
-//                graphics.setColor(piece.getOwner().getPlayerColor());
-//                nodeSize = NODE_SIZE * 3;
-//            } else {
-//                graphics.setColor(Color.BLACK);
-//            }
-//
-//            graphics.fillOval(x * GAP_SIZE + X_OFFSET - nodeSize / 2, y * GAP_SIZE + Y_OFFSET - nodeSize / 2, nodeSize, nodeSize);
         }
-
     }
 
     public void addPieceListener(PieceListener pieceListener) {
