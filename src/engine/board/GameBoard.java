@@ -25,8 +25,8 @@ public class GameBoard {
         return Collections.unmodifiableList(placedPieces);
     }
 
-    public ArrayList<Piece> getRemovedPieces() {
-        return removedPieces;
+    public List<Piece> getRemovedPieces() {
+        return Collections.unmodifiableList(removedPieces);
     }
 
     public void addUnplacedPiece(Piece piece) {

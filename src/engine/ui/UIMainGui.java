@@ -49,8 +49,9 @@ public class UIMainGui extends JFrame {
         controlsButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(UIBoardPanel,
                     "NINE MEN'S MORRIS - CONTROLS\n" +
-                            "- To select a piece that you want to move, click on a piece. This will cause it to turn red when it is successfully selected\n"+
-                            "- Once you have selected a piece, click on the position you want to move it to. This will cause the piece you selected to be moved to that position.\n"
+                            "- To select a piece that you want to move, click on a piece containing a piece. This will cause it to turn red when it is successfully selected\n"+
+                            "- Once you have selected a piece, click on the position you want to move it to. This will cause the piece you selected to be moved to that position.\n" +
+                            "- Player 1 goes first (BLUE), followed by Player 2 (GREEN)"
             );
         });
 
