@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameBoard {
+
+    private Integer MILL_LENGTH = 3;
     protected ArrayList<Intersection> intersections = new ArrayList<>();
     protected ArrayList<Piece> unplacedPieces = new ArrayList<>();
     protected ArrayList<Piece> placedPieces = new ArrayList<>();
@@ -163,6 +165,22 @@ public class GameBoard {
         destinationInteresection.setPiece(pieceToMove);
 
         return true;
+    }
+
+    public void checkForMills(Player player) {
+        for (Intersection intersection : intersections) {
+
+            if (intersection.getPiece() == null) continue;
+            if (intersection.getPiece().getOwner() != player) continue;
+
+            ArrayList<Intersection> checkedIntersections = new ArrayList<>();
+            boolean isMill = intersection.checkIfConnectedMill(checkedIntersections, MILL_LENGTH, -1);
+
+            if (isMill) {
+                System.out.println(intersection.getCoordinate());
+                System.out.println(intersection.getPiece().getOwner().getPlayerColor());
+            }
+        }
     }
 
 }

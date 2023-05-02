@@ -80,6 +80,8 @@ public class Game implements PieceListener {
             System.out.println("Successful move");
             selectedIntersection = null;
 
+            gameBoard.checkForMills(currentPlayer);
+
             // Turn logic
             // Set current player to other player since there's only ever 2 players
             System.out.println("Player index: " + players.indexOf(currentPlayer));
