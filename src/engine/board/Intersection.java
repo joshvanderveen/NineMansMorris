@@ -74,38 +74,85 @@ public class Intersection {
         return this.coordinate.compareCoordinate(coordinate);
     }
 
-    public boolean checkIfConnectedMill(ArrayList<Intersection> checkedIntersections, Integer millLengthLeft, double angle) {
-        if (this.getPiece() == null) return false;
-//        if (checkedIntersections.contains(this)) return false;
+    public ArrayList<Intersection> checkIfConnectedMill(ArrayList<Intersection> intersectionsInMill, Integer millLength, Double angle) {
+        if (this.getPiece() == null) return null;
 
-        double angleChecked = angle;
         for (Path path : paths) {
             Intersection otherIntersection = path.getOtherIntersection(this);
 
-            if (otherIntersection.getPiece() == null) return false;
-            if (otherIntersection.getPiece().getOwner() != this.getPiece().getOwner()) return false;
+            if (otherIntersection.getPiece() == null) return null;
+            if (otherIntersection.getPiece().getOwner() != this.getPiece().getOwner()) return null;
+            if (intersectionsInMill.contains(otherIntersection)) continue;
 
-            if (angleChecked < 0) {
-                angleChecked = getAngleToOtherIntersection(otherIntersection);
-            }
-
-            if (!(getAngleToOtherIntersection(otherIntersection) == angleChecked)) {
-                angleChecked = -1;
+            // If the first in being checked
+            if (intersectionsInMill.isEmpty()) {
+                intersectionsInMill.add(this);
+                angle = this.getAngleToOtherIntersection(otherIntersection);
             } else {
-                checkedIntersections.add(this);
-                int newMillLengthLeft = millLengthLeft - 1;
-                if (newMillLengthLeft == 0) {
-                    System.out.println(angleChecked);
-                    return true;
-                }
-                return checkIfConnectedMill(checkedIntersections, newMillLengthLeft, angleChecked);
+                double angleWithPrevious = this.getAngleToOtherIntersection(intersectionsInMill.get(intersectionsInMill.size() - 1));
+
             }
         }
 
-        return false;
+        return null;
     }
 
-    private double getAngleToOtherIntersection(Intersection otherIntersection) {
+//    public ArrayList<Intersection> checkIfConnectedMill1(ArrayList<Intersection> intersectionsInMill, Integer millLength, Double angle) {
+//        if (this.getPiece() == null) {
+//            return null;
+//        }
+//
+//        for (Path path : paths) {
+//            Intersection otherIntersection = path.getOtherIntersection(this);
+//
+//            if (otherIntersection.getPiece() == null || otherIntersection.getPiece().getOwner() != this.getPiece().getOwner()) {
+//                continue;
+//            }
+//
+//            if (intersectionsInMill.contains(otherIntersection)) {
+//                continue;
+//            }
+//
+//            if (intersectionsInMill.isEmpty()) {
+//                // First intersection in the mill, store its coordinate
+//                intersectionsInMill.add(this);
+//                intersectionsInMill.add(otherIntersection);
+//                angle = getAngleToOtherIntersection(otherIntersection);
+//            } else {
+//                // Check if the current intersection is in a straight line with the previous intersection
+//                double currAngle = this.getAngleToOtherIntersection(otherIntersection);
+//
+//                if (currAngle != 0 && currAngle != 90) {
+//                    // Current intersection is not in a straight line with previous intersections
+//                    continue;
+//                }
+//
+//                intersectionsInMill.add(otherIntersection);
+//
+//                if (intersectionsInMill.size() == millLength) {
+//                    // Check if the angle between the first and last intersections is 0 or 90 degrees
+//                    Intersection firstCoordinate = intersectionsInMill.get(0);
+//                    Intersection lastCoordinate = intersectionsInMill.get(intersectionsInMill.size() - 1);
+//                    double lastAngle = firstCoordinate.getAngleToOtherIntersection(lastCoordinate);
+//
+//                    if (lastAngle != 0 && lastAngle != 90) {
+//                        // Last intersection is not in a straight line with the first intersection
+//                        intersectionsInMill.remove(otherIntersection);
+//                        continue;
+//                    }
+//
+//                    return intersectionsInMill;
+//                }
+//            }
+//
+//            return otherIntersection.checkIfConnectedMill(intersectionsInMill, millLength, angle);
+//        }
+//
+//        return null;
+//    }
+
+
+    public double getAngleToOtherIntersection(Intersection otherIntersection) {
         return Math.toDegrees(Math.atan2(otherIntersection.getyCoordinate() - this.getyCoordinate(), otherIntersection.getxCoordinate() - this.getxCoordinate()));
     }
 }
