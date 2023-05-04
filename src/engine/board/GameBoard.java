@@ -178,7 +178,7 @@ public class GameBoard {
             if (mill != null) {
                 System.out.println("Mill found at:");
                 for (Intersection i : mill) {
-                    System.out.println("x: " + i.getXCoordinate() + ", y: " + i.getYCoordinate());
+                    System.out.println("x: " + (i.getXCoordinate() + 1) + ", y: " + (i.getYCoordinate() + 1));
                 }
                 return mill;
             }

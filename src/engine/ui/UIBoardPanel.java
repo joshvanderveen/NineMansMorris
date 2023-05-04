@@ -20,8 +20,8 @@ public class UIBoardPanel extends JPanel implements MouseListener {
     private static final Color NODE_COLOR = Color.BLACK;
     private static final int NODE_SIZE = 10;
     public static final int GAP_SIZE = 100;
-    public static final int X_OFFSET = 30;
-    public static final int Y_OFFSET = 30;
+    public static final int X_OFFSET = 80;
+    public static final int Y_OFFSET = 80;
 
     private PieceListener pieceListener;
 
@@ -98,6 +98,32 @@ public class UIBoardPanel extends JPanel implements MouseListener {
             }
 
             position.draw(graphics);
+        }
+
+        int maxXCoordinate = 0;
+        int maxYCoordinate = 0;
+
+        for (int i = 0; i < numIntersections; i++) {
+            Intersection intersection = gameBoard.getIntersection(i);
+            int intersectionXCoordinate = intersection.getXCoordinate();
+            int intersectionYCoordinate = intersection.getYCoordinate();
+
+            if (intersectionXCoordinate > maxXCoordinate) {
+                maxXCoordinate = intersectionXCoordinate;
+            }
+            if (intersectionYCoordinate > maxYCoordinate) {
+                maxYCoordinate = intersectionYCoordinate;
+            }
+        }
+
+        graphics.setFont(new Font("Arial", 1, 18));
+
+        for (int i = 0; i < maxXCoordinate + 1; i++) {
+            graphics.drawString(String.valueOf(i + 1), i * GAP_SIZE + X_OFFSET, Y_OFFSET / 2);
+        }
+
+        for (int i = 0; i < maxYCoordinate + 1; i++) {
+            graphics.drawString(String.valueOf(i + 1), X_OFFSET / 2 - NODE_SIZE, i * GAP_SIZE + Y_OFFSET);
         }
     }
 

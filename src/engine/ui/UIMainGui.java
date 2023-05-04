@@ -16,7 +16,7 @@ public class UIMainGui extends JFrame {
         super("Nine Man's Morris");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(700, 800);
+        this.setSize(800, 800);
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
