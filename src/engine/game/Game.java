@@ -39,16 +39,13 @@ public class Game implements PieceListener {
 
         // If start of players turn or if they haven't played valid move
         if(selectedIntersection == null) {
-            System.out.println("Select intersection");
             // If no intersection selected and selection doesn't have a piece, don't allow turn
             if (intersection.getPiece() == null) {
-                System.out.println("No piece to select");
                 return;
             }
 
             // If selected intersection is occupied with other players piece
             if (intersection.getPiece().getOwner() != currentPlayer) {
-                System.out.println("Selected intersection has other players piece");
                 return;
             }
 
@@ -58,31 +55,28 @@ public class Game implements PieceListener {
             // Select place to move
             // If place to move to is unoccupied
             if (intersection.getPiece() != null) {
-                System.out.println("Selected destination intersection isn't empty");
                 selectedIntersection = null;
                 gui.setSelectedIntersection(selectedIntersection);
                 gui.redraw();
                 return;
             }
 
-            System.out.println("Try move");
 
             // Try to make move
             if (!gameBoard.makeMove(currentPlayer, selectedIntersection.getPiece(), intersection)) {
                 // If move is invalid, return and wait to pick next destination
-                System.out.println("Invalid move");
                 selectedIntersection = null;
                 gui.setSelectedIntersection(selectedIntersection);
                 gui.redraw();
                 return;
             }
 
-            System.out.println("Successful move");
             selectedIntersection = null;
+
+            gameBoard.checkForMills(currentPlayer);
 
             // Turn logic
             // Set current player to other player since there's only ever 2 players
-            System.out.println("Player index: " + players.indexOf(currentPlayer));
             currentPlayer = players.get(1 - players.indexOf(currentPlayer));
         }
         gui.setSelectedIntersection(selectedIntersection);

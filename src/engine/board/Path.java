@@ -1,5 +1,9 @@
 package engine.board;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Path {
     private final Intersection sourceIntersection;
     private final Intersection destinationIntersection;
@@ -14,5 +18,11 @@ public class Path {
 
     public Intersection getDestinationIntersection() {
         return destinationIntersection;
+    }
+
+    public Intersection getOtherIntersection(Intersection intersection) {
+        if (intersection == sourceIntersection) return destinationIntersection;
+        if (intersection == destinationIntersection) return sourceIntersection;
+        return null;
     }
 }

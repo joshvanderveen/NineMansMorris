@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class GameBoard {
+
+    private Integer MILL_LENGTH = 3;
     protected ArrayList<Intersection> intersections = new ArrayList<>();
     protected ArrayList<Piece> unplacedPieces = new ArrayList<>();
     protected ArrayList<Piece> placedPieces = new ArrayList<>();
@@ -163,6 +165,25 @@ public class GameBoard {
         destinationInteresection.setPiece(pieceToMove);
 
         return true;
+    }
+
+    public ArrayList<Intersection> checkForMills(Player player) {
+        for (Intersection intersection : intersections) {
+            if (intersection.getPiece() == null) continue;
+            if (intersection.getPiece().getOwner() != player) continue;
+
+            ArrayList<Intersection> intersectionsInMill = new ArrayList<>();
+            ArrayList<Intersection> mill = intersection.checkIfConnectedMill(intersectionsInMill, MILL_LENGTH);
+
+            if (mill != null) {
+                System.out.println("Mill found at:");
+                for (Intersection i : mill) {
+                    System.out.println("x: " + (i.getXCoordinate() + 1) + ", y: " + (i.getYCoordinate() + 1));
+                }
+                return mill;
+            }
+        }
+        return null;
     }
 
 }
