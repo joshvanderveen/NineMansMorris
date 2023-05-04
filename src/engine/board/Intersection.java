@@ -108,13 +108,18 @@ public class Intersection {
      * @param otherIntersection The {@link Intersection} to compare against
      * @return                  Whether the {@link Intersection}s are connected
      */
-    public boolean checkConnected(Intersection otherIntersection) {
+    public boolean checkDirectlyConnected(Intersection otherIntersection) {
         for (Path path : paths) {
             if (path.getSourceIntersection() == otherIntersection || path.getDestinationIntersection() == otherIntersection) {
                 return true;
             }
         }
         return false;
+    }
+
+    public boolean checkConnectedInALine(Intersection otherIntersection) {
+        // TODO: Change and add proper validation
+        return checkDirectlyConnected(otherIntersection);
     }
 
     /**
@@ -147,7 +152,7 @@ public class Intersection {
             if (otherIntersection.getPiece().getOwner() != this.getPiece().getOwner()) continue;
             if (intersectionsInMill.contains(otherIntersection)) continue;
 
-            // Can start comparing angles once there is 2 or more interesctions
+            // Can start comparing angles once there is 2 or more intersections
             if (intersectionsInMill.size() >= 2) {
                 Intersection lastIntersection = intersectionsInMill.get(intersectionsInMill.size() - 1);
                 Intersection secondLastIntersection = intersectionsInMill.get(intersectionsInMill.size() - 2);
@@ -164,12 +169,12 @@ public class Intersection {
             if (intersectionsInMill.size() == millLength) return intersectionsInMill;
 
             // Otherwise recursively check through the other intersection
-            ArrayList<Intersection> nextIntersectionCheck = otherIntersection.checkIfConnectedMill(intersectionsInMill, millLength);
+            ArrayList<Intersection> nextIntersectionCheckResult = otherIntersection.checkIfConnectedMill(intersectionsInMill, millLength);
 
             // If next intersection check includes a mill, then return it
             // Otherwise remove the next intersection, and go to the next iteration of the current intersection
-            if (nextIntersectionCheck != null) {
-                return nextIntersectionCheck;
+            if (nextIntersectionCheckResult != null) {
+                return nextIntersectionCheckResult;
             } else {
                 intersectionsInMill.remove(otherIntersection);
             }
