@@ -174,7 +174,7 @@ public class GameBoard {
 
             ArrayList<Intersection> intersectionsInMill = new ArrayList<>();
             ArrayList<Intersection> mill = intersection.checkIfConnectedMill(intersectionsInMill, MILL_LENGTH);
-            
+
             if (mill != null) {
                 System.out.println("Mill found at:");
                 for (Intersection i : mill) {
