@@ -13,9 +13,9 @@ public class Application {
 
     private static ArrayList<Player> players = new ArrayList<>();
 
-    private static HashMap<GameConfig, Coordinate[]> gameboardCoordinates = new HashMap<>();
-    private static HashMap<GameConfig, int[][]> gameboardRelationships = new HashMap<>();
-    private static HashMap<GameConfig, Integer> numPieces = new HashMap<>();
+    private static final HashMap<GameConfig, Coordinate[]> gameboardCoordinates = new HashMap<>();
+    private static final HashMap<GameConfig, int[][]> gameboardRelationships = new HashMap<>();
+    private static final HashMap<GameConfig, Integer> numPieces = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -23,7 +23,7 @@ public class Application {
         initialiseVariables();
 
         // Model
-        GameBoard gameBoard = initialiseGameboard(GameConfig.GAMEBOARD_2);
+        GameBoard gameBoard = initialiseGameboard(GameConfig.GAMEBOARD_1);
         // View
         UIMainGui gui = new UIMainGui();
         // Controller
@@ -31,12 +31,6 @@ public class Application {
     }
 
     public static GameBoard initialiseGameboard(GameConfig gameConfiguration) {
-
-////        For GameBoard 1
-//        int NUMBER_PIECES_EACH = 9;
-//
-////        For GameBoard 2
-////        int NUMBER_PIECES_EACH = 4;
 
         GameBoard gameBoard = new GameBoard();
 
