@@ -167,7 +167,7 @@ public class GameBoard {
         return true;
     }
 
-    public void checkForMills(Player player) {
+    public ArrayList<Intersection> checkForMills(Player player) {
         for (Intersection intersection : intersections) {
             if (intersection.getPiece() == null) continue;
             if (intersection.getPiece().getOwner() != player) continue;
@@ -178,11 +178,12 @@ public class GameBoard {
             if (mill != null) {
                 System.out.println("Mill found at:");
                 for (Intersection i : mill) {
-                    System.out.println("x: " + i.getxCoordinate() + ", y: " + i.getyCoordinate());
+                    System.out.println("x: " + i.getXCoordinate() + ", y: " + i.getYCoordinate());
                 }
-                return;
+                return mill;
             }
         }
+        return null;
     }
 
 }

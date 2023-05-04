@@ -13,8 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class UIBoardPanel extends JPanel implements MouseListener {
 
@@ -71,11 +69,11 @@ public class UIBoardPanel extends JPanel implements MouseListener {
                 Intersection intersection2 = gameBoard.getIntersection(j);
 
                 if (intersection1.checkConnected(intersection2)) {
-                    int x1 = intersection1.getxCoordinate();
-                    int y1 = intersection1.getyCoordinate();
+                    int x1 = intersection1.getXCoordinate();
+                    int y1 = intersection1.getYCoordinate();
 
-                    int x2 = intersection2.getxCoordinate();
-                    int y2 = intersection2.getyCoordinate();
+                    int x2 = intersection2.getXCoordinate();
+                    int y2 = intersection2.getYCoordinate();
 
                     graphics.drawLine((x1 * GAP_SIZE) + X_OFFSET, (y1 * GAP_SIZE) + Y_OFFSET, (x2 * GAP_SIZE) + X_OFFSET, (y2 * GAP_SIZE) + Y_OFFSET);
                 }
@@ -86,8 +84,8 @@ public class UIBoardPanel extends JPanel implements MouseListener {
 
             Intersection intersection = gameBoard.getIntersection(i);
 
-            int intersectionXCoordinate = intersection.getxCoordinate();
-            int intersectionYCoordinate = intersection.getyCoordinate();
+            int intersectionXCoordinate = intersection.getXCoordinate();
+            int intersectionYCoordinate = intersection.getYCoordinate();
 
             Piece piece = intersection.getPiece();
 

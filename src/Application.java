@@ -25,7 +25,7 @@ public class Application {
 //        int NUMBER_PIECES_EACH = 9;
 
 //        For GameBoard 2
-        int NUMBER_PIECES_EACH = 5;
+        int NUMBER_PIECES_EACH = 4;
 
         GameBoard gameBoard = new GameBoard();
 
@@ -51,9 +51,9 @@ public class Application {
         Coordinate[] coords = {
                 new Coordinate(3, 0),
                 new Coordinate(2, 1), new Coordinate(4, 1),
-                new Coordinate(1, 2), new Coordinate(2, 2), new Coordinate(4, 2), new Coordinate(5, 2),
-                new Coordinate(0, 3), new Coordinate(3, 3), new Coordinate(6, 3),
-                new Coordinate(1, 4), new Coordinate(2, 4), new Coordinate(4, 4), new Coordinate(5, 4),
+                new Coordinate(1, 2), new Coordinate(3, 2), new Coordinate(5, 2),
+                new Coordinate(0, 3), new Coordinate(2, 3), new Coordinate(4, 3), new Coordinate(6, 3),
+                new Coordinate(1, 4), new Coordinate(3, 4), new Coordinate(5, 4),
                 new Coordinate(2, 5), new Coordinate(4, 5),
                 new Coordinate(3, 6)
         };
@@ -80,12 +80,12 @@ public class Application {
          */
         int[][] relationships = {
                 {1, 2},
-                {0, 3, 4, 5}, {0, 4, 5, 6},
-                {1, 4, 7, 11}, {1, 2, 3, 8, 10}, {1, 2, 6, 8, 13}, {2, 5, 9, 12},
-                {3, 10}, {4, 5, 11, 12}, {6, 13},
-                {4, 7, 11, 14}, {3, 8, 10, 14, 15}, {6, 8, 13, 14, 15}, {5, 9, 12, 15},
-                {10, 11, 12, 16}, {11, 12, 13, 16},
-                {14, 15}
+                {0, 3, 4}, {0, 4, 5},
+                {1, 6, 7}, {1, 2, 7, 8}, {2, 8, 9},
+                {3, 10}, {3, 4, 10, 11}, {4, 5, 11, 12}, {5, 12},
+                {6, 7, 13}, {7, 8, 13, 14}, {8, 9, 14},
+                {10, 11, 15}, {11, 12, 15},
+                {13, 14}
         };
 
         for (int i = 0; i < relationships.length; i++) {
