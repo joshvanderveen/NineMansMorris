@@ -93,7 +93,8 @@ public class UIBoardPanel extends JPanel implements MouseListener {
 
             if (piece != null) {
                 position = new UIBoardPositionFull(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET, piece, intersection == selectedIntersection);
-            } else {
+            }
+            else {
                 position = new UIBoardPositionEmpty(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET);
             }
 

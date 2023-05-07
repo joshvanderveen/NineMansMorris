@@ -2,13 +2,13 @@ package engine.board;
 
 import engine.Player;
 
-import java.awt.*;
-
 public class Piece {
     /**
      * {@link engine.Player} that the Piece belongs to
      */
     private final Player owner;
+    private boolean isInMill = false;
+
     public Piece(Player owner) {
         this.owner = owner;
     }
@@ -19,5 +19,13 @@ public class Piece {
      */
     public Player getOwner() {
         return owner;
+    }
+
+    public void setMillInvolvement(boolean isInMill) {
+        this.isInMill = isInMill;
+    }
+
+    public boolean getMillInvolvement() {
+        return isInMill;
     }
 }

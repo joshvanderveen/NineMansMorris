@@ -180,10 +180,17 @@ public class GameBoard {
                 for (Intersection i : mill) {
                     System.out.println("x: " + (i.getXCoordinate() + 1) + ", y: " + (i.getYCoordinate() + 1));
                 }
+                informMillPieces(mill);
                 return mill;
             }
         }
         return null;
+    }
+
+    private void informMillPieces(ArrayList<Intersection> mill) {
+        for (Intersection i : mill) {
+            i.getPiece().setMillInvolvement(true);
+        }
     }
 
 }
