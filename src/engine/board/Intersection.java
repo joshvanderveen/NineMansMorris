@@ -117,9 +117,25 @@ public class Intersection {
         return false;
     }
 
+
+    /**
+     * @param otherIntersection {@link Intersection} to move to
+     * @return whether current intersection is connected to other intersection and there are no {@link Piece}s in between
+     */
     public boolean checkConnectedInALine(Intersection otherIntersection) {
-        // TODO: Change and add proper validation
-        return checkDirectlyConnected(otherIntersection);
+        if (checkDirectlyConnected(otherIntersection)) return true;
+        double otherIntersectionAngle = this.getAngleToOtherIntersection(otherIntersection);
+
+        for (Path path : paths) {
+            if (otherIntersection.getPiece() != null) continue;
+
+            double otherPathAngle = this.getAngleToOtherIntersection(path.getOtherIntersection(this));
+            if (otherPathAngle != otherIntersectionAngle) continue;
+
+            //TODO: Pass through arraylist and check whether that intersection has a path that reaches the otherIntersection
+        }
+
+        return false;
     }
 
     /**

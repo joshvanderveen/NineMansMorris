@@ -55,7 +55,6 @@ public class Application {
 
         for (int i = 0; i < numPieces.get(gameConfiguration); i++) {
             for (Player player : players) {
-                // TODO change from Color.blue to change depending on player
                 gameBoard.addUnplacedPiece(new Piece(player));
             }
         }
