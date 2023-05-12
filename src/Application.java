@@ -23,7 +23,7 @@ public class Application {
         initialiseVariables();
 
         // Model
-        GameBoard gameBoard = initialiseGameboard(GameConfig.GAMEBOARD_1);
+        GameBoard gameBoard = initialiseGameboard(GameConfig.GAMEBOARD_2);
         // View
         UIMainGui gui = new UIMainGui();
         // Controller
