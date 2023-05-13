@@ -96,8 +96,8 @@ public class GameBoard {
         return false;
     }
 
-    public boolean makeMove(Player player, Piece pieceToMove, Intersection destinationIntersection) {
-        if (!isValidMove(player, pieceToMove, destinationIntersection.getCoordinate())) {
+    public boolean makeMove(Player player, Piece pieceToMove, Intersection sourceIntersection, Intersection destinationIntersection) {
+        if (!isValidMove(player, pieceToMove, sourceIntersection, destinationIntersection)) {
             return false;
         }
         return placePiece(pieceToMove, destinationIntersection);
@@ -105,16 +105,20 @@ public class GameBoard {
 
     // piece: source
     // point: destination
-    public boolean isValidMove(Player player, Piece piece, Coordinate coordinate) {
+    public boolean isValidMove(Player player, Piece piece, Intersection sourceIntersection, Intersection destinationIntersection) {
         int numPlayersPieces = 0;
 
-        for (Piece p : unplacedPieces) {
+        if (piece.getOwner() != player) return false;
+        if (destinationIntersection.getPiece() != null) return false;
+
+        for (Piece p : placedPieces) {
             if (p.getOwner() == player) numPlayersPieces++;
         }
 
         if (numPlayersPieces <= 3) return true;
 
-        // Add move validation here
+        if (!sourceIntersection.checkConnectedInALine(destinationIntersection)) return false;
+
         return true;
 
     }
