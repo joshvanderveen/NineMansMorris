@@ -96,8 +96,8 @@ public class GameBoard {
         return false;
     }
 
-    public boolean makeMove(Player player, Piece pieceToMove, Intersection destinationIntersection) {
-        if (!isValidMove(player, pieceToMove, destinationIntersection.getCoordinate())) {
+    public boolean makeMove(Player player, Piece pieceToMove, Intersection sourceIntersection, Intersection destinationIntersection) {
+        if (!isValidMove(player, pieceToMove, sourceIntersection, destinationIntersection)) {
             return false;
         }
         return placePiece(pieceToMove, destinationIntersection);
@@ -105,42 +105,12 @@ public class GameBoard {
 
     // piece: source
     // point: destination
-    public boolean isValidMove(Player player, Piece piece, Coordinate coordinate) {
+    public boolean isValidMove(Player player, Piece piece, Intersection sourceIntersection, Intersection destinationIntersection) {
+        if (piece.getOwner() != player) return false;
+        if (destinationIntersection.getPiece() != null) return false;
+        if (!sourceIntersection.checkConnectedInALine(destinationIntersection)) return false;
 
         return true;
-
-        // TODO: Implement validation for Sprint 1
-
-//        if (!(piece.getOwner() == player)) return false;
-//        // is there a piece at the destination - is the destination a neighbour of the source
-//        Intersection intersectionAtPiece = null;
-//
-//        for (Intersection intersection: intersections) {
-//            if (intersection.getPiece() != null && intersection.getPiece() == piece) {
-//                intersectionAtPiece = intersection;
-//            }
-//        }
-//
-//        if (intersectionAtPiece == null) return false;
-//
-//        // check if there is an intersection at coordinate
-//
-//        Intersection intersectionAtDestinationPoint = null;
-//
-//        for (Intersection intersection: intersections) {
-//            // TODO: make a method that compares a coordinate to an intersection
-//            if (intersection.getxCoordinate() == coordinate.x && intersection.getyCoordinate() == coordinate.y) {
-//                intersectionAtDestinationPoint = intersection;
-//                break;
-//            }
-//        }
-//
-//        if (intersectionAtDestinationPoint == null) return false;
-//
-//        if (intersectionAtDestinationPoint.getPiece() != null) return false;
-//
-//        // check if intersectionAtPiece is a neighbour of intersectionAtPoint
-//        return intersectionAtPiece.checkConnected(intersectionAtDestinationPoint);
     }
 
     public boolean placePiece(Piece piece, Intersection destinationInteresection) {
