@@ -1,5 +1,6 @@
 package engine.ui;
 
+import engine.Player;
 import engine.board.GameBoard;
 import engine.board.Intersection;
 import engine.game.Game;
@@ -31,6 +32,27 @@ public class UIMainGui extends JFrame {
         rulesButton.setFocusPainted(false);
         controlsButton.setFocusPainted(false);
         exitButton.setFocusPainted(false);
+
+        JPanel playerInfo = new JPanel();
+        BoxLayout playerInfoBox = new BoxLayout(playerInfo, BoxLayout.Y_AXIS);
+
+        JTextArea player1Info = new JTextArea(
+                "Player 1" +
+                "\nPieces in play:   {}" +
+                "\nPieces lost:      {}" +
+                "\nPieces to place:  {}"
+        );
+        player1Info.setEditable(false);
+        JTextArea player2Info = new JTextArea(
+                "Player 2" +
+                "\nPieces in play:  {}" +
+                "\nPieces lost:     {}" +
+                "\nPieces to place: {}"
+        );
+        player2Info.setEditable(false);
+
+        playerInfo.add(player1Info);
+        playerInfo.add(player2Info);
 
         rulesButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(UIBoardPanel,
@@ -70,6 +92,7 @@ public class UIMainGui extends JFrame {
 
         this.add(UIBoardPanel, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.NORTH);
+        this.add(playerInfoBox.getTarget(), BorderLayout.EAST);
 
         // TODO: Implement properly
 //        PlayerDescription player1 = new PlayerDescription(new HumanPlayer());
