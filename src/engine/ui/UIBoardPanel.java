@@ -68,7 +68,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
                 Intersection intersection1 = gameBoard.getIntersection(i);
                 Intersection intersection2 = gameBoard.getIntersection(j);
 
-                if (intersection1.checkConnected(intersection2)) {
+                if (intersection1.checkDirectlyConnected(intersection2)) {
                     int x1 = intersection1.getXCoordinate();
                     int y1 = intersection1.getYCoordinate();
 
@@ -118,6 +118,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
         }
 
         graphics.setFont(new Font("Arial", 1, 18));
+        graphics.setColor(Color.BLACK);
 
         for (int i = 0; i < maxXCoordinate + 1; i++) {
             graphics.drawString(String.valueOf(i + 1), i * GAP_SIZE + X_OFFSET, Y_OFFSET / 2);

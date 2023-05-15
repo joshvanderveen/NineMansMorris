@@ -63,7 +63,7 @@ public class Game implements PieceListener {
 
 
             // Try to make move
-            if (!gameBoard.makeMove(currentPlayer, selectedIntersection.getPiece(), intersection)) {
+            if (!gameBoard.makeMove(currentPlayer, selectedIntersection.getPiece(), selectedIntersection, intersection)) {
                 // If move is invalid, return and wait to pick next destination
                 selectedIntersection = null;
                 gui.setSelectedIntersection(selectedIntersection);

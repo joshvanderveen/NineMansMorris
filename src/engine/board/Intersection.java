@@ -108,12 +108,51 @@ public class Intersection {
      * @param otherIntersection The {@link Intersection} to compare against
      * @return                  Whether the {@link Intersection}s are connected
      */
-    public boolean checkConnected(Intersection otherIntersection) {
+    public boolean checkDirectlyConnected(Intersection otherIntersection) {
         for (Path path : paths) {
-            if (path.getSourceIntersection() == otherIntersection || path.getDestinationIntersection() == otherIntersection) {
+            if (path.getOtherIntersection(this) == otherIntersection) {
                 return true;
             }
         }
+        return false;
+    }
+
+
+    /**
+     * @param targetIntersection {@link Intersection} to move to
+     * @return whether current intersection is connected to other intersection and there are no {@link Piece}s in between
+     */
+    public boolean checkConnectedInALine(Intersection targetIntersection) {
+        if (this.checkDirectlyConnected(targetIntersection)) return true;
+        ArrayList<Intersection> checked = new ArrayList<>();
+        checked.add(this);
+        return checkConnectedInALineHelper(targetIntersection, checked);
+    }
+
+    /**
+     * A helper function for the {@link Intersection#checkConnectedInALine(Intersection)} function that calls itself recursively to check whether the two intersections are connected in a line
+     * @param targetIntersection {@link Intersection} to move to
+     * @param checked an {@link ArrayList<Intersection>} to store which intersections have already been checked
+     * @return whether current intersection is connected to other intersection and there are no {@link Piece}s in between
+     */
+    private boolean checkConnectedInALineHelper(Intersection targetIntersection, ArrayList<Intersection> checked) {
+        double currentAngleToTarget = this.getAngleToOtherIntersection(targetIntersection);
+
+        for (Path path : this.paths) {
+            Intersection nextIntersection = path.getOtherIntersection(this);
+            if (nextIntersection.getPiece() != null) continue;
+            if (checked.contains(nextIntersection)) continue;
+            if (nextIntersection == targetIntersection) return true;
+
+            double nextIntersectionAngleToTarget = nextIntersection.getAngleToOtherIntersection(targetIntersection);
+
+            if (nextIntersectionAngleToTarget != currentAngleToTarget) continue;
+
+            checked.add(nextIntersection);
+            if (nextIntersection.checkConnectedInALineHelper(targetIntersection, checked)) return true;
+            checked.remove(nextIntersection);
+        }
+
         return false;
     }
 
@@ -147,7 +186,7 @@ public class Intersection {
             if (otherIntersection.getPiece().getOwner() != this.getPiece().getOwner()) continue;
             if (intersectionsInMill.contains(otherIntersection)) continue;
 
-            // Can start comparing angles once there is 2 or more interesctions
+            // Can start comparing angles once there is 2 or more intersections
             if (intersectionsInMill.size() >= 2) {
                 Intersection lastIntersection = intersectionsInMill.get(intersectionsInMill.size() - 1);
                 Intersection secondLastIntersection = intersectionsInMill.get(intersectionsInMill.size() - 2);
@@ -164,12 +203,12 @@ public class Intersection {
             if (intersectionsInMill.size() == millLength) return intersectionsInMill;
 
             // Otherwise recursively check through the other intersection
-            ArrayList<Intersection> nextIntersectionCheck = otherIntersection.checkIfConnectedMill(intersectionsInMill, millLength);
+            ArrayList<Intersection> nextIntersectionCheckResult = otherIntersection.checkIfConnectedMill(intersectionsInMill, millLength);
 
             // If next intersection check includes a mill, then return it
             // Otherwise remove the next intersection, and go to the next iteration of the current intersection
-            if (nextIntersectionCheck != null) {
-                return nextIntersectionCheck;
+            if (nextIntersectionCheckResult != null) {
+                return nextIntersectionCheckResult;
             } else {
                 intersectionsInMill.remove(otherIntersection);
             }
@@ -184,6 +223,8 @@ public class Intersection {
      * @return                      The degrees of the compared angle
      */
     public double getAngleToOtherIntersection(Intersection otherIntersection) {
-        return Math.toDegrees(Math.atan2(otherIntersection.getYCoordinate() - this.getYCoordinate(), otherIntersection.getXCoordinate() - this.getXCoordinate()));
+        //        https://stackoverflow.com/questions/9970281/java-calculating-the-angle-between-two-points-in-degrees
+        double angle = Math.toDegrees(Math.atan2(otherIntersection.getYCoordinate() - this.getYCoordinate(), otherIntersection.getXCoordinate() - this.getXCoordinate()));
+        return angle < 0 ? angle + 360 : angle;
     }
 }
