@@ -4,6 +4,7 @@ import engine.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class GameBoard {
@@ -171,6 +172,43 @@ public class GameBoard {
         for (Intersection i : mill) {
             i.getPiece().setMillInvolvement(true);
         }
+    }
+
+    public ArrayList<HashMap<String, Integer>> getPlayerPieceInfo() {
+        ArrayList<HashMap<String, Integer>> playerPieceInfo = new ArrayList<>();
+        HashMap<String, Integer> player1PieceInfo = new HashMap<>();
+        player1PieceInfo.put("placed", 0);
+        player1PieceInfo.put("unplaced", 0);
+        player1PieceInfo.put("removed", 0);
+        HashMap<String, Integer> player2PieceInfo = new HashMap<>();
+        player2PieceInfo.put("placed", 0);
+        player2PieceInfo.put("unplaced", 0);
+        player2PieceInfo.put("removed", 0);
+
+        for (Piece p : placedPieces) {
+            if (p.getOwner().getName().equals("Player 1")) {
+                player1PieceInfo.put("placed", player1PieceInfo.get("placed") + 1);
+            } else if (p.getOwner().getName().equals("Player 2")) {
+                player2PieceInfo.put("placed", player2PieceInfo.get("placed") + 1);
+            }
+        }
+        for (Piece p : unplacedPieces) {
+            if (p.getOwner().getName().equals("Player 1")) {
+                player1PieceInfo.put("unplaced", player1PieceInfo.get("unplaced") + 1);
+            } else if (p.getOwner().getName().equals("Player 2")) {
+                player2PieceInfo.put("unplaced", player2PieceInfo.get("unplaced") + 1);
+            }
+        }
+        for (Piece p : removedPieces) {
+            if (p.getOwner().getName().equals("Player 1")) {
+                player1PieceInfo.put("removed", player1PieceInfo.get("removed") + 1);
+            } else if (p.getOwner().getName().equals("Player 2")) {
+                player2PieceInfo.put("removed", player2PieceInfo.get("removed") + 1);
+            }
+        }
+        playerPieceInfo.add(player1PieceInfo);
+        playerPieceInfo.add(player2PieceInfo);
+        return playerPieceInfo;
     }
 
 }

@@ -47,6 +47,10 @@ public class UIBoardPanel extends JPanel implements MouseListener {
         redraw();
     }
 
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
     @Override
     public void paintComponent(Graphics _graphics) {
 

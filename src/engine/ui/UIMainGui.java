@@ -8,6 +8,8 @@ import engine.game.PieceListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UIMainGui extends JFrame {
     private UIBoardPanel UIBoardPanel;
@@ -23,6 +25,8 @@ public class UIMainGui extends JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {}
 
+        UIBoardPanel = new UIBoardPanel();
+
         buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
 
@@ -32,27 +36,6 @@ public class UIMainGui extends JFrame {
         rulesButton.setFocusPainted(false);
         controlsButton.setFocusPainted(false);
         exitButton.setFocusPainted(false);
-
-        JPanel playerInfo = new JPanel();
-        BoxLayout playerInfoBox = new BoxLayout(playerInfo, BoxLayout.Y_AXIS);
-
-        JTextArea player1Info = new JTextArea(
-                "Player 1" +
-                "\nPieces in play:   {}" +
-                "\nPieces lost:      {}" +
-                "\nPieces to place:  {}"
-        );
-        player1Info.setEditable(false);
-        JTextArea player2Info = new JTextArea(
-                "Player 2" +
-                "\nPieces in play:  {}" +
-                "\nPieces lost:     {}" +
-                "\nPieces to place: {}"
-        );
-        player2Info.setEditable(false);
-
-        playerInfo.add(player1Info);
-        playerInfo.add(player2Info);
 
         rulesButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(UIBoardPanel,
@@ -84,15 +67,41 @@ public class UIMainGui extends JFrame {
             }
         });
 
-        UIBoardPanel = new UIBoardPanel();
-
         buttons.add(rulesButton);
         buttons.add(controlsButton);
         buttons.add(exitButton);
 
+        if (UIBoardPanel.getGameBoard() != null) {
+            JPanel playerInfo = new JPanel();
+            BoxLayout playerInfoBox = new BoxLayout(playerInfo, BoxLayout.Y_AXIS);
+            playerInfo.setLayout(playerInfoBox);
+
+            ArrayList<HashMap<String, Integer>> playerPieceInfo;
+            playerPieceInfo = UIBoardPanel.getGameBoard().getPlayerPieceInfo();
+
+            JTextArea player1Info = new JTextArea(
+                    String.format("Player 1" +
+                            "\nPieces in play:   %d" +
+                            "\nPieces lost:      %d" +
+                            "\nPieces to place:  %d", playerPieceInfo.get(0).get("placed"), playerPieceInfo.get(0).get("removed"), playerPieceInfo.get(0).get("unplaced"))
+            );
+            player1Info.setEditable(false);
+            JTextArea player2Info = new JTextArea(
+                    String.format("Player 2" +
+                            "\nPieces in play:  %d" +
+                            "\nPieces lost:     %d" +
+                            "\nPieces to place: %d", playerPieceInfo.get(1).get("placed"), playerPieceInfo.get(1).get("removed"), playerPieceInfo.get(1).get("unplaced"))
+            );
+            player2Info.setEditable(false);
+
+            playerInfo.add(player1Info);
+            playerInfo.add(player2Info);
+
+            this.add(playerInfo, BorderLayout.EAST);
+        }
+
         this.add(UIBoardPanel, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.NORTH);
-        this.add(playerInfoBox.getTarget(), BorderLayout.EAST);
 
         // TODO: Implement properly
 //        PlayerDescription player1 = new PlayerDescription(new HumanPlayer());
