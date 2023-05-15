@@ -77,7 +77,7 @@ public class Application {
 
         // Initialise amount of pieces per player
         numPieces.put(GameConfig.GAMEBOARD_1, 9);
-        numPieces.put(GameConfig.GAMEBOARD_2, 3);
+        numPieces.put(GameConfig.GAMEBOARD_2, 5);
 
         // Initialise players
         players.add(new HumanPlayer("Player 1", Color.BLUE));
