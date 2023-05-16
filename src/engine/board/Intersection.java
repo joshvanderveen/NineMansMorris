@@ -29,7 +29,6 @@ public class Intersection {
 
     /**
      * Get the x coordinate of the {@link Intersection}
-     *
      * @return The x coordinate of the {@link Intersection}
      */
     public int getXCoordinate() {
@@ -38,7 +37,6 @@ public class Intersection {
 
     /**
      * Get the y coordinate of the {@link Intersection}
-     *
      * @return The y coordinate of the {@link Intersection}
      */
     public int getYCoordinate() {

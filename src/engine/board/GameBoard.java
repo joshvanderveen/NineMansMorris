@@ -5,6 +5,7 @@ import engine.Player;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameBoard {
 
@@ -23,12 +24,42 @@ public class GameBoard {
         return Collections.unmodifiableList(unplacedPieces);
     }
 
+    public List<Piece> getUnplacedPieces(Player player) {
+        ArrayList<Piece> playersUnplacedPieces = new ArrayList<>();
+
+        for (Piece piece : unplacedPieces) {
+            if (piece.getOwner() == player) {
+                playersUnplacedPieces.add(piece);
+            }
+        }
+
+        return Collections.unmodifiableList(playersUnplacedPieces);
+    }
+
     public List<Piece> getPlacedPieces() {
         return Collections.unmodifiableList(placedPieces);
     }
 
+    public List<Piece> getPlacedPieces(Player player) {
+        ArrayList<Piece> playersPlacedPieces = new ArrayList<>();
+
+        for (Piece piece : placedPieces) {
+            if (piece.getOwner() == player) {
+                playersPlacedPieces.add(piece);
+            }
+        }
+
+        return Collections.unmodifiableList(playersPlacedPieces);
+    }
+
     public List<Piece> getRemovedPieces() {
         return Collections.unmodifiableList(removedPieces);
+    }
+
+    public List<Piece> getRemovedPieces(Player player) {
+        return removedPieces.stream()
+                .filter(piece -> piece.getOwner() == player)
+                .collect(Collectors.toList());
     }
 
     public void addUnplacedPiece(Piece piece) {
@@ -124,16 +155,12 @@ public class GameBoard {
     }
 
     public boolean placePiece(Piece piece, Intersection destinationInteresection) {
-//        if (!unplacedPieces.contains(piece)) return false;
         if (destinationInteresection.getPiece() != null) return false;
 
-
-//        Piece pieceToMove = unplacedPieces.get(unplacedPieces.indexOf(piece));
-
-        Piece pieceToMove = piece;
-
-        unplacedPieces.remove(pieceToMove);
-        placedPieces.add(pieceToMove);
+        if (unplacedPieces.contains(piece)) {
+            unplacedPieces.remove(piece);
+            placedPieces.add(piece);
+        }
 
         for (Intersection intersection : intersections) {
             if (intersection.getPiece() == piece) {
@@ -142,7 +169,7 @@ public class GameBoard {
             }
         }
 
-        destinationInteresection.setPiece(pieceToMove);
+        destinationInteresection.setPiece(piece);
 
         return true;
     }

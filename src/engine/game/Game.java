@@ -35,7 +35,20 @@ public class Game implements PieceListener {
      */
     @Override
     public void positionSelected(Intersection intersection) {
-        // TODO: Place piece - implement in future sprints
+
+        // check if placing stage
+        if (gameBoard.getUnplacedPieces(currentPlayer).size() > 0) {
+            // Check there is an intersection selected
+            if (intersection == null) return;
+            // check if intersection already has a piece
+            if (intersection.getPiece() != null) return;
+            // place piece
+            gameBoard.placePiece(gameBoard.getUnplacedPieces(currentPlayer).get(0), intersection);
+
+            setNextPlayer();
+            gui.redraw();
+            return;
+        }
 
         // If start of players turn or if they haven't played valid move
         if(selectedIntersection == null) {
@@ -74,12 +87,14 @@ public class Game implements PieceListener {
             selectedIntersection = null;
 
             gameBoard.checkForMills(currentPlayer);
-
-            // Turn logic
-            // Set current player to other player since there's only ever 2 players
-            currentPlayer = players.get(1 - players.indexOf(currentPlayer));
+            setNextPlayer();
         }
         gui.setSelectedIntersection(selectedIntersection);
         gui.redraw();
+    }
+
+    public void setNextPlayer() {
+        // Set current player to other player since there's only ever 2 players
+        currentPlayer = players.get(1 - players.indexOf(currentPlayer));
     }
 }
