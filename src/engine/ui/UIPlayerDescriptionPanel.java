@@ -9,10 +9,13 @@ public class UIPlayerDescriptionPanel extends JPanel {
 
     private Player player;
     private JLabel playerName;
-    private JLabel playerColor;
-    private JLabel piecesToPlace;
-    private JLabel piecesInPlay;
-    private JLabel piecesTaken;
+    private JLabel piecesUnplaced;
+    private JLabel piecesPlaced;
+    private JLabel piecesRemoved;
+
+    String UNPLACED_PIECES_PREFIX = "Pieces to place: ";
+    String PIECES_IN_PLAY_PREFIX = "Pieces in play: ";
+    String PIECES_REMOVED_PREFIX = "Pieces removed: ";
 
     public UIPlayerDescriptionPanel(Player player) {
         super();
@@ -22,26 +25,40 @@ public class UIPlayerDescriptionPanel extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         playerName = new JLabel("Name: " + this.player.getName());
-        playerColor = new JLabel("Colour: " + this.player.getPlayerColor().toString());
         // TODO: Fix implementation to show amount of pieces player has to place
-        piecesToPlace = new JLabel("Pieces to place: " + 0);
-        piecesInPlay = new JLabel("Pieces in play: " + 0);
+        piecesUnplaced = new JLabel(UNPLACED_PIECES_PREFIX + 0);
+        piecesPlaced = new JLabel(PIECES_IN_PLAY_PREFIX + 0);
         // TODO: Fix implementation to show amount of pieces player has had taken
-        piecesTaken = new JLabel("Pieces to place: " + 0);
+        piecesRemoved = new JLabel(PIECES_REMOVED_PREFIX + 0);
 
         this.add(playerName);
-        this.add(playerColor);
-        this.add(piecesToPlace);
-        this.add(piecesInPlay);
-        this.add(piecesTaken);
+        this.add(piecesUnplaced);
+        this.add(piecesPlaced);
+        this.add(piecesRemoved);
 
-        playerName.setFont(new Font("Arial", Font.PLAIN, 18));
-        playerColor.setFont(new Font("Arial", Font.PLAIN, 14));
-        piecesToPlace.setFont(new Font("Arial", Font.PLAIN, 14));
-        piecesInPlay.setFont(new Font("Arial", Font.PLAIN, 14));
-        piecesTaken.setFont(new Font("Arial", Font.PLAIN, 14));
+        playerName.setFont(new Font("Roboto", Font.BOLD, 20));
+        playerName.setForeground(player.getPlayerColor());
+        piecesUnplaced.setFont(new Font("Roboto", Font.PLAIN, 16));
+        piecesPlaced.setFont(new Font("Roboto", Font.PLAIN, 16));
+        piecesRemoved.setFont(new Font("Roboto", Font.PLAIN, 16));
 
         this.setBackground(Color.WHITE);
         this.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 20));
     }
-}
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public void setUnplacedPiecesAmount(int amount) {
+        this.piecesUnplaced.setText(UNPLACED_PIECES_PREFIX + amount);
+    }
+
+    public void setPlacedPiecesAmount(int amount) {
+        this.piecesPlaced.setText(PIECES_IN_PLAY_PREFIX + amount);
+    }
+
+    public void setRemovedPiecesAmount(int amount) {
+        this.piecesRemoved.setText(PIECES_REMOVED_PREFIX + amount);
+    }
+ }
