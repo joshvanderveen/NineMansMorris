@@ -7,7 +7,6 @@ public class Piece {
      * {@link engine.Player} that the Piece belongs to
      */
     private final Player owner;
-    private boolean isInMill = false;
 
     public Piece(Player owner) {
         this.owner = owner;
