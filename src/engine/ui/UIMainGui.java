@@ -15,6 +15,8 @@ public class UIMainGui extends JFrame {
     private GameBoard gameBoard;
     private JPanel playerInfoContainer;
 
+    private Player currentPlayer;
+
     public UIMainGui() {
         super("Nine Man's Morris");
 
@@ -77,6 +79,8 @@ public class UIMainGui extends JFrame {
         BoxLayout playerInfoBox = new BoxLayout(playerInfoContainer, BoxLayout.Y_AXIS);
         playerInfoContainer.setLayout(playerInfoBox);
 
+//         playerInfoContainer.add(new JScrollPane());
+
         this.add(UIBoardPanel, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.NORTH);
     }
@@ -92,6 +96,8 @@ public class UIMainGui extends JFrame {
             UIPlayerDescriptionPanel playerDescription = new UIPlayerDescriptionPanel(player);
             playerInfoContainer.add(playerDescription);
         }
+        UICurrentPlayerLabel currentPlayerPanel = new UICurrentPlayerLabel();
+        playerInfoContainer.add(currentPlayerPanel);
         playerInfoContainer.setBackground(Color.WHITE);
         this.add(playerInfoContainer, BorderLayout.EAST);
     }
@@ -107,6 +113,13 @@ public class UIMainGui extends JFrame {
             panel.setPlacedPiecesAmount(gameBoard.getPlacedPieces(player).size());
             panel.setRemovedPiecesAmount(gameBoard.getRemovedPieces(player).size());
         }
+
+        for (Component c : playerInfoContainer.getComponents()) {
+            if (c.getClass() != UICurrentPlayerLabel.class) continue;
+            UICurrentPlayerLabel panel = (UICurrentPlayerLabel) c;
+            panel.updatePlayer(currentPlayer);
+        }
+
         repaint();
     }
 
@@ -118,5 +131,10 @@ public class UIMainGui extends JFrame {
 
     public void addPieceListener(PieceListener pieceListener) {
          this.UIBoardPanel.addPieceListener(pieceListener);
+    }
+
+    public void setCurrentPlayer(Player player) {
+        this.currentPlayer = player;
+        redraw();
     }
 }
