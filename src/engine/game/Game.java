@@ -21,7 +21,9 @@ public class Game implements PieceListener {
         this.gameBoard = gameBoard;
         this.gui = gui;
         gui.setGameBoard(this.gameBoard);
+        gui.setPlayers(this.players);
         gui.addPieceListener(this);
+        gui.setVisible(true);
 
         currentPlayer = players.get(0);
     }

@@ -1,5 +1,6 @@
 package engine.ui;
 
+import engine.Player;
 import engine.board.GameBoard;
 import engine.board.Intersection;
 import engine.game.Game;
@@ -7,20 +8,28 @@ import engine.game.PieceListener;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UIMainGui extends JFrame {
     private UIBoardPanel UIBoardPanel;
     private JPanel buttons;
 
+    private JPanel playerInfoContainer;
+    private ArrayList<UIPlayerDescriptionPanel> descriptionPanels;
+
+
     public UIMainGui() {
         super("Nine Man's Morris");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(800, 800);
+        this.setSize(1000, 800);
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {}
+
+        UIBoardPanel = new UIBoardPanel();
 
         buttons = new JPanel();
         buttons.setLayout(new FlowLayout());
@@ -62,25 +71,33 @@ public class UIMainGui extends JFrame {
             }
         });
 
-        UIBoardPanel = new UIBoardPanel();
-
         buttons.add(rulesButton);
         buttons.add(controlsButton);
         buttons.add(exitButton);
 
+        buttons.setBackground(Color.WHITE);
+
+        playerInfoContainer = new JPanel();
+        BoxLayout playerInfoBox = new BoxLayout(playerInfoContainer, BoxLayout.Y_AXIS);
+        playerInfoContainer.setLayout(playerInfoBox);
+
         this.add(UIBoardPanel, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.NORTH);
 
-        // TODO: Implement properly
-//        PlayerDescription player1 = new PlayerDescription(new HumanPlayer());
-//        PlayerDescription player2 = new PlayerDescription(new ComputerPlayer());
-
-        this.setVisible(true);
     }
 
     public void setGameBoard(GameBoard gameBoard) {
         UIBoardPanel.setGameBoard(gameBoard);
         redraw();
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        for (Player player : players) {
+            UIPlayerDescriptionPanel playerDescription = new UIPlayerDescriptionPanel(player);
+            playerInfoContainer.add(playerDescription);
+        }
+        playerInfoContainer.setBackground(Color.WHITE);
+        this.add(playerInfoContainer, BorderLayout.EAST);
     }
 
     public void redraw() {

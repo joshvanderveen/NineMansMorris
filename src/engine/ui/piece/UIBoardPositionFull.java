@@ -15,6 +15,12 @@ public class UIBoardPositionFull extends UIBoardPosition {
 
     @Override
     public void draw(Graphics2D graphics) {
+        if (piece.getMillInvolvement()) {
+            graphics.setColor(Color.YELLOW);
+            this.radius = this.radius * 4;
+            super.draw(graphics);
+            this.radius = 5;
+        }
         graphics.setColor(isSelected ? this.selectedColor : piece.getOwner().getPlayerColor());
         this.radius = this.radius * 3;
         super.draw(graphics);
