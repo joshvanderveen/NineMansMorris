@@ -80,8 +80,8 @@ public class Application {
         numPieces.put(GameConfig.GAMEBOARD_2, 5);
 
         // Initialise players
-        players.add(new HumanPlayer("Player 1", Color.BLUE));
-        players.add(new HumanPlayer("Player 2", Color.GREEN));
+        players.add(new HumanPlayer("Player 1", new Color(63, 136, 197)));
+        players.add(new HumanPlayer("Player 2", new Color(244, 157, 55)));
 
         /*
          * Coordinates of each intersection for Gameboard 1

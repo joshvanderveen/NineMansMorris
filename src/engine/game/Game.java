@@ -20,12 +20,14 @@ public class Game implements PieceListener {
         this.players = players;
         this.gameBoard = gameBoard;
         this.gui = gui;
-        gui.setGameBoard(this.gameBoard);
         gui.setPlayers(this.players);
+        gui.setGameBoard(this.gameBoard);
         gui.addPieceListener(this);
+        currentPlayer = players.get(0);
+        gui.setCurrentPlayer(currentPlayer);
+
         gui.setVisible(true);
 
-        currentPlayer = players.get(0);
     }
 
     /**
@@ -121,5 +123,6 @@ public class Game implements PieceListener {
     public void setNextPlayer() {
         // Set current player to other player since there's only ever 2 players
         currentPlayer = players.get(1 - players.indexOf(currentPlayer));
+        gui.setCurrentPlayer(currentPlayer);
     }
 }

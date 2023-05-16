@@ -3,21 +3,19 @@ package engine.ui;
 import engine.Player;
 import engine.board.GameBoard;
 import engine.board.Intersection;
-import engine.game.Game;
 import engine.game.PieceListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UIMainGui extends JFrame {
     private UIBoardPanel UIBoardPanel;
     private JPanel buttons;
-
+    private GameBoard gameBoard;
     private JPanel playerInfoContainer;
-    private ArrayList<UIPlayerDescriptionPanel> descriptionPanels;
 
+    private Player currentPlayer;
 
     public UIMainGui() {
         super("Nine Man's Morris");
@@ -81,12 +79,14 @@ public class UIMainGui extends JFrame {
         BoxLayout playerInfoBox = new BoxLayout(playerInfoContainer, BoxLayout.Y_AXIS);
         playerInfoContainer.setLayout(playerInfoBox);
 
+//         playerInfoContainer.add(new JScrollPane());
+
         this.add(UIBoardPanel, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.NORTH);
-
     }
 
     public void setGameBoard(GameBoard gameBoard) {
+        this.gameBoard = gameBoard;
         UIBoardPanel.setGameBoard(gameBoard);
         redraw();
     }
@@ -96,11 +96,30 @@ public class UIMainGui extends JFrame {
             UIPlayerDescriptionPanel playerDescription = new UIPlayerDescriptionPanel(player);
             playerInfoContainer.add(playerDescription);
         }
+        UICurrentPlayerLabel currentPlayerPanel = new UICurrentPlayerLabel();
+        playerInfoContainer.add(currentPlayerPanel);
         playerInfoContainer.setBackground(Color.WHITE);
         this.add(playerInfoContainer, BorderLayout.EAST);
     }
 
     public void redraw() {
+        for (Component c : playerInfoContainer.getComponents()) {
+            if (c.getClass() != UIPlayerDescriptionPanel.class) continue;
+
+            Player player = ((UIPlayerDescriptionPanel) c).getPlayer();
+            UIPlayerDescriptionPanel panel = (UIPlayerDescriptionPanel) c;
+
+            panel.setUnplacedPiecesAmount(gameBoard.getUnplacedPieces(player).size());
+            panel.setPlacedPiecesAmount(gameBoard.getPlacedPieces(player).size());
+            panel.setRemovedPiecesAmount(gameBoard.getRemovedPieces(player).size());
+        }
+
+        for (Component c : playerInfoContainer.getComponents()) {
+            if (c.getClass() != UICurrentPlayerLabel.class) continue;
+            UICurrentPlayerLabel panel = (UICurrentPlayerLabel) c;
+            panel.updatePlayer(currentPlayer);
+        }
+
         repaint();
     }
 
@@ -112,5 +131,10 @@ public class UIMainGui extends JFrame {
 
     public void addPieceListener(PieceListener pieceListener) {
          this.UIBoardPanel.addPieceListener(pieceListener);
+    }
+
+    public void setCurrentPlayer(Player player) {
+        this.currentPlayer = player;
+        redraw();
     }
 }
