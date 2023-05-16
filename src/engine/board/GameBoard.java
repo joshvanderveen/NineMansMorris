@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameBoard {
 
@@ -24,12 +25,42 @@ public class GameBoard {
         return Collections.unmodifiableList(unplacedPieces);
     }
 
+    public List<Piece> getUnplacedPieces(Player player) {
+        ArrayList<Piece> playersUnplacedPieces = new ArrayList<>();
+
+        for (Piece piece : unplacedPieces) {
+            if (piece.getOwner() == player) {
+                playersUnplacedPieces.add(piece);
+            }
+        }
+
+        return Collections.unmodifiableList(playersUnplacedPieces);
+    }
+
     public List<Piece> getPlacedPieces() {
         return Collections.unmodifiableList(placedPieces);
     }
 
+    public List<Piece> getPlacedPieces(Player player) {
+        ArrayList<Piece> playersPlacedPieces = new ArrayList<>();
+
+        for (Piece piece : placedPieces) {
+            if (piece.getOwner() == player) {
+                playersPlacedPieces.add(piece);
+            }
+        }
+
+        return Collections.unmodifiableList(playersPlacedPieces);
+    }
+
     public List<Piece> getRemovedPieces() {
         return Collections.unmodifiableList(removedPieces);
+    }
+
+    public List<Piece> getRemovedPieces(Player player) {
+        return removedPieces.stream()
+                .filter(piece -> piece.getOwner() == player)
+                .collect(Collectors.toList());
     }
 
     public void addUnplacedPiece(Piece piece) {
@@ -84,19 +115,6 @@ public class GameBoard {
         return null;
     }
 
-    public boolean allPiecesHaveBeenPlaced() {
-        return unplacedPieces.size() == 0;
-    }
-
-    public boolean playerHasPieceToPlace(Player player) {
-        for (Piece piece : unplacedPieces) {
-            if (piece.getOwner() == player) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean makeMove(Player player, Piece pieceToMove, Intersection sourceIntersection, Intersection destinationIntersection) {
         if (!isValidMove(player, pieceToMove, sourceIntersection, destinationIntersection)) {
             return false;
@@ -124,17 +142,19 @@ public class GameBoard {
 
     }
 
+    /**
+     * Places a piece on the board.
+     * @param piece The piece to place.
+     * @param destinationInteresection The {@link Intersection} to place the piece on.
+     * @return whether the piece was placed successfully.
+     */
     public boolean placePiece(Piece piece, Intersection destinationInteresection) {
-//        if (!unplacedPieces.contains(piece)) return false;
         if (destinationInteresection.getPiece() != null) return false;
 
-
-//        Piece pieceToMove = unplacedPieces.get(unplacedPieces.indexOf(piece));
-
-        Piece pieceToMove = piece;
-
-        unplacedPieces.remove(pieceToMove);
-        placedPieces.add(pieceToMove);
+        if (unplacedPieces.contains(piece)) {
+            unplacedPieces.remove(piece);
+            placedPieces.add(piece);
+        }
 
         for (Intersection intersection : intersections) {
             if (intersection.getPiece() == piece) {
@@ -143,12 +163,19 @@ public class GameBoard {
             }
         }
 
-        destinationInteresection.setPiece(pieceToMove);
+        destinationInteresection.setPiece(piece);
 
         return true;
     }
 
-    public ArrayList<Intersection> checkForMills(Player player) {
+    /**
+     * Checks if a player has a mill on the board.
+     * @param player The player to check a mill for.
+     * @return A 2D Arraylist of Intersections that represent all mills on the board.
+     */
+    public ArrayList<ArrayList<Intersection>> checkForMills(Player player) {
+        ArrayList<ArrayList<Intersection>> mills = new ArrayList<>();
+
         for (Intersection intersection : intersections) {
             if (intersection.getPiece() == null) continue;
             if (intersection.getPiece().getOwner() != player) continue;
@@ -156,52 +183,45 @@ public class GameBoard {
             ArrayList<Intersection> intersectionsInMill = new ArrayList<>();
             ArrayList<Intersection> mill = intersection.checkIfConnectedMill(intersectionsInMill, MILL_LENGTH);
 
-            if (mill != null) {
-                System.out.println("Mill found at:");
-                for (Intersection i : mill) {
-                    System.out.println("x: " + (i.getXCoordinate() + 1) + ", y: " + (i.getYCoordinate() + 1));
+            if (mill == null) continue;
+
+            boolean doesMillMatch = false;
+
+            for (ArrayList<Intersection> existingMill : mills) {
+                // check if the mill exists and if the mill has the same pieces
+                if (existingMill.containsAll(mill)) {
+                    doesMillMatch = true;
+                    break;
                 }
-                return mill;
             }
+            if (doesMillMatch) continue;
+
+            mills.add(mill);
         }
-        return null;
+
+        return mills;
     }
 
-    public ArrayList<HashMap<String, Integer>> getPlayerPieceInfo() {
-        ArrayList<HashMap<String, Integer>> playerPieceInfo = new ArrayList<>();
-        HashMap<String, Integer> player1PieceInfo = new HashMap<>();
-        player1PieceInfo.put("placed", 0);
-        player1PieceInfo.put("unplaced", 0);
-        player1PieceInfo.put("removed", 0);
-        HashMap<String, Integer> player2PieceInfo = new HashMap<>();
-        player2PieceInfo.put("placed", 0);
-        player2PieceInfo.put("unplaced", 0);
-        player2PieceInfo.put("removed", 0);
+    /**
+     * Removes a piece from the board.
+     * @param piece The piece to remove.
+     * @return whether the piece was removed successfully.
+     */
+    public void removeFromBoard(Piece piece) {
+        if (piece == null) return;
 
-        for (Piece p : placedPieces) {
-            if (p.getOwner().getName().equals("Player 1")) {
-                player1PieceInfo.put("placed", player1PieceInfo.get("placed") + 1);
-            } else if (p.getOwner().getName().equals("Player 2")) {
-                player2PieceInfo.put("placed", player2PieceInfo.get("placed") + 1);
+        if (placedPieces.contains(piece)) {
+            placedPieces.remove(piece);
+            removedPieces.add(piece);
+        } else {
+            return;
+        }
+
+        for (Intersection intersection : intersections) {
+            if (intersection.getPiece() == piece) {
+                intersection.removePiece();
+                break;
             }
         }
-        for (Piece p : unplacedPieces) {
-            if (p.getOwner().getName().equals("Player 1")) {
-                player1PieceInfo.put("unplaced", player1PieceInfo.get("unplaced") + 1);
-            } else if (p.getOwner().getName().equals("Player 2")) {
-                player2PieceInfo.put("unplaced", player2PieceInfo.get("unplaced") + 1);
-            }
-        }
-        for (Piece p : removedPieces) {
-            if (p.getOwner().getName().equals("Player 1")) {
-                player1PieceInfo.put("removed", player1PieceInfo.get("removed") + 1);
-            } else if (p.getOwner().getName().equals("Player 2")) {
-                player2PieceInfo.put("removed", player2PieceInfo.get("removed") + 1);
-            }
-        }
-        playerPieceInfo.add(player1PieceInfo);
-        playerPieceInfo.add(player2PieceInfo);
-        return playerPieceInfo;
     }
-
 }
