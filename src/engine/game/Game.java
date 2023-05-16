@@ -20,8 +20,8 @@ public class Game implements PieceListener {
         this.players = players;
         this.gameBoard = gameBoard;
         this.gui = gui;
-        gui.setGameBoard(this.gameBoard);
         gui.setPlayers(this.players);
+        gui.setGameBoard(this.gameBoard);
         gui.addPieceListener(this);
         gui.setVisible(true);
 
