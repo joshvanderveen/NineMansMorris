@@ -20,12 +20,4 @@ public class Piece {
     public Player getOwner() {
         return owner;
     }
-
-    public void setMillInvolvement(boolean isInMill) {
-        this.isInMill = isInMill;
-    }
-
-    public boolean getMillInvolvement() {
-        return isInMill;
-    }
 }
