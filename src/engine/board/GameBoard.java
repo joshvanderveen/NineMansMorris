@@ -154,6 +154,12 @@ public class GameBoard {
 
     }
 
+    /**
+     * Places a piece on the board.
+     * @param piece The piece to place.
+     * @param destinationInteresection The {@link Intersection} to place the piece on.
+     * @return whether the piece was placed successfully.
+     */
     public boolean placePiece(Piece piece, Intersection destinationInteresection) {
         if (destinationInteresection.getPiece() != null) return false;
 
@@ -174,7 +180,14 @@ public class GameBoard {
         return true;
     }
 
-    public ArrayList<Intersection> checkForMills(Player player) {
+    /**
+     * Checks if a player has a mill on the board.
+     * @param player The player to check a mill for.
+     * @return A 2D Arraylist of Intersections that represent all mills on the board.
+     */
+    public ArrayList<ArrayList<Intersection>> checkForMills(Player player) {
+        ArrayList<ArrayList<Intersection>> mills = new ArrayList<>();
+
         for (Intersection intersection : intersections) {
             if (intersection.getPiece() == null) continue;
             if (intersection.getPiece().getOwner() != player) continue;
@@ -182,15 +195,23 @@ public class GameBoard {
             ArrayList<Intersection> intersectionsInMill = new ArrayList<>();
             ArrayList<Intersection> mill = intersection.checkIfConnectedMill(intersectionsInMill, MILL_LENGTH);
 
-            if (mill != null) {
-                System.out.println("Mill found at:");
-                for (Intersection i : mill) {
-                    System.out.println("x: " + (i.getXCoordinate() + 1) + ", y: " + (i.getYCoordinate() + 1));
+            if (mill == null) continue;
+
+            boolean doesMillMatch = false;
+
+            for (ArrayList<Intersection> existingMill : mills) {
+                // check if the mill exists and if the mill has the same pieces
+                if (existingMill.containsAll(mill)) {
+                    doesMillMatch = true;
+                    break;
                 }
-                return mill;
             }
+            if (doesMillMatch) continue;
+
+            mills.add(mill);
         }
-        return null;
+
+        return mills;
     }
 
 }

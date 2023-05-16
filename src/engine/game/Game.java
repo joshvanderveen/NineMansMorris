@@ -31,6 +31,7 @@ public class Game implements PieceListener {
 
     /**
      * Main method that takes care of Game logic and splits up tasks depending on game status
+     *
      * @param intersection - input selected intersection from UI
      */
     @Override
@@ -45,13 +46,22 @@ public class Game implements PieceListener {
             // place piece
             gameBoard.placePiece(gameBoard.getUnplacedPieces(currentPlayer).get(0), intersection);
 
+            ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
+
+            if (mills.size() > 0) {
+                System.out.println("Mills found");
+                for (ArrayList<Intersection> mill : mills) {
+                    System.out.println("Mill found: " + mill);
+                }
+            }
+
             setNextPlayer();
             gui.redraw();
             return;
         }
 
         // If start of players turn or if they haven't played valid move
-        if(selectedIntersection == null) {
+        if (selectedIntersection == null) {
             // If no intersection selected and selection doesn't have a piece, don't allow turn
             if (intersection.getPiece() == null) {
                 return;
@@ -86,12 +96,21 @@ public class Game implements PieceListener {
 
             selectedIntersection = null;
 
-            gameBoard.checkForMills(currentPlayer);
+            ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
+
+            if (mills.size() > 0) {
+                System.out.println("Mills found");
+                for (ArrayList<Intersection> mill : mills) {
+                    System.out.println("Mill found: " + mill);
+                }
+            }
+
             setNextPlayer();
         }
         gui.setSelectedIntersection(selectedIntersection);
         gui.redraw();
     }
+
 
     public void setNextPlayer() {
         // Set current player to other player since there's only ever 2 players
