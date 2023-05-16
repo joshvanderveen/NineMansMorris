@@ -114,19 +114,6 @@ public class GameBoard {
         return null;
     }
 
-    public boolean allPiecesHaveBeenPlaced() {
-        return unplacedPieces.size() == 0;
-    }
-
-    public boolean playerHasPieceToPlace(Player player) {
-        for (Piece piece : unplacedPieces) {
-            if (piece.getOwner() == player) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public boolean makeMove(Player player, Piece pieceToMove, Intersection sourceIntersection, Intersection destinationIntersection) {
         if (!isValidMove(player, pieceToMove, sourceIntersection, destinationIntersection)) {
             return false;
@@ -214,4 +201,26 @@ public class GameBoard {
         return mills;
     }
 
+    /**
+     * Removes a piece from the board.
+     * @param piece The piece to remove.
+     * @return whether the piece was removed successfully.
+     */
+    public void removeFromBoard(Piece piece) {
+        if (piece == null) return;
+
+        if (placedPieces.contains(piece)) {
+            placedPieces.remove(piece);
+            removedPieces.add(piece);
+        } else {
+            return;
+        }
+
+        for (Intersection intersection : intersections) {
+            if (intersection.getPiece() == piece) {
+                intersection.removePiece();
+                break;
+            }
+        }
+    }
 }

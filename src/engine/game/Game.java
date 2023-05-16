@@ -14,6 +14,7 @@ public class Game implements PieceListener {
     protected ArrayList<Player> players;
     private Intersection selectedIntersection = null;
     private Player currentPlayer;
+    private boolean isRemovingPiece = false;
 
     public Game(GameBoard gameBoard, UIMainGui gui, ArrayList<Player> players) {
         this.players = players;
@@ -25,10 +26,6 @@ public class Game implements PieceListener {
         currentPlayer = players.get(0);
     }
 
-//    public void run() {
-//        gui.setGameBoard(this.gameBoard);
-//    }
-
     /**
      * Main method that takes care of Game logic and splits up tasks depending on game status
      *
@@ -37,7 +34,21 @@ public class Game implements PieceListener {
     @Override
     public void positionSelected(Intersection intersection) {
 
-        // check if placing stage
+        // Check if removing stage
+        if (isRemovingPiece) {
+            // Check if intersection has a piece
+            if (intersection.getPiece() == null) return;
+            // Check if piece belongs to current player
+            if (intersection.getPiece().getOwner() != currentPlayer) return;
+            // Remove piece
+            gameBoard.removeFromBoard(intersection.getPiece());
+            isRemovingPiece = false;
+            setNextPlayer();
+            gui.redraw();
+            return;
+        }
+
+        // Check if placing stage
         if (gameBoard.getUnplacedPieces(currentPlayer).size() > 0) {
             // Check there is an intersection selected
             if (intersection == null) return;
@@ -49,10 +60,7 @@ public class Game implements PieceListener {
             ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
 
             if (mills.size() > 0) {
-                System.out.println("Mills found");
-                for (ArrayList<Intersection> mill : mills) {
-                    System.out.println("Mill found: " + mill);
-                }
+               isRemovingPiece = true;
             }
 
             setNextPlayer();
@@ -99,10 +107,7 @@ public class Game implements PieceListener {
             ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
 
             if (mills.size() > 0) {
-                System.out.println("Mills found");
-                for (ArrayList<Intersection> mill : mills) {
-                    System.out.println("Mill found: " + mill);
-                }
+                isRemovingPiece = true;
             }
 
             setNextPlayer();
@@ -110,7 +115,6 @@ public class Game implements PieceListener {
         gui.setSelectedIntersection(selectedIntersection);
         gui.redraw();
     }
-
 
     public void setNextPlayer() {
         // Set current player to other player since there's only ever 2 players
