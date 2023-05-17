@@ -15,6 +15,10 @@ public class UICurrentPlayerLabel extends JLabel {
         this.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 20));
     }
 
+    /**
+     * Updates the current player label with the new player's name and color
+     * @param player The player to update the label with
+     */
     public void updatePlayer(Player player) {
         if (player == null) return;
         this.setText(player.getName() + "'s turn!");

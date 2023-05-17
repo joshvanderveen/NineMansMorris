@@ -3,7 +3,6 @@ import engine.Player;
 import engine.board.*;
 import engine.game.Game;
 import engine.ui.UIMainGui;
-import game.actors.HumanPlayer;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -80,8 +79,8 @@ public class Application {
         numPieces.put(GameConfig.GAMEBOARD_2, 5);
 
         // Initialise players
-        players.add(new HumanPlayer("Player 1", new Color(63, 136, 197)));
-        players.add(new HumanPlayer("Player 2", new Color(244, 157, 55)));
+        players.add(new Player("Player 1", new Color(63, 136, 197)));
+        players.add(new Player("Player 2", new Color(244, 157, 55)));
 
         /*
          * Coordinates of each intersection for Gameboard 1

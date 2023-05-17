@@ -120,6 +120,11 @@ public class Game implements PieceListener {
         gui.redraw();
     }
 
+    /**
+     * Sets the currentPlayer to the next one
+     *
+     * @see Game#currentPlayer
+     */
     public void setNextPlayer() {
         // Set current player to other player since there's only ever 2 players
         currentPlayer = players.get(1 - players.indexOf(currentPlayer));

@@ -20,6 +20,10 @@ public abstract class UIBoardPosition extends JPanel {
         this.radius = radius;
     }
 
+    /**
+     * Draws the piece on the board
+     * @param graphics The graphics object to use to draw the piece
+     */
     public void draw(Graphics2D graphics) {
         graphics.fillOval(xPosition - radius, yPosition - radius, radius * 2, radius * 2);
     }

@@ -34,21 +34,34 @@ public class UIBoardPanel extends JPanel implements MouseListener {
         addMouseListener(this);
     }
 
+    /**
+     * Calls the repaint method of the JPanel when the board needs to be redrawn
+     *
+     * @see javax.swing.JPanel#repaint()
+     */
     public void redraw() {
        repaint();
     }
 
+    /**
+     * Sets the selectedIntersection to the intersection that was clicked on
+     * @param intersection the intersection that was selected
+     *
+     * @see engine.ui.UIBoardPanel#selectedIntersection
+     */
     public void setSelectedIntersection(Intersection intersection) {
         this.selectedIntersection = intersection;
     }
 
+    /**
+     * Sets the GameBoard that will be drawn and used
+     * @param gameBoard the GameBoard that will be used
+     *
+     * @see engine.board.GameBoard
+     */
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         redraw();
-    }
-
-    public GameBoard getGameBoard() {
-        return gameBoard;
     }
 
     @Override
@@ -133,6 +146,10 @@ public class UIBoardPanel extends JPanel implements MouseListener {
         }
     }
 
+    /**
+     * Sets the PieceListener that will be used for listening to clicks on the board
+     * @param pieceListener the PieceListener to use
+     */
     public void addPieceListener(PieceListener pieceListener) {
         this.pieceListener = pieceListener;
     }
@@ -146,6 +163,11 @@ public class UIBoardPanel extends JPanel implements MouseListener {
         pieceListener.positionSelected(sourceIntersection);
     }
 
+    /**
+     * Gets the intersection that was clicked on
+     * @param e the MouseEvent that was created
+     * @return the Intersection that was clicked on or null if no intersection was at the clicked location
+     */
     private Intersection getIntersection(MouseEvent e) {
 
         Point movePoint = e.getPoint();

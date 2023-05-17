@@ -79,18 +79,27 @@ public class UIMainGui extends JFrame {
         BoxLayout playerInfoBox = new BoxLayout(playerInfoContainer, BoxLayout.Y_AXIS);
         playerInfoContainer.setLayout(playerInfoBox);
 
-//         playerInfoContainer.add(new JScrollPane());
-
         this.add(UIBoardPanel, BorderLayout.CENTER);
         this.add(buttons, BorderLayout.NORTH);
     }
 
+    /**
+     * Sets the GameBoard that will be drawn and used
+     * Also sets the gameBoard for the UIBoardPanel
+     * @param gameBoard the GameBoard that will be used
+     *
+     * @see engine.board.GameBoard
+     */
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
         UIBoardPanel.setGameBoard(gameBoard);
         redraw();
     }
 
+    /**
+     * Sets the players that are currently playing the game
+     * @param players a list of players
+     */
     public void setPlayers(ArrayList<Player> players) {
         for (Player player : players) {
             UIPlayerDescriptionPanel playerDescription = new UIPlayerDescriptionPanel(player);
@@ -102,6 +111,11 @@ public class UIMainGui extends JFrame {
         this.add(playerInfoContainer, BorderLayout.EAST);
     }
 
+    /**
+     * Calls the repaint method of the JPanel when the board needs to be redrawn
+     *
+     * @see javax.swing.JPanel#repaint()
+     */
     public void redraw() {
         for (Component c : playerInfoContainer.getComponents()) {
             if (c.getClass() != UIPlayerDescriptionPanel.class) continue;
@@ -123,16 +137,27 @@ public class UIMainGui extends JFrame {
         repaint();
     }
 
-
+    /**
+     * Sets the selected intersection of the UIBoardPanel
+     * @param intersection the intersection that will be selected
+     */
     public void setSelectedIntersection(Intersection intersection) {
         UIBoardPanel.setSelectedIntersection(intersection);
         redraw();
     }
 
+    /**
+     * Adds a PieceListener to the UIBoardPanel
+     * @param pieceListener the PieceListener that will be used
+     */
     public void addPieceListener(PieceListener pieceListener) {
          this.UIBoardPanel.addPieceListener(pieceListener);
     }
 
+    /**
+     * Sets the current player and redraws the UI
+     * @param player the player to set as the current player
+     */
     public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
         redraw();

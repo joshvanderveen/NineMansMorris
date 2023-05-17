@@ -46,18 +46,34 @@ public class UIPlayerDescriptionPanel extends JPanel {
         this.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 20));
     }
 
+    /**
+     * Gets the player that this panel is displaying details for
+     * @return the player
+     */
     public Player getPlayer() {
         return this.player;
     }
 
+    /**
+     * Sets the amount of pieces that the player still has to place
+     * @param amount the amount of pieces
+     */
     public void setUnplacedPiecesAmount(int amount) {
         this.piecesUnplaced.setText(UNPLACED_PIECES_PREFIX + amount);
     }
 
+    /**
+     * Sets the amount of pieces that the player has placed
+     * @param amount the amount of pieces
+     */
     public void setPlacedPiecesAmount(int amount) {
         this.piecesPlaced.setText(PIECES_IN_PLAY_PREFIX + amount);
     }
 
+    /**
+     * Sets the amount of pieces that the player has had taken
+     * @param amount the amount of pieces
+     */
     public void setRemovedPiecesAmount(int amount) {
         this.piecesRemoved.setText(PIECES_REMOVED_PREFIX + amount);
     }

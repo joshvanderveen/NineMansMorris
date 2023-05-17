@@ -2,7 +2,7 @@ package engine;
 
 import java.awt.*;
 
-public abstract class Player {
+public class Player {
     protected String name;
     protected Color playerColor;
     protected boolean isComputerControlled = false;
@@ -18,12 +18,12 @@ public abstract class Player {
         this.isComputerControlled = isComputerControlled;
     }
 
+    /**
+     * Gets the players name
+     * @return the players name
+     */
     public String getName() {
         return name;
-    }
-
-    public boolean isComputerControlled() {
-        return isComputerControlled;
     }
 
     public Color getPlayerColor() {

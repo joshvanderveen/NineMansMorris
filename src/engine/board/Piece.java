@@ -3,9 +3,6 @@ package engine.board;
 import engine.Player;
 
 public class Piece {
-    /**
-     * {@link engine.Player} that the Piece belongs to
-     */
     private final Player owner;
 
     public Piece(Player owner) {
@@ -13,8 +10,8 @@ public class Piece {
     }
 
     /**
-     * Getter for returning the owner of the piece
-     * @return {@link engine.Player}
+     * Returns the owner of the piece
+     * @return the owner
      */
     public Player getOwner() {
         return owner;

@@ -15,6 +15,11 @@ public class Coordinate extends Point {
         super(x, y);
     }
 
+    /**
+     * Compare the current {@link Coordinate} against the other {@link Coordinate}
+     *
+     * @return Whether the {@link Coordinate}s are in the same position
+     */
     public boolean compareCoordinate(Coordinate otherCoordinate) {
         return this.getX() == otherCoordinate.getX() && this.getY() == otherCoordinate.getY();
     }
