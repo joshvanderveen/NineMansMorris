@@ -1,7 +1,10 @@
 package model.board;
 
+import model.Mill;
+import model.MillManager;
 import model.Player;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -250,8 +253,8 @@ public class GameBoard {
      * @param player The player to check a mill for.
      * @return A 2D Arraylist of Intersections that represent all mills on the board.
      */
-    public ArrayList<ArrayList<Intersection>> checkForMills(Player player) {
-        ArrayList<ArrayList<Intersection>> mills = new ArrayList<>();
+    public ArrayList<Mill> checkForMills(Player player) {
+        ArrayList<Mill> mills = new ArrayList<>();
 
         for (Intersection intersection : intersections) {
             if (intersection.getPiece() == null) continue;
@@ -262,18 +265,20 @@ public class GameBoard {
 
             if (mill == null) continue;
 
+            Mill newMill = new Mill(mill);
+
             boolean doesMillMatch = false;
 
-            for (ArrayList<Intersection> existingMill : mills) {
+            for (Mill existingMill : mills) {
                 // check if the mill exists and if the mill has the same pieces
-                if (existingMill.containsAll(mill)) {
+                if (existingMill.equals(newMill)) {
                     doesMillMatch = true;
                     break;
                 }
             }
             if (doesMillMatch) continue;
 
-            mills.add(mill);
+            mills.add(newMill);
         }
 
         return mills;

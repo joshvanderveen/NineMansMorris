@@ -1,5 +1,7 @@
 package view;
 
+import model.Mill;
+import model.MillManager;
 import model.board.Coordinate;
 import model.board.GameBoard;
 import model.board.Intersection;
@@ -13,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class UIBoardPanel extends JPanel implements MouseListener {
 
@@ -109,7 +112,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
             UIBoardPosition position;
 
             if (piece != null) {
-                position = new UIBoardPositionFull(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET, piece, intersection == selectedIntersection);
+                position = new UIBoardPositionFull(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET, piece, intersection == selectedIntersection, MillManager.intersectionIsInUnusedMill(intersection));
             }
             else {
                 position = new UIBoardPositionEmpty(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET);

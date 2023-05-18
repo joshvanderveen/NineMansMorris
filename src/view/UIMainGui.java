@@ -1,5 +1,6 @@
 package view;
 
+import model.Mill;
 import model.Player;
 import model.board.GameBoard;
 import model.board.Intersection;
@@ -163,12 +164,11 @@ public class UIMainGui extends JFrame {
         redraw();
     }
 
-    public void notifyOfMill(ArrayList<ArrayList<Intersection>> mills) {
-        JOptionPane.showMessageDialog(UIBoardPanel, "You have formed a mill! You can now remove one of your opponent's pieces.");
+    public void notifyOfMill() {
+        JOptionPane.showMessageDialog(UIBoardPanel, "Well Done! You have formed a mill. You can now remove one of your opponent's pieces.");
     }
 
     public void notifyOfWin(Player player) {
-        System.out.println("Congratulations! " + player.getName() + " has won the game!");
         JOptionPane.showMessageDialog(UIBoardPanel, "Congratulations! " + player.getName() + " has won the game!");
     }
 }
