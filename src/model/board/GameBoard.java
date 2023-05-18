@@ -218,6 +218,7 @@ public class GameBoard {
         int numPlayersPieces = 0;
 
         if (piece.getOwner() != player) return false;
+        if (sourceIntersection.getPiece() != piece) return false;
         if (destinationIntersection.getPiece() != null) return false;
 
         for (Piece p : placedPieces) {
