@@ -65,6 +65,10 @@ public class Game implements PieceListener {
         }
     }
 
+    /**
+     * Handles removing stage logic
+     * @param intersection the selected intersection from the UI
+     */
     private void handleRemovingStage(Intersection intersection) {
         // Check if intersection has a piece
         if (intersection.getPiece() == null) return;
@@ -99,6 +103,10 @@ public class Game implements PieceListener {
         setNextPlayer();
     }
 
+    /**
+     * Handles placing stage logic
+     * @param intersection the selected intersection from the UI
+     */
     private void handlePlacingStage(Intersection intersection) {
         // Check there is an intersection selected
         if (intersection == null) return;
@@ -127,6 +135,10 @@ public class Game implements PieceListener {
 
     }
 
+    /**
+     * Handles selecting stage logic
+     * @param intersection the selected intersection from the UI
+     */
     private void handleSelectingStage(Intersection intersection) {
         // Check if intersection has a piece
         if (intersection.getPiece() == null) return;
@@ -138,6 +150,10 @@ public class Game implements PieceListener {
         gui.redraw();
     }
 
+    /**
+     * Handles moving stage logic
+     * @param intersection the selected intersection from the UI
+     */
     private void handleMovingStage(Intersection intersection) {
         // Select place to move
         // If place to move to is unoccupied

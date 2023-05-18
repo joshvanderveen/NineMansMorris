@@ -8,6 +8,10 @@ import java.util.Collections;
 public final class MillManager {
     private static final ArrayList<Mill> mills = new ArrayList<>();
 
+    /**
+     * Add a mill to the list of mills
+     * @param mill The mill to add
+     */
     public static void addMill(Mill mill) {
         for (Mill existingMill : mills) {
             if (existingMill.compareMill(mill)) return;
@@ -15,27 +19,29 @@ public final class MillManager {
         mills.add(mill);
     }
 
-    public static void removeMill(Mill mill) {
-        mills.remove(mill);
-    }
-
+    /**
+     * Check whether a player has a mill that hasn't been used to remove a piece
+     * @param player The player to check
+     * @return Whether the player has an unused mill
+     */
     public static boolean playerHasUnusedMill(Player player) {
         for (Mill mill : mills) {
-            if (!mill.getIsUsed()) {
+            if (!mill.getIsUsed() && mill.getPlayer() == player) {
                 return true;
             }
         }
         return false;
     }
 
-    private static void useMill(Mill mill) {
-        mill.toggleIsUsed();
-    }
-
+    /**
+     * Use a mill to remove a piece
+     * @param player The player to use a mill from
+     * @return Whether a mill was used or not
+     */
     public static boolean useMill(Player player) {
         for (Mill mill : mills) {
             if (!mill.getIsUsed() && mill.getPlayer() == player) {
-                useMill(mill);
+                mill.setIsUsed(true);
                 return true;
             }
         }
@@ -43,6 +49,11 @@ public final class MillManager {
     }
 
 
+    /**
+     * Check whether an intersection is part of a mill or not
+     * @param location The intersection to check
+     * @return Whether the intersection is part of a mill
+     */
     public static boolean intersectionIsInMill(Intersection location) {
         for (Mill mill : mills) {
             if (mill.containsIntersection(location)) return true;
@@ -50,6 +61,11 @@ public final class MillManager {
         return false;
     }
 
+    /**
+     * Check whether an intersection is part of an unused mill or not
+     * @param location The intersection to check
+     * @return Whether the intersection is part of an unused mill
+     */
     public static boolean intersectionIsInUnusedMill(Intersection location) {
         for (Mill mill : mills) {
             if (!mill.getIsUsed() && mill.containsIntersection(location)) return true;
@@ -57,10 +73,13 @@ public final class MillManager {
         return false;
     }
 
+    /**
+     * Update the list of mills and remove any mills that haven't been used
+     * @param newMills The new list of mills
+     */
     public static void updateMills(ArrayList<Mill> newMills) {
         if (newMills.size() == 0) return;
         System.out.println(MillManager.mills);
-//        ArrayList<Mill> oldMills = (ArrayList<Mill>) MillManager.mills.clone();
         ArrayList<Mill> oldMills = new ArrayList<>();
 
         for (Mill mill : MillManager.mills) {

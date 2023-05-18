@@ -165,6 +165,10 @@ public class GameBoard {
         return getIntersectionAtCoordinate(coordinate);
     }
 
+    /**
+     * Gets all the intersections on the GameBoard.
+     * @return An unmodifiable list of all the intersections on the GameBoard.
+     */
     public List<Intersection> getIntersections() {
         return Collections.unmodifiableList(intersections);
     }
@@ -227,8 +231,10 @@ public class GameBoard {
 
         if (numPlayersPieces <= 3) return true;
 
-//        if (!sourceIntersection.checkDirectlyConnected(destinationIntersection)) return false;
         if (!sourceIntersection.checkConnectedInALine(destinationIntersection)) return false;
+
+        // If the rule is only for the directly connected intersections, use the following line instead
+        // if (!sourceIntersection.checkDirectlyConnected(destinationIntersection)) return false;
 
         return true;
 
@@ -317,6 +323,11 @@ public class GameBoard {
         }
     }
 
+    /**
+     * Returns whether the player has a move that they could make, or whether they are blocked off by the opponent.
+     * @param player The player to check.
+     * @return Whether the player has a move that they could make.
+     */
     private boolean canPlayerMove(Player player) {
         for (Piece piece : getPlacedPieces(player)) {
             for (Intersection intersection : intersections) {
@@ -330,10 +341,13 @@ public class GameBoard {
         return false;
     }
 
+    /**
+     * Returns whether the game is over for the current players turn.
+     * @param player The current player.
+     * @return Whether the game is over or not.
+     */
     public boolean isGameOver(Player player) {
-
         if (getUnplacedPieces(player).size() > 0) return false;
-
         return !canPlayerMove(player) || getPlacedPieces(player).size() < 3;
     }
 }

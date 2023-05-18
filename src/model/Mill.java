@@ -18,9 +18,8 @@ public class Mill {
         return isUsed;
     }
 
-    public boolean toggleIsUsed() {
-        isUsed = !isUsed;
-        return isUsed;
+    public void setIsUsed(boolean isUsed) {
+        this.isUsed = isUsed;
     }
 
     private ArrayList<Intersection> getIntersections() {
