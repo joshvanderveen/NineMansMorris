@@ -1,9 +1,9 @@
-package engine.ui;
+package view;
 
-import engine.Player;
-import engine.board.GameBoard;
-import engine.board.Intersection;
-import engine.game.PieceListener;
+import model.Player;
+import model.board.GameBoard;
+import model.board.Intersection;
+import controller.PieceListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -88,7 +88,7 @@ public class UIMainGui extends JFrame {
      * Also sets the gameBoard for the UIBoardPanel
      * @param gameBoard the GameBoard that will be used
      *
-     * @see engine.board.GameBoard
+     * @see model.board.GameBoard
      */
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
@@ -161,5 +161,9 @@ public class UIMainGui extends JFrame {
     public void setCurrentPlayer(Player player) {
         this.currentPlayer = player;
         redraw();
+    }
+
+    public void notifyOfMill() {
+        JOptionPane.showMessageDialog(UIBoardPanel, "You have formed a mill! You can now remove one of your opponent's pieces.");
     }
 }

@@ -1,8 +1,4 @@
-package engine.board;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+package model.board;
 
 public class Path {
     private final Intersection sourceIntersection;

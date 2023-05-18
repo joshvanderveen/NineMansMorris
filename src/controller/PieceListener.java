@@ -1,7 +1,6 @@
-package engine.game;
+package controller;
 
-import engine.board.Intersection;
-import engine.board.Piece;
+import model.board.Intersection;
 
 public interface PieceListener {
 

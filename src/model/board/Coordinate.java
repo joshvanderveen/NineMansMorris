@@ -1,4 +1,4 @@
-package engine.board;
+package model.board;
 
 import java.awt.*;
 

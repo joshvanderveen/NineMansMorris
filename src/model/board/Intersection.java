@@ -1,4 +1,4 @@
-package engine.board;
+package model.board;
 
 import java.util.ArrayList;
 import java.util.Collections;

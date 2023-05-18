@@ -1,6 +1,6 @@
-package engine.ui.piece;
+package view.piece;
 
-import engine.board.Piece;
+import model.board.Piece;
 
 import java.awt.*;
 

@@ -1,8 +1,8 @@
-package engine.game;
+package controller;
 
-import engine.Player;
-import engine.board.*;
-import engine.ui.UIMainGui;
+import model.Player;
+import model.board.*;
+import view.UIMainGui;
 
 import java.util.*;
 
@@ -43,7 +43,7 @@ public class Game implements PieceListener {
             // Check if intersection has a piece
             if (intersection.getPiece() == null) return;
             // Check if piece belongs to current player
-            if (intersection.getPiece().getOwner() != currentPlayer) return;
+            if (intersection.getPiece().getOwner() == currentPlayer) return;
             // Remove piece
             gameBoard.removeFromBoard(intersection.getPiece());
             isRemovingPiece = false;
@@ -64,11 +64,14 @@ public class Game implements PieceListener {
             ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
 
             if (mills.size() > 0) {
-               isRemovingPiece = true;
+                System.out.println("MILL");
+                isRemovingPiece = true;
+                gui.redraw();
+                gui.notifyOfMill();
+            } else {
+                setNextPlayer();
+                gui.redraw();
             }
-
-            setNextPlayer();
-            gui.redraw();
             return;
         }
 
@@ -111,10 +114,13 @@ public class Game implements PieceListener {
             ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
 
             if (mills.size() > 0) {
+                System.out.println("MILL");
                 isRemovingPiece = true;
+                gui.notifyOfMill();
+            } else {
+                setNextPlayer();
             }
 
-            setNextPlayer();
         }
         gui.setSelectedIntersection(selectedIntersection);
         gui.redraw();
