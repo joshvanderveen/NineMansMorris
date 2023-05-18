@@ -40,90 +40,108 @@ public class Game implements PieceListener {
 
         // Check if removing stage
         if (isRemovingPiece) {
-            // Check if intersection has a piece
-            if (intersection.getPiece() == null) return;
-            // Check if piece belongs to current player
-            if (intersection.getPiece().getOwner() == currentPlayer) return;
-            // Remove piece
-            gameBoard.removeFromBoard(intersection.getPiece());
-            isRemovingPiece = false;
-            setNextPlayer();
-            gui.redraw();
+            handleRemovingStage(intersection);
             return;
         }
 
         // Check if placing stage
         if (gameBoard.getUnplacedPieces(currentPlayer).size() > 0) {
-            // Check there is an intersection selected
-            if (intersection == null) return;
-            // check if intersection already has a piece
-            if (intersection.getPiece() != null) return;
-            // place piece
-            gameBoard.placePiece(gameBoard.getUnplacedPieces(currentPlayer).get(0), intersection);
-
-            ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
-
-            if (mills.size() > 0) {
-                System.out.println("MILL");
-                isRemovingPiece = true;
-                gui.redraw();
-                gui.notifyOfMill();
-            } else {
-                setNextPlayer();
-                gui.redraw();
-            }
+            handlePlacingStage(intersection);
             return;
         }
 
-        // If start of players turn or if they haven't played valid move
+        // Check if selecting stage
         if (selectedIntersection == null) {
-            // If no intersection selected and selection doesn't have a piece, don't allow turn
-            if (intersection.getPiece() == null) {
-                return;
-            }
-
-            // If selected intersection is occupied with other players piece
-            if (intersection.getPiece().getOwner() != currentPlayer) {
-                return;
-            }
-
-            // Select intersection that has current players piece
-            selectedIntersection = intersection;
-        } else {
-            // Select place to move
-            // If place to move to is unoccupied
-            if (intersection.getPiece() != null) {
-                selectedIntersection = null;
-                gui.setSelectedIntersection(selectedIntersection);
-                gui.redraw();
-                return;
-            }
-
-
-            // Try to make move
-            if (!gameBoard.makeMove(currentPlayer, selectedIntersection.getPiece(), selectedIntersection, intersection)) {
-                // If move is invalid, return and wait to pick next destination
-                selectedIntersection = null;
-                gui.setSelectedIntersection(selectedIntersection);
-                gui.redraw();
-                return;
-            }
-
-            selectedIntersection = null;
-
-            ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
-
-            if (mills.size() > 0) {
-                System.out.println("MILL");
-                isRemovingPiece = true;
-                gui.notifyOfMill();
-            } else {
-                setNextPlayer();
-            }
-
+            handleSelectingStage(intersection);
+            return;
         }
+
+        // Check if moving stage
+        if (selectedIntersection != null){
+            handleMovingStage(intersection);
+            return;
+        }
+    }
+
+    void handleRemovingStage(Intersection intersection) {
+        // Check if intersection has a piece
+        if (intersection.getPiece() == null) return;
+        // Check if piece belongs to current player
+        if (intersection.getPiece().getOwner() == currentPlayer) return;
+        // Remove piece
+        gameBoard.removeFromBoard(intersection.getPiece());
+        isRemovingPiece = false;
+        gui.redraw();
+        checkGameOver();
+        setNextPlayer();
+    }
+
+    void handlePlacingStage(Intersection intersection) {
+        // Check there is an intersection selected
+        if (intersection == null) return;
+        // check if intersection already has a piece
+        if (intersection.getPiece() != null) return;
+        // place piece
+        gameBoard.placePiece(gameBoard.getUnplacedPieces(currentPlayer).get(0), intersection);
+
+        ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
+
+        if (mills.size() > 0) {
+            isRemovingPiece = true;
+            gui.redraw();
+            gui.notifyOfMill(mills);
+        } else {
+            setNextPlayer();
+            gui.redraw();
+        }
+    }
+
+    void handleSelectingStage(Intersection intersection) {
+        // Check if intersection has a piece
+        if (intersection.getPiece() == null) return;
+        // Check if piece belongs to current player
+        if (intersection.getPiece().getOwner() != currentPlayer) return;
+        // Select piece
+        selectedIntersection = intersection;
         gui.setSelectedIntersection(selectedIntersection);
         gui.redraw();
+    }
+
+    void handleMovingStage(Intersection intersection) {
+        // Select place to move
+        // If place to move to is unoccupied
+        if (intersection.getPiece() != null) {
+            selectedIntersection = null;
+            gui.setSelectedIntersection(selectedIntersection);
+            gui.redraw();
+            return;
+        }
+
+
+        // Try to make move
+        if (!gameBoard.makeMove(currentPlayer, selectedIntersection.getPiece(), selectedIntersection, intersection)) {
+            // If move is invalid, return and wait to pick next destination
+            selectedIntersection = null;
+            gui.setSelectedIntersection(selectedIntersection);
+            gui.redraw();
+            return;
+        }
+
+        selectedIntersection = null;
+
+        ArrayList<ArrayList<Intersection>> mills = gameBoard.checkForMills(currentPlayer);
+
+        if (mills.size() > 0) {
+            isRemovingPiece = true;
+            gui.redraw();
+            gui.notifyOfMill(mills);
+            checkGameOver();
+            return;
+        }
+
+        gui.setSelectedIntersection(selectedIntersection);
+        gui.redraw();
+        setNextPlayer();
     }
 
     /**
@@ -135,5 +153,16 @@ public class Game implements PieceListener {
         // Set current player to other player since there's only ever 2 players
         currentPlayer = players.get(1 - players.indexOf(currentPlayer));
         gui.setCurrentPlayer(currentPlayer);
+    }
+
+    /**
+     * Checks whether the game is over, and notifies the UI if it is
+     */
+    public void checkGameOver() {
+        if (gameBoard.isGameOver(currentPlayer)) {
+            System.out.println("Player " + currentPlayer + " has lost!");
+            gui.notifyOfWin(players.get(1 - players.indexOf(currentPlayer)));
+//            System.exit(0);
+        }
     }
 }

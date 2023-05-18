@@ -301,4 +301,24 @@ public class GameBoard {
             }
         }
     }
+
+    private boolean canPlayerMove(Player player) {
+        for (Piece piece : getPlacedPieces(player)) {
+            for (Intersection intersection : intersections) {
+                for (Intersection otherIntersection : intersections) {
+                    if (isValidMove(player, piece, intersection, otherIntersection)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isGameOver(Player player) {
+
+        if (getUnplacedPieces(player).size() > 0) return false;
+
+        return !canPlayerMove(player) || getPlacedPieces(player).size() < 3;
+    }
 }
