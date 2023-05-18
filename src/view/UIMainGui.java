@@ -44,7 +44,7 @@ public class UIMainGui extends JFrame {
             JOptionPane.showMessageDialog(UIBoardPanel,
                     "NINE MEN'S MORRIS - RULES\n" +
                             "- Each player starts with 9 pieces.\n" +
-                            "- In the first phase of the game, players take turns to place their pieces on the board\n" +
+                            "- In the first phase of the game, players take turns to place their pieces on the board.\n" +
                             "- Once you have placed all of your pieces, you can begin to move them, sliding them to an empty adjacent intersection.\n" +
                             "- When placing and moving your pieces, your aim is to form Mills. A Mill is a straight row of 3 of your pieces.\n" +
                             "- When you form a Mill, you can remove one of your opponent’s pieces from the board. The piece you remove cannot be part of an existing Mill.\n" +
@@ -57,9 +57,11 @@ public class UIMainGui extends JFrame {
         controlsButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(UIBoardPanel,
                     "NINE MEN'S MORRIS - CONTROLS\n" +
-                            "- To select a piece that you want to move, click on a piece containing a piece. This will cause it to turn red when it is successfully selected\n"+
+                            "- Player 1 goes first (BLUE), followed by Player 2 (ORANGE)" +
+                            "- To place a piece simply click on the intersection you wish to place it." +
+                            "- To select a piece that you want to move, click on an intersection containing a piece. This will cause it to turn red when it is successfully selected.\n"+
                             "- Once you have selected a piece, click on the position you want to move it to. This will cause the piece you selected to be moved to that position.\n" +
-                            "- Player 1 goes first (BLUE), followed by Player 2 (GREEN)"
+                            "- If you have formed a Mill, click on an opponent's piece (that is not currently in a Mill) to remove it."
             );
         });
 

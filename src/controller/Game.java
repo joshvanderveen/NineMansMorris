@@ -9,15 +9,11 @@ import view.UIMainGui;
 import java.util.*;
 
 public class Game implements PieceListener {
-
-    private final int NUMBER_PIECES_EACH = 9;
     protected GameBoard gameBoard;
     protected UIMainGui gui;
     protected ArrayList<Player> players;
     private Intersection selectedIntersection = null;
     private Player currentPlayer;
-//    private boolean isRemovingPiece = false;
-    private ArrayList<Mill> existingMills = new ArrayList<>();
 
 
     public Game(GameBoard gameBoard, UIMainGui gui, ArrayList<Player> players) {
@@ -74,8 +70,23 @@ public class Game implements PieceListener {
         if (intersection.getPiece() == null) return;
         // Check if piece belongs to current player
         if (intersection.getPiece().getOwner() == currentPlayer) return;
+        // get mills, then update
+        ArrayList<Mill> mills = gameBoard.checkForMills();
+        MillManager.updateMills(mills);
 
-        if (MillManager.intersectionIsInMill(intersection)) return;
+        boolean areFreePieces = false;
+
+        for (Intersection _intersection : gameBoard.getIntersections()) {
+            if (_intersection.getPiece() == null) continue;
+            if (_intersection.getPiece().getOwner() != currentPlayer) continue;
+            if (!MillManager.intersectionIsInMill(_intersection)) {
+                areFreePieces = true;
+            }
+        }
+
+        if (areFreePieces) {
+            if (MillManager.intersectionIsInMill(intersection)) return;
+        }
 
         // Remove piece
         gameBoard.removeFromBoard(intersection.getPiece());
@@ -83,7 +94,6 @@ public class Game implements PieceListener {
         // use mill
         MillManager.useMill(currentPlayer);
 
-//        isRemovingPiece = false;
         gui.redraw();
         checkGameOver();
         setNextPlayer();
@@ -97,22 +107,24 @@ public class Game implements PieceListener {
         // place piece
         gameBoard.placePiece(gameBoard.getUnplacedPieces(currentPlayer).get(0), intersection);
 
-        ArrayList<Mill> mills = gameBoard.checkForMills(currentPlayer);
+        ArrayList<Mill> mills = gameBoard.checkForMills();
+        MillManager.updateMills(mills);
 
         if (mills.size() > 0) {
-            MillManager.updateMills(mills);
 
             gui.redraw();
 
             if (MillManager.playerHasUnusedMill(currentPlayer)) {
                 gui.redraw();
                 gui.notifyOfMill();
+                return;
             }
 
-        } else {
-            setNextPlayer();
-            gui.redraw();
         }
+
+        setNextPlayer();
+        gui.redraw();
+
     }
 
     private void handleSelectingStage(Intersection intersection) {
@@ -147,23 +159,24 @@ public class Game implements PieceListener {
         }
 
         selectedIntersection = null;
+        gui.setSelectedIntersection(selectedIntersection);
 
-        ArrayList<Mill> mills = gameBoard.checkForMills(currentPlayer);
+        ArrayList<Mill> mills = gameBoard.checkForMills();
+        MillManager.updateMills(mills);
 
         if (mills.size() > 0) {
-            MillManager.updateMills(mills);
 
             gui.redraw();
 
             if (MillManager.playerHasUnusedMill(currentPlayer)) {
-                gui.redraw();
                 gui.notifyOfMill();
+                return;
             }
 
+            setNextPlayer();
             return;
         }
 
-        gui.setSelectedIntersection(selectedIntersection);
         gui.redraw();
         setNextPlayer();
     }

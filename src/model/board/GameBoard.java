@@ -87,9 +87,15 @@ public class GameBoard {
      * @return An unmodifiable list of all the removed pieces for the player.
      */
     public List<Piece> getRemovedPieces(Player player) {
-        return removedPieces.stream()
-                .filter(piece -> piece.getOwner() == player)
-                .collect(Collectors.toList());
+        ArrayList<Piece> playersRemovedPieces = new ArrayList<>();
+
+        for (Piece piece : removedPieces) {
+            if (piece.getOwner() == player) {
+                playersRemovedPieces.add(piece);
+            }
+        }
+
+        return Collections.unmodifiableList(playersRemovedPieces);
     }
 
     /**
@@ -159,6 +165,10 @@ public class GameBoard {
         return getIntersectionAtCoordinate(coordinate);
     }
 
+    public List<Intersection> getIntersections() {
+        return Collections.unmodifiableList(intersections);
+    }
+
     /**
      * Gets the number of intersections on the board.
      * @return The number of intersections on the board.
@@ -216,6 +226,7 @@ public class GameBoard {
 
         if (numPlayersPieces <= 3) return true;
 
+//        if (!sourceIntersection.checkDirectlyConnected(destinationIntersection)) return false;
         if (!sourceIntersection.checkConnectedInALine(destinationIntersection)) return false;
 
         return true;
@@ -249,16 +260,14 @@ public class GameBoard {
     }
 
     /**
-     * Checks if a player has a mill on the board.
-     * @param player The player to check a mill for.
+     * Checks for all mills on the board.
      * @return A 2D Arraylist of Intersections that represent all mills on the board.
      */
-    public ArrayList<Mill> checkForMills(Player player) {
+    public ArrayList<Mill> checkForMills() {
         ArrayList<Mill> mills = new ArrayList<>();
 
         for (Intersection intersection : intersections) {
             if (intersection.getPiece() == null) continue;
-            if (intersection.getPiece().getOwner() != player) continue;
 
             ArrayList<Intersection> intersectionsInMill = new ArrayList<>();
             ArrayList<Intersection> mill = intersection.checkIfConnectedMill(intersectionsInMill, MILL_LENGTH);

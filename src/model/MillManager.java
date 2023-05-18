@@ -3,6 +3,7 @@ package model;
 import model.board.Intersection;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public final class MillManager {
     private static final ArrayList<Mill> mills = new ArrayList<>();
@@ -57,7 +58,14 @@ public final class MillManager {
     }
 
     public static void updateMills(ArrayList<Mill> newMills) {
-        ArrayList<Mill> oldMills = (ArrayList<Mill>) MillManager.mills.clone();
+        if (newMills.size() == 0) return;
+        System.out.println(MillManager.mills);
+//        ArrayList<Mill> oldMills = (ArrayList<Mill>) MillManager.mills.clone();
+        ArrayList<Mill> oldMills = new ArrayList<>();
+
+        for (Mill mill : MillManager.mills) {
+            oldMills.add(mill);
+        }
 
         MillManager.mills.clear();
 
@@ -78,5 +86,8 @@ public final class MillManager {
         for (Mill oldMill : newMills) {
             MillManager.addMill(oldMill);
         }
+
+        System.out.println(MillManager.mills);
+        System.out.println("\n");
     }
 }

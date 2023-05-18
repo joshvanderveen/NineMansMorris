@@ -33,6 +33,11 @@ public class Mill {
 
     public boolean containsIntersection(Intersection intersection) {
         return this.intersections.contains(intersection);
+
+//        for (Intersection i : this.intersections) {
+//            if (i.equals(intersection)) return true;
+//        }
+//        return false;
     }
 
     public Player getPlayer() {
