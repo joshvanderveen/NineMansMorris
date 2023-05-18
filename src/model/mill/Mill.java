@@ -1,10 +1,9 @@
-package model;
+package model.mill;
 
+import model.Player;
 import model.board.Intersection;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class Mill {
     private ArrayList<Intersection> intersections;

@@ -1,8 +1,8 @@
 package controller;
 
-import model.MillManager;
+import model.mill.MillManager;
 import model.Player;
-import model.Mill;
+import model.mill.Mill;
 import model.board.*;
 import view.UIMainGui;
 

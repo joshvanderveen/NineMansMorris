@@ -1,9 +1,9 @@
-package model;
+package model.mill;
 
+import model.Player;
 import model.board.Intersection;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public final class MillManager {
     private static final ArrayList<Mill> mills = new ArrayList<>();

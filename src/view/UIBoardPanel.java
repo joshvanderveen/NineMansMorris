@@ -1,7 +1,6 @@
 package view;
 
-import model.Mill;
-import model.MillManager;
+import model.mill.MillManager;
 import model.board.Coordinate;
 import model.board.GameBoard;
 import model.board.Intersection;
@@ -15,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 public class UIBoardPanel extends JPanel implements MouseListener {
 

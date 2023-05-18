@@ -1,6 +1,5 @@
 package view;
 
-import model.Mill;
 import model.Player;
 import model.board.GameBoard;
 import model.board.Intersection;
