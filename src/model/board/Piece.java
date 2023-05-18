@@ -1,6 +1,6 @@
-package engine.board;
+package model.board;
 
-import engine.Player;
+import model.Player;
 
 public class Piece {
     private final Player owner;

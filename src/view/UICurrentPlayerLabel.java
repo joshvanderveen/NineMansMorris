@@ -1,6 +1,6 @@
-package engine.ui;
+package view;
 
-import engine.Player;
+import model.Player;
 
 import javax.swing.*;
 import java.awt.*;

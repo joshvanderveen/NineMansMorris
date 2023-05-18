@@ -1,4 +1,4 @@
-package engine.ui.piece;
+package view.piece;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,10 +1,12 @@
-package engine.board;
+package model.board;
 
-import engine.Player;
+import model.Mill;
+import model.MillManager;
+import model.Player;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,9 +87,15 @@ public class GameBoard {
      * @return An unmodifiable list of all the removed pieces for the player.
      */
     public List<Piece> getRemovedPieces(Player player) {
-        return removedPieces.stream()
-                .filter(piece -> piece.getOwner() == player)
-                .collect(Collectors.toList());
+        ArrayList<Piece> playersRemovedPieces = new ArrayList<>();
+
+        for (Piece piece : removedPieces) {
+            if (piece.getOwner() == player) {
+                playersRemovedPieces.add(piece);
+            }
+        }
+
+        return Collections.unmodifiableList(playersRemovedPieces);
     }
 
     /**
@@ -157,6 +165,10 @@ public class GameBoard {
         return getIntersectionAtCoordinate(coordinate);
     }
 
+    public List<Intersection> getIntersections() {
+        return Collections.unmodifiableList(intersections);
+    }
+
     /**
      * Gets the number of intersections on the board.
      * @return The number of intersections on the board.
@@ -214,6 +226,7 @@ public class GameBoard {
 
         if (numPlayersPieces <= 3) return true;
 
+//        if (!sourceIntersection.checkDirectlyConnected(destinationIntersection)) return false;
         if (!sourceIntersection.checkConnectedInALine(destinationIntersection)) return false;
 
         return true;
@@ -247,34 +260,34 @@ public class GameBoard {
     }
 
     /**
-     * Checks if a player has a mill on the board.
-     * @param player The player to check a mill for.
+     * Checks for all mills on the board.
      * @return A 2D Arraylist of Intersections that represent all mills on the board.
      */
-    public ArrayList<ArrayList<Intersection>> checkForMills(Player player) {
-        ArrayList<ArrayList<Intersection>> mills = new ArrayList<>();
+    public ArrayList<Mill> checkForMills() {
+        ArrayList<Mill> mills = new ArrayList<>();
 
         for (Intersection intersection : intersections) {
             if (intersection.getPiece() == null) continue;
-            if (intersection.getPiece().getOwner() != player) continue;
 
             ArrayList<Intersection> intersectionsInMill = new ArrayList<>();
             ArrayList<Intersection> mill = intersection.checkIfConnectedMill(intersectionsInMill, MILL_LENGTH);
 
             if (mill == null) continue;
 
+            Mill newMill = new Mill(mill);
+
             boolean doesMillMatch = false;
 
-            for (ArrayList<Intersection> existingMill : mills) {
+            for (Mill existingMill : mills) {
                 // check if the mill exists and if the mill has the same pieces
-                if (existingMill.containsAll(mill)) {
+                if (existingMill.equals(newMill)) {
                     doesMillMatch = true;
                     break;
                 }
             }
             if (doesMillMatch) continue;
 
-            mills.add(mill);
+            mills.add(newMill);
         }
 
         return mills;
@@ -301,5 +314,25 @@ public class GameBoard {
                 break;
             }
         }
+    }
+
+    private boolean canPlayerMove(Player player) {
+        for (Piece piece : getPlacedPieces(player)) {
+            for (Intersection intersection : intersections) {
+                for (Intersection otherIntersection : intersections) {
+                    if (isValidMove(player, piece, intersection, otherIntersection)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isGameOver(Player player) {
+
+        if (getUnplacedPieces(player).size() > 0) return false;
+
+        return !canPlayerMove(player) || getPlacedPieces(player).size() < 3;
     }
 }

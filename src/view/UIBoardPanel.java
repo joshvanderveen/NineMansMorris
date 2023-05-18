@@ -1,18 +1,21 @@
-package engine.ui;
+package view;
 
-import engine.board.Coordinate;
-import engine.board.GameBoard;
-import engine.board.Intersection;
-import engine.board.Piece;
-import engine.game.PieceListener;
-import engine.ui.piece.UIBoardPosition;
-import engine.ui.piece.UIBoardPositionEmpty;
-import engine.ui.piece.UIBoardPositionFull;
+import model.Mill;
+import model.MillManager;
+import model.board.Coordinate;
+import model.board.GameBoard;
+import model.board.Intersection;
+import model.board.Piece;
+import controller.PieceListener;
+import view.piece.UIBoardPosition;
+import view.piece.UIBoardPositionEmpty;
+import view.piece.UIBoardPositionFull;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class UIBoardPanel extends JPanel implements MouseListener {
 
@@ -47,7 +50,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
      * Sets the selectedIntersection to the intersection that was clicked on
      * @param intersection the intersection that was selected
      *
-     * @see engine.ui.UIBoardPanel#selectedIntersection
+     * @see UIBoardPanel#selectedIntersection
      */
     public void setSelectedIntersection(Intersection intersection) {
         this.selectedIntersection = intersection;
@@ -57,7 +60,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
      * Sets the GameBoard that will be drawn and used
      * @param gameBoard the GameBoard that will be used
      *
-     * @see engine.board.GameBoard
+     * @see model.board.GameBoard
      */
     public void setGameBoard(GameBoard gameBoard) {
         this.gameBoard = gameBoard;
@@ -109,7 +112,7 @@ public class UIBoardPanel extends JPanel implements MouseListener {
             UIBoardPosition position;
 
             if (piece != null) {
-                position = new UIBoardPositionFull(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET, piece, intersection == selectedIntersection);
+                position = new UIBoardPositionFull(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET, piece, intersection == selectedIntersection, MillManager.intersectionIsInUnusedMill(intersection));
             }
             else {
                 position = new UIBoardPositionEmpty(intersectionXCoordinate * GAP_SIZE + X_OFFSET, intersectionYCoordinate * GAP_SIZE + Y_OFFSET);

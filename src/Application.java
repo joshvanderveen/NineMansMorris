@@ -1,8 +1,7 @@
-import com.sun.net.httpserver.HttpHandler;
-import engine.Player;
-import engine.board.*;
-import engine.game.Game;
-import engine.ui.UIMainGui;
+import model.Player;
+import model.board.*;
+import controller.Game;
+import view.UIMainGui;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class Application {
         initialiseVariables();
 
         // Model
-        GameBoard gameBoard = initialiseGameboard(GameConfig.GAMEBOARD_2);
+        GameBoard gameBoard = initialiseGameboard(GameConfig.GAMEBOARD_1);
         // View
         UIMainGui gui = new UIMainGui();
         // Controller
