@@ -105,8 +105,5 @@ public final class MillManager {
         for (Mill oldMill : newMills) {
             MillManager.addMill(oldMill);
         }
-
-        System.out.println(MillManager.mills);
-        System.out.println("\n");
     }
 }
