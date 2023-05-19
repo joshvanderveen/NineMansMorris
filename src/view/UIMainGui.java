@@ -56,8 +56,8 @@ public class UIMainGui extends JFrame {
         controlsButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(UIBoardPanel,
                     "NINE MEN'S MORRIS - CONTROLS\n" +
-                            "- Player 1 goes first (BLUE), followed by Player 2 (ORANGE)" +
-                            "- To place a piece simply click on the intersection you wish to place it." +
+                            "- Player 1 goes first (BLUE), followed by Player 2 (ORANGE/YELLOW)\n" +
+                            "- To place a piece simply click on the intersection you wish to place it.\n" +
                             "- To select a piece that you want to move, click on an intersection containing a piece. This will cause it to turn red when it is successfully selected.\n"+
                             "- Once you have selected a piece, click on the position you want to move it to. This will cause the piece you selected to be moved to that position.\n" +
                             "- If you have formed a Mill, click on an opponent's piece (that is not currently in a Mill) to remove it."
