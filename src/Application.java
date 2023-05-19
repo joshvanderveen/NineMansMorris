@@ -15,6 +15,10 @@ public class Application {
     private static final HashMap<GameConfig, int[][]> gameboardRelationships = new HashMap<>();
     private static final HashMap<GameConfig, Integer> numPieces = new HashMap<>();
 
+    /**
+     * Main runtime method that is called to start the game
+     * @param args default arguments
+     */
     public static void main(String[] args) {
 
         // Initialise game variables
@@ -28,6 +32,11 @@ public class Application {
         new Game(gameBoard, gui, players);
     }
 
+    /**
+     * Initialises the GameBoard based on the game configuration
+     * @param gameConfiguration the game configuration to initialise the GameBoard with
+     * @return the initialised GameBoard
+     */
     public static GameBoard initialiseGameboard(GameConfig gameConfiguration) {
 
         GameBoard gameBoard = new GameBoard();
@@ -60,6 +69,9 @@ public class Application {
         return gameBoard;
     }
 
+    /**
+     * Initialises the game variables for the multiple boards
+     */
     public static void initialiseVariables() {
 
         // Initialise amount of pieces per player

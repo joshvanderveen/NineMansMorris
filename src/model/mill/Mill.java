@@ -13,40 +13,60 @@ public class Mill {
         this.intersections = intersections;
     }
 
+    /**
+     * Get whether the mill has been used to remove a piece
+     * @return Whether the mill has been used
+     */
     public boolean getIsUsed() {
         return isUsed;
     }
 
+    /**
+     * Set whether the mill has been used to remove a piece or not
+     * @param isUsed Whether the mill has been used
+     */
     public void setIsUsed(boolean isUsed) {
         this.isUsed = isUsed;
     }
 
+    /**
+     * Get the intersections in the mill
+     * @return The intersections that make up the mill
+     */
     private ArrayList<Intersection> getIntersections() {
         return this.intersections;
     }
 
+    /**
+     * Compare the current mill to another mill to check whether they have the same intersections
+     * @param otherMill The mill to compare
+     * @return Whether the mills are the same
+     */
     public boolean compareMill(Mill otherMill) {
         return this.getIntersections().containsAll(otherMill.intersections);
     }
 
+    /**
+     * Check whether an intersection is part of the mill or not
+     * @param intersection The intersection to check
+     * @return Whether the intersection is part of the mill
+     */
     public boolean containsIntersection(Intersection intersection) {
         return this.intersections.contains(intersection);
-
-//        for (Intersection i : this.intersections) {
-//            if (i.equals(intersection)) return true;
-//        }
-//        return false;
     }
 
+    /**
+     * Get the player that the mill belongs to
+     * @return The player that owns the mill
+     */
     public Player getPlayer() {
         return this.intersections.get(0).getPiece().getOwner();
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) return false;
-        if (!(obj instanceof Mill)) return false;
-        if (obj == this) return true;
-        return this.compareMill((Mill) obj);
+    public boolean equals(Object object) {
+        if (object == null) return false;
+        if (!(object instanceof Mill)) return false;
+        return this.compareMill((Mill) object);
     }
 }

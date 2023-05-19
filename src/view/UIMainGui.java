@@ -165,10 +165,17 @@ public class UIMainGui extends JFrame {
         redraw();
     }
 
+    /**
+     * Notifies the user that they have formed a mill by creating an alert
+     */
     public void notifyOfMill() {
         JOptionPane.showMessageDialog(UIBoardPanel, "Well Done! You have formed a mill. You can now remove one of your opponent's pieces.");
     }
 
+    /**
+     * Notifies the user that they have won the game by creating an alert
+     * @param player the player that has won
+     */
     public void notifyOfWin(Player player) {
         JOptionPane.showMessageDialog(UIBoardPanel, "Congratulations! " + player.getName() + " has won the game!");
     }
