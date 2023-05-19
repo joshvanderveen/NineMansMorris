@@ -71,15 +71,6 @@ public class Intersection {
     }
 
     /**
-     * Get a friendly name for the {@link Intersection}
-     *
-     * @return  A {@link Intersection} node id
-     */
-    public String getFriendlyLocation() {
-        return "Node " + id;
-    }
-
-    /**
      * Set the {@link Piece} at the {@link Intersection}
      *
      * @param piece The {@link Piece} to place at the intersection
@@ -114,7 +105,6 @@ public class Intersection {
         }
         return false;
     }
-
 
     /**
      * @param targetIntersection {@link Intersection} to move to

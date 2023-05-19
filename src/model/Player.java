@@ -20,6 +20,10 @@ public class Player {
         return name;
     }
 
+    /**
+     * Gets the players color
+     * @return the players color
+     */
     public Color getPlayerColor() {
         return this.playerColor;
     }
