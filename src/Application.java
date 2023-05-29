@@ -1,6 +1,7 @@
 import model.Player;
 import model.board.*;
 import controller.Game;
+import view.UIConfigurations;
 import view.UIMainGui;
 
 import java.awt.*;
@@ -11,9 +12,9 @@ public class Application {
 
     private static ArrayList<Player> players = new ArrayList<>();
 
-    private static final HashMap<GameConfig, Coordinate[]> gameboardCoordinates = new HashMap<>();
-    private static final HashMap<GameConfig, int[][]> gameboardRelationships = new HashMap<>();
-    private static final HashMap<GameConfig, Integer> numPieces = new HashMap<>();
+    private static final HashMap<GameBoardConfig, Coordinate[]> gameboardCoordinates = new HashMap<>();
+    private static final HashMap<GameBoardConfig, int[][]> gameboardRelationships = new HashMap<>();
+    private static final HashMap<GameBoardConfig, Integer> numPieces = new HashMap<>();
 
     /**
      * Main runtime method that is called to start the game
@@ -24,8 +25,16 @@ public class Application {
         // Initialise game variables
         initialiseVariables();
 
+        GameBoardConfig gameBoardConfig = UIConfigurations.chooseGameConfig();
+        ArrayList<String> playerNames = UIConfigurations.choosePlayerNames();
+        Integer millLength = UIConfigurations.chooseMillLength();
+
+        for (String playerName : playerNames) {
+            players.add(new Player(playerName, Color.BLUE));
+        }
+
         // Model
-        GameBoard gameBoard = initialiseGameboard(GameConfig.GAMEBOARD_1);
+        GameBoard gameBoard = initialiseGameboard(gameBoardConfig);
         // View
         UIMainGui gui = new UIMainGui();
         // Controller
@@ -34,22 +43,22 @@ public class Application {
 
     /**
      * Initialises the GameBoard based on the game configuration
-     * @param gameConfiguration the game configuration to initialise the GameBoard with
+     * @param gameBoardConfiguration the game configuration to initialise the GameBoard with
      * @return the initialised GameBoard
      */
-    public static GameBoard initialiseGameboard(GameConfig gameConfiguration) {
+    public static GameBoard initialiseGameboard(GameBoardConfig gameBoardConfiguration) {
 
         GameBoard gameBoard = new GameBoard();
 
-        Coordinate[] coordinates = gameboardCoordinates.get(gameConfiguration);
+        Coordinate[] coordinates = gameboardCoordinates.get(gameBoardConfiguration);
 
         for (int i = 0; i < coordinates.length; i++) {
             gameBoard.addIntersection(new Intersection(i, coordinates[i]));
         }
 
-        int[][] relationships = gameboardRelationships.get(gameConfiguration);
+        int[][] relationships = gameboardRelationships.get(gameBoardConfiguration);
 
-        for (int i = 0; i < gameboardRelationships.get(gameConfiguration).length; i++) {
+        for (int i = 0; i < gameboardRelationships.get(gameBoardConfiguration).length; i++) {
             for (int j = 0; j < relationships[i].length; j++) {
 
                 if (!gameBoard.doesPathExist(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]))) {
@@ -60,7 +69,7 @@ public class Application {
             }
         }
 
-        for (int i = 0; i < numPieces.get(gameConfiguration); i++) {
+        for (int i = 0; i < numPieces.get(gameBoardConfiguration); i++) {
             for (Player player : players) {
                 gameBoard.addUnplacedPiece(new Piece(player));
             }
@@ -75,12 +84,12 @@ public class Application {
     public static void initialiseVariables() {
 
         // Initialise amount of pieces per player
-        numPieces.put(GameConfig.GAMEBOARD_1, 9);
-        numPieces.put(GameConfig.GAMEBOARD_2, 5);
+        numPieces.put(GameBoardConfig.GAMEBOARD_1, 9);
+        numPieces.put(GameBoardConfig.GAMEBOARD_2, 5);
 
         // Initialise players
-        players.add(new Player("Player 1", new Color(63, 136, 197)));
-        players.add(new Player("Player 2", new Color(244, 157, 55)));
+//        players.add(new Player("Player 1", new Color(63, 136, 197)));
+//        players.add(new Player("Player 2", new Color(244, 157, 55)));
 
         /*
          * Coordinates of each intersection for Gameboard 1
@@ -95,7 +104,7 @@ public class Application {
                 new Coordinate(0, 6), new Coordinate(3, 6), new Coordinate(6, 6)
         };
 
-        gameboardCoordinates.put(GameConfig.GAMEBOARD_1, gameboard1Coordinates);
+        gameboardCoordinates.put(GameBoardConfig.GAMEBOARD_1, gameboard1Coordinates);
 
         /*
          * Coordinates of each intersection for Gameboard 2
@@ -110,7 +119,7 @@ public class Application {
                 new Coordinate(3, 6)
         };
 
-        gameboardCoordinates.put(GameConfig.GAMEBOARD_2, gameboard2Coordinates);
+        gameboardCoordinates.put(GameBoardConfig.GAMEBOARD_2, gameboard2Coordinates);
 
         /*
          * Relationships of each intersection for Gameboard 1
@@ -125,7 +134,7 @@ public class Application {
                 {9, 22}, {19, 21, 23}, {14, 22}
         };
 
-        gameboardRelationships.put(GameConfig.GAMEBOARD_1, gameboard1relationships);
+        gameboardRelationships.put(GameBoardConfig.GAMEBOARD_1, gameboard1relationships);
 
         /*
          * Relationships of each intersection for Gameboard 2
@@ -140,6 +149,6 @@ public class Application {
                 {13, 14}
         };
 
-        gameboardRelationships.put(GameConfig.GAMEBOARD_2, gameboard2relationships);
+        gameboardRelationships.put(GameBoardConfig.GAMEBOARD_2, gameboard2relationships);
     }
 }
