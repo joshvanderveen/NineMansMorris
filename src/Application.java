@@ -29,12 +29,25 @@ public class Application {
         ArrayList<String> playerNames = UIConfigurations.choosePlayerNames();
         Integer millLength = UIConfigurations.chooseMillLength();
 
-        for (String playerName : playerNames) {
-            players.add(new Player(playerName, Color.BLUE));
+        ArrayList<Color> colours = new ArrayList<>();
+
+        colours.add(Color.GREEN);
+        colours.add(Color.BLUE);
+        colours.add(Color.YELLOW);
+        colours.add(Color.PINK);
+        colours.add(Color.CYAN);
+        colours.add(Color.DARK_GRAY);
+
+
+        for (int i = 0; i < playerNames.size(); i++) {
+            players.add(new Player(playerNames.get(i), colours.get(i)));
         }
 
         // Model
         GameBoard gameBoard = initialiseGameboard(gameBoardConfig);
+
+        gameBoard.setMillLength(millLength);
+
         // View
         UIMainGui gui = new UIMainGui();
         // Controller

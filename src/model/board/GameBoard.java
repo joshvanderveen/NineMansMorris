@@ -347,4 +347,8 @@ public class GameBoard {
         if (getUnplacedPieces(player).size() > 0) return false;
         return !canPlayerMove(player) || getPlacedPieces(player).size() < 3;
     }
+
+    public void setMillLength(int length) {
+        MILL_LENGTH = length;
+    }
 }
