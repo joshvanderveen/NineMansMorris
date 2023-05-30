@@ -27,7 +27,8 @@ public class Application {
         // Initialise game variables
         initialiseVariables();
 
-        GameBoardConfig gameBoardConfig = UIConfigurations.chooseGameConfig();
+        String gameBoardName = UIConfigurations.chooseGameBoard();
+
         ArrayList<String> playerNames = UIConfigurations.choosePlayerNames();
         Integer millLength = UIConfigurations.chooseMillLength();
 
@@ -46,9 +47,13 @@ public class Application {
         }
 
         // Model
-        GameBoard gameBoard = initialiseGameboard(gameBoardConfig);
+        GameBoard gameBoard = initialiseGameboard(gameBoardName);
 
         gameBoard.setMillLength(millLength);
+
+
+
+        // Examples of how to read and write intersections and relationships
 
 //        FileReadAndWrite.writeIntersectionsToFile("src\\boards\\GAMEBOARD_1\\intersections.json", intersections);
 
@@ -66,33 +71,47 @@ public class Application {
 
     /**
      * Initialises the GameBoard based on the game configuration
-     * @param gameBoardConfiguration the game configuration to initialise the GameBoard with
+     * @param gameboardName the gameboard name to initialise the GameBoard with
      * @return the initialised GameBoard
      */
-    public static GameBoard initialiseGameboard(GameBoardConfig gameBoardConfiguration) {
+    public static GameBoard initialiseGameboard(String gameboardName) {
 
         GameBoard gameBoard = new GameBoard();
 
-        Coordinate[] coordinates = gameboardCoordinates.get(gameBoardConfiguration);
+        ArrayList<Intersection> intersectionsFromFile = FileReadAndWrite.readIntersectionsFromFile("src\\boards\\" + gameboardName + "\\intersections.json");
 
-        for (int i = 0; i < coordinates.length; i++) {
-            gameBoard.addIntersection(new Intersection(i, coordinates[i]));
+        HashMap<String, Integer>[] relationshipsFromFile = FileReadAndWrite.readRelationshipsFromFile("src\\boards\\" + gameboardName + "\\paths.json");
+
+        for (Intersection intersection : intersectionsFromFile) {
+            gameBoard.addIntersection(intersection);
         }
 
-        int[][] relationships = gameboardRelationships.get(gameBoardConfiguration);
+        for (int i = 0; i < relationshipsFromFile.length; i++) {
+            Intersection sourceIntersection = null;
+            Intersection destinationIntersection = null;
 
-        for (int i = 0; i < gameboardRelationships.get(gameBoardConfiguration).length; i++) {
-            for (int j = 0; j < relationships[i].length; j++) {
-
-                if (!gameBoard.doesPathExist(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]))) {
-                    Path newPath = new Path(gameBoard.getIntersection(i), gameBoard.getIntersection(relationships[i][j]));
-                    gameBoard.getIntersection(i).addPath(newPath);
-                    gameBoard.getIntersection(relationships[i][j]).addPath(newPath);
+            for (Intersection intersection : intersectionsFromFile) {
+                if (intersection.getId() == relationshipsFromFile[i].get("sourceIntersection")) {
+                    sourceIntersection = intersection;
                 }
+
+                if (intersection.getId() == relationshipsFromFile[i].get("destinationIntersection")) {
+                    destinationIntersection = intersection;
+                }
+            }
+
+            if (sourceIntersection == null || destinationIntersection == null) continue;
+
+            if (!gameBoard.doesPathExist(sourceIntersection, destinationIntersection)) {
+                Path newPath = new Path(sourceIntersection, destinationIntersection);
+
+                gameBoard.getIntersectionById(sourceIntersection.getId()).addPath(newPath);
+                gameBoard.getIntersectionById(destinationIntersection.getId()).addPath(newPath);
             }
         }
 
-        for (int i = 0; i < numPieces.get(gameBoardConfiguration); i++) {
+        // TODO: Change to when amount of pieces gets picked
+        for (int i = 0; i < 9; i++) {
             for (Player player : players) {
                 gameBoard.addUnplacedPiece(new Piece(player));
             }

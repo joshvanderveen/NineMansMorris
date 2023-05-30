@@ -150,6 +150,13 @@ public class GameBoard {
         return intersections.get(index);
     }
 
+    public Intersection getIntersectionById(int id) {
+        for (Intersection intersection : intersections) {
+            if (intersection.getId() == id) return intersection;
+        }
+        return null;
+    }
+
     /**
      * Gets the intersection at a specified coordinate.
      * @param coordinate The coordinate of the intersection to get.

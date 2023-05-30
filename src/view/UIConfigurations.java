@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.tools.javac.Main;
 import model.board.GameBoardConfig;
 
 import javax.swing.*;
@@ -7,11 +8,24 @@ import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.lang.reflect.Array;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class UIConfigurations {
-    public static GameBoardConfig chooseGameConfig() {
-        JComboBox<GameBoardConfig> gameConfigOptions = new JComboBox<>(GameBoardConfig.values());
+    public static String chooseGameBoard() {
+        File[] gameboardDirectories = new File("src\\boards").listFiles(File::isDirectory);
+
+        ArrayList<String> gameboards = new ArrayList<>();
+
+        for (File file : gameboardDirectories) {
+            gameboards.add(file.getName());
+        }
+
+        JComboBox<ArrayList<String>> gameConfigOptions = new JComboBox(gameboards.toArray());
 
         JPanel panel = new JPanel();
         panel.add(new JLabel("Choose a gameboard:"));
@@ -20,7 +34,7 @@ public class UIConfigurations {
         int result = JOptionPane.showConfirmDialog(null, panel, "Game Configuration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
-            return (GameBoardConfig) gameConfigOptions.getSelectedItem();
+            return (String) gameConfigOptions.getSelectedItem();
         } else {
             System.exit(0);
             return null;
