@@ -16,9 +16,6 @@ public class GameBoard {
     protected ArrayList<Piece> removedPieces = new ArrayList<>();
 
     public GameBoard() {}
-    public GameBoard(ArrayList<Intersection> intersections, ArrayList<Path> paths) {
-        this.intersections = intersections;
-    }
 
     /**
      * Returns a list of all the unplaced pieces.
@@ -240,11 +237,11 @@ public class GameBoard {
     /**
      * Places a piece on the board.
      * @param piece The piece to place.
-     * @param destinationInteresection The {@link Intersection} to place the piece on.
+     * @param destinationIntersection The {@link Intersection} to place the piece on.
      * @return whether the piece was placed successfully.
      */
-    public boolean placePiece(Piece piece, Intersection destinationInteresection) {
-        if (destinationInteresection.getPiece() != null) return false;
+    public boolean placePiece(Piece piece, Intersection destinationIntersection) {
+        if (destinationIntersection.getPiece() != null) return false;
 
         if (unplacedPieces.contains(piece)) {
             unplacedPieces.remove(piece);
@@ -258,7 +255,7 @@ public class GameBoard {
             }
         }
 
-        destinationInteresection.setPiece(piece);
+        destinationIntersection.setPiece(piece);
 
         return true;
     }

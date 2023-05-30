@@ -88,17 +88,4 @@ public class UIConfigurations {
             return null;
         }
     }
-
-    public static Color pickRandomColour() {
-        Color[] colours = {
-                Color.GREEN,
-                Color.BLUE,
-                Color.YELLOW,
-                Color.PINK
-        };
-
-        Integer colourIndex = (int) (Math.random() * colours.length);
-
-        return colours[colourIndex];
-    }
 }

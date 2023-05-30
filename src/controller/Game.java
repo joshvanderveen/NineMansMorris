@@ -197,6 +197,7 @@ public class Game implements PieceListener {
         setNextPlayer();
     }
 
+    //TODO: Fix for more than 2 players
     /**
      * Sets the currentPlayer to the next one
      *
@@ -205,6 +206,7 @@ public class Game implements PieceListener {
     public void setNextPlayer() {
         // Set current player to other player since there's only ever 2 players
         currentPlayer = players.get(1 - players.indexOf(currentPlayer));
+
         gui.setCurrentPlayer(currentPlayer);
     }
 

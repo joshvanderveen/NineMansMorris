@@ -1,0 +1,98 @@
+[
+  {
+    "sourceIntersection": 9,
+    "destinationIntersection": 0
+  },
+  {
+    "sourceIntersection": 4,
+    "destinationIntersection": 1
+  },
+  {
+    "sourceIntersection": 14,
+    "destinationIntersection": 2
+  },
+  {
+    "sourceIntersection": 10,
+    "destinationIntersection": 3
+  },
+  {
+    "sourceIntersection": 7,
+    "destinationIntersection": 4
+  },
+  {
+    "sourceIntersection": 13,
+    "destinationIntersection": 5
+  },
+  {
+    "sourceIntersection": 11,
+    "destinationIntersection": 6
+  },
+  {
+    "sourceIntersection": 8,
+    "destinationIntersection": 7
+  },
+  {
+    "sourceIntersection": 12,
+    "destinationIntersection": 8
+  },
+  {
+    "sourceIntersection": 21,
+    "destinationIntersection": 9
+  },
+  {
+    "sourceIntersection": 18,
+    "destinationIntersection": 10
+  },
+  {
+    "sourceIntersection": 15,
+    "destinationIntersection": 11
+  },
+  {
+    "sourceIntersection": 17,
+    "destinationIntersection": 12
+  },
+  {
+    "sourceIntersection": 20,
+    "destinationIntersection": 13
+  },
+  {
+    "sourceIntersection": 23,
+    "destinationIntersection": 14
+  },
+  {
+    "sourceIntersection": 16,
+    "destinationIntersection": 15
+  },
+  {
+    "sourceIntersection": 19,
+    "destinationIntersection": 16
+  },
+  {
+    "sourceIntersection": 17,
+    "destinationIntersection": 16
+  },
+  {
+    "sourceIntersection": 19,
+    "destinationIntersection": 18
+  },
+  {
+    "sourceIntersection": 22,
+    "destinationIntersection": 19
+  },
+  {
+    "sourceIntersection": 20,
+    "destinationIntersection": 19
+  },
+  {
+    "sourceIntersection": 22,
+    "destinationIntersection": 21
+  },
+  {
+    "sourceIntersection": 23,
+    "destinationIntersection": 22
+  },
+  {
+    "sourceIntersection": 23,
+    "destinationIntersection": 22
+  }
+]

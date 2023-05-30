@@ -8,7 +8,7 @@ public class Intersection {
 
     private int id;
     private Coordinate coordinate;
-    private Piece piece;
+    private transient Piece piece;
 
     private ArrayList<Path> paths = new ArrayList<>();
 
