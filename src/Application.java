@@ -4,6 +4,7 @@ import model.board.*;
 import controller.Game;
 import view.UIConfigurations;
 import view.UIMainGui;
+import view.boardmaker.UIBoardMaker;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,46 +28,48 @@ public class Application {
         // Initialise game variables
         initialiseVariables();
 
-        String gameBoardName = UIConfigurations.chooseGameBoard();
-
-        ArrayList<String> playerNames = UIConfigurations.choosePlayerNames();
-        Integer millLength = UIConfigurations.chooseMillLength();
-
-        ArrayList<Color> colours = new ArrayList<>();
-
-        colours.add(new Color(135, 186, 171));
-        colours.add(new Color(90, 210, 244));
-        colours.add(new Color(255, 188, 66));
-        colours.add(new Color(157, 121, 188));
-        colours.add(new Color(247, 175, 157));
-        colours.add(new Color(162, 74, 74));
-        colours.add(new Color(130, 203, 105));
-
-        for (int i = 0; i < playerNames.size(); i++) {
-            players.add(new Player(playerNames.get(i), colours.get(i)));
-        }
-
-        // Model
-        GameBoard gameBoard = initialiseGameboard(gameBoardName);
-
-        gameBoard.setMillLength(millLength);
-
-
-
-        // Examples of how to read and write intersections and relationships
-
-//        FileReadAndWrite.writeIntersectionsToFile("src\\boards\\GAMEBOARD_1\\intersections.json", intersections);
-
-//        FileReadAndWrite.writeRelationshipsToFile("src\\boards\\GAMEBOARD_1\\paths.json", intersections);
-
-//        ArrayList<Intersection> intersectionsFromFile = FileReadAndWrite.readIntersectionsFromFile("src\\boards\\GAMEBOARD_1\\intersections.json");
-
-//        HashMap[] relationshipsFromFile = FileReadAndWrite.readRelationshipsFromFile("src\\boards\\GAMEBOARD_1\\paths.json");
-
-        // View
-        UIMainGui gui = new UIMainGui();
-        // Controller
-        new Game(gameBoard, gui, players);
+        UIConfigurations.createBoard();
+//
+//        String gameBoardName = UIConfigurations.chooseGameBoard();
+//
+//        ArrayList<String> playerNames = UIConfigurations.choosePlayerNames();
+//        Integer millLength = UIConfigurations.chooseMillLength();
+//
+//        ArrayList<Color> colours = new ArrayList<>();
+//
+//        colours.add(new Color(135, 186, 171));
+//        colours.add(new Color(90, 210, 244));
+//        colours.add(new Color(255, 188, 66));
+//        colours.add(new Color(157, 121, 188));
+//        colours.add(new Color(247, 175, 157));
+//        colours.add(new Color(162, 74, 74));
+//        colours.add(new Color(130, 203, 105));
+//
+//        for (int i = 0; i < playerNames.size(); i++) {
+//            players.add(new Player(playerNames.get(i), colours.get(i)));
+//        }
+//
+//        // Model
+//        GameBoard gameBoard = initialiseGameboard(gameBoardName);
+//
+//        gameBoard.setMillLength(millLength);
+//
+//
+//
+//        // Examples of how to read and write intersections and relationships
+//
+////        FileReadAndWrite.writeIntersectionsToFile("src\\boards\\GAMEBOARD_1\\intersections.json", intersections);
+//
+////        FileReadAndWrite.writeRelationshipsToFile("src\\boards\\GAMEBOARD_1\\paths.json", intersections);
+//
+////        ArrayList<Intersection> intersectionsFromFile = FileReadAndWrite.readIntersectionsFromFile("src\\boards\\GAMEBOARD_1\\intersections.json");
+//
+////        HashMap[] relationshipsFromFile = FileReadAndWrite.readRelationshipsFromFile("src\\boards\\GAMEBOARD_1\\paths.json");
+//
+//        // View
+//        UIMainGui gui = new UIMainGui();
+//        // Controller
+//        new Game(gameBoard, gui, players);
     }
 
     /**

@@ -2,6 +2,8 @@ package view;
 
 import com.sun.tools.javac.Main;
 import model.board.GameBoardConfig;
+import model.board.Intersection;
+import view.boardmaker.UIBoardMaker;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +18,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class UIConfigurations {
+
+    public static ArrayList<Intersection> createBoard() {
+        ArrayList<Intersection> intersections = new ArrayList<>();
+
+        UIBoardMaker boardMaker = new UIBoardMaker();
+
+        int result = JOptionPane.showConfirmDialog(null, boardMaker, "GameBoard Creator", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            return intersections;
+        } else {
+            System.exit(0);
+            return null;
+        }
+    }
     public static String chooseGameBoard() {
         File[] gameboardDirectories = new File("src\\boards").listFiles(File::isDirectory);
 

@@ -72,7 +72,7 @@ public final class FileReadAndWrite {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
 
-            HashMap[] relationships = gson.fromJson(bufferedReader, HashMap[].class);
+            HashMap<String, Integer>[] relationships = gson.fromJson(bufferedReader, HashMap[].class);
 
             return relationships;
 
