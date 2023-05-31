@@ -1,6 +1,8 @@
 package model.board;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -91,6 +93,10 @@ public class Intersection {
      */
     public void removePiece() {
         this.piece = null;
+    }
+
+    public void removePathTo(Intersection otherIntersection) {
+        paths.removeIf(path -> path.getOtherIntersection(this) == otherIntersection);
     }
 
     /**

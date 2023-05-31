@@ -2,6 +2,7 @@ package view.boardmaker;
 
 import model.board.Coordinate;
 import model.board.Intersection;
+import model.board.Path;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,9 +20,11 @@ public class UIBoardMaker extends JPanel {
     private ArrayList<Intersection> intersections;
     private JComboBox<ArrayList<String>> actions;
 
-    public UIBoardMaker() {
-        this.setPreferredSize(new Dimension(1500, 1000));
-        this.intersections = new ArrayList<>();
+    private Intersection firstIntersectionForLine = null;
+
+    public UIBoardMaker(ArrayList<Intersection> intersections) {
+        this.setPreferredSize(new Dimension(1000, 1000));
+        this.intersections = intersections;
 
         actions = new JComboBox(BoardMakerClickAction.values());
 
@@ -31,6 +34,7 @@ public class UIBoardMaker extends JPanel {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (actions.getSelectedItem() == null) return;
+                if (actions.getSelectedItem() != BoardMakerClickAction.DRAW_LINE) firstIntersectionForLine = null;
 
                 switch ((BoardMakerClickAction) actions.getSelectedItem()) {
                     case DRAW_INTERSECTION -> handleDrawIntersectionClick(e);
@@ -46,6 +50,7 @@ public class UIBoardMaker extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawGrid(g);
+        drawLines(g);
         drawIntersections(g);
     }
 
@@ -62,7 +67,32 @@ public class UIBoardMaker extends JPanel {
     public void drawIntersections(Graphics graphics) {
         graphics.setColor(Color.BLACK);
         for (Intersection intersection : intersections) {
+            if (intersection == firstIntersectionForLine) {
+                graphics.setColor(Color.RED);
+            } else {
+                graphics.setColor(Color.BLACK);
+            }
             graphics.fillOval(intersection.getXCoordinate() * GRID_GAP_SIZE - (NODE_SIZE / 2) + X_OFFSET, intersection.getYCoordinate() * GRID_GAP_SIZE - (NODE_SIZE / 2) + Y_OFFSET, NODE_SIZE, NODE_SIZE);
+        }
+    }
+
+    public void drawLines(Graphics graphics) {
+
+        Graphics2D graphics2d = (Graphics2D) graphics;
+
+
+        graphics2d.setStroke(new BasicStroke(5));
+        graphics2d.setColor(Color.BLACK);
+
+        for (Intersection intersection : intersections) {
+            for (Path path : intersection.getPaths()) {
+                int x1 = path.getSourceIntersection().getXCoordinate();
+                int x2 = path.getDestinationIntersection().getXCoordinate();
+                int y1 = path.getSourceIntersection().getYCoordinate();
+                int y2 = path.getDestinationIntersection().getYCoordinate();
+
+                graphics2d.drawLine(x1 * GRID_GAP_SIZE + X_OFFSET, y1 * GRID_GAP_SIZE + Y_OFFSET, x2 * GRID_GAP_SIZE + X_OFFSET, y2 * GRID_GAP_SIZE + Y_OFFSET);
+            }
         }
     }
 
@@ -89,7 +119,30 @@ public class UIBoardMaker extends JPanel {
     }
 
     public void handleDrawLineClick(MouseEvent e) {
-        return;
+        Coordinate clickCoordinate = getClosestCoordinate(e);
+        if (clickCoordinate == null) return;
+
+        if (firstIntersectionForLine == null) {
+            Intersection intersection = getClosestIntersection(clickCoordinate);
+            if (intersection != null) {
+                firstIntersectionForLine = intersection;
+            }
+            repaint();
+            return;
+        }
+
+        Intersection intersection = getClosestIntersection(clickCoordinate);
+
+        if (intersection == null) {
+            firstIntersectionForLine = null;
+            return;
+        }
+
+        intersection.addPath(new Path(firstIntersectionForLine, intersection));
+
+        firstIntersectionForLine = null;
+
+        repaint();
     }
 
     public void handleEraseIntersectionClick(MouseEvent e) {
@@ -97,9 +150,30 @@ public class UIBoardMaker extends JPanel {
 
         if (clickCoordinate == null) return;
 
-        intersections.removeIf(intersection -> intersection.getCoordinate().compareCoordinate(clickCoordinate));
+        Intersection intersectionToRemove = null;
+
+        for (Intersection intersection : intersections) {
+            if (intersection.getCoordinate().compareCoordinate(clickCoordinate)) {
+                intersectionToRemove = intersection;
+            }
+        }
+
+        for (Intersection intersection : intersections) {
+            intersection.removePathTo(intersectionToRemove);
+        }
+
+        intersections.remove(intersectionToRemove);
 
         repaint();
+    }
+
+    public Intersection getClosestIntersection(Coordinate coordinate) {
+        for (Intersection intersection : intersections) {
+            if (intersection.getCoordinate().compareCoordinate(coordinate)) {
+                return intersection;
+            }
+        }
+        return null;
     }
 
     public Coordinate getClosestCoordinate(MouseEvent e) {

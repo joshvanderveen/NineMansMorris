@@ -28,7 +28,7 @@ public class Application {
         // Initialise game variables
         initialiseVariables();
 
-        UIConfigurations.createBoard();
+//        System.out.println(UIConfigurations.createBoard());
 //
 //        String gameBoardName = UIConfigurations.chooseGameBoard();
 //

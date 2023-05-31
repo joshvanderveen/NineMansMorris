@@ -22,7 +22,7 @@ public class UIConfigurations {
     public static ArrayList<Intersection> createBoard() {
         ArrayList<Intersection> intersections = new ArrayList<>();
 
-        UIBoardMaker boardMaker = new UIBoardMaker();
+        UIBoardMaker boardMaker = new UIBoardMaker(intersections);
 
         int result = JOptionPane.showConfirmDialog(null, boardMaker, "GameBoard Creator", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -33,6 +33,7 @@ public class UIConfigurations {
             return null;
         }
     }
+
     public static String chooseGameBoard() {
         File[] gameboardDirectories = new File("src\\boards").listFiles(File::isDirectory);
 
