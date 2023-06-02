@@ -1,25 +1,20 @@
 package view;
 
-import com.sun.tools.javac.Main;
-import model.board.GameBoardConfig;
 import model.board.Intersection;
 import model.serialization.FileReadAndWrite;
 import view.boardmaker.UIBoardMaker;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.lang.reflect.Array;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Objects;
 
 public class UIConfigurations {
-    private static ArrayList<Intersection> newBoard;
 
-    public static ArrayList<Intersection> createBoard() {
+    private static String selectedBoard;
+
+    public static String createBoard() {
         ArrayList<Intersection> intersections = new ArrayList<>();
 
         UIBoardMaker boardMaker = new UIBoardMaker(intersections);
@@ -31,29 +26,51 @@ public class UIConfigurations {
 
         int result = JOptionPane.showConfirmDialog(null, boardMaker, "GameBoard Creator", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        // check that boardName is not empty
-        if (boardName.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Please enter a file name.");
-        } else {
-            // check that boardName is not already taken
-            File[] gameboardDirectories = new File("src/boards").listFiles(File::isDirectory);
-            for (File file : gameboardDirectories) {
-                if (file.getName().equals(boardName.getText())) {
-                    JOptionPane.showMessageDialog(null, "File name already taken.");
-                    return null;
-                }
-            }
-        }
         // convert boardName to a file name friendly string
         String boardNameString = boardName.getText().replaceAll("[^a-zA-Z0-9]", "");
         System.out.println(boardNameString);
         if (result == JOptionPane.OK_OPTION) {
+            // check that boardName is not empty
+            if (boardName.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Please enter a file name.");
+                return null;
+            } else {
+                // check that boardName is not already taken
+                File[] gameboardDirectories = new File("src/boards").listFiles(File::isDirectory);
+                for (File file : gameboardDirectories) {
+                    if (file.getName().equals(boardName.getText())) {
+                        JOptionPane.showMessageDialog(null, "File name already taken.");
+                        return null;
+                    }
+                }
+            }
+            // get os name
+            String os = System.getProperty("os.name").toLowerCase();
+
+            // Use forward slash for macOS and Linux
+            String filePath;
+            String fileSeparator;
+            if (os.contains("mac") || os.contains("nix") || os.contains("nux")) {
+                filePath = "src/boards/";
+                fileSeparator = "/";
+            }
+            // Use backslash for Windows
+            else if (os.contains("win")) {
+                filePath = "src\\boards\\";
+                fileSeparator = "\\";
+            }
+            else {
+                // Default to forward slash
+                filePath = "src/boards/";
+                fileSeparator = "/";
+            }
+
             // write intersections and relationships to file
-            FileReadAndWrite.writeIntersectionsToFile("src/boards/" + boardNameString + "/intersections.json", intersections);
-            FileReadAndWrite.writeRelationshipsToFile("src/boards/" + boardNameString + "/paths.json", intersections);
-            return intersections;
+            FileReadAndWrite.writeIntersectionsToFile(filePath + boardNameString + fileSeparator + "intersections.json", intersections);
+            FileReadAndWrite.writeRelationshipsToFile(filePath + boardNameString + fileSeparator + "paths.json", intersections);
+//            return intersections;
+            return boardNameString;
         } else {
-            System.exit(0);
             return null;
         }
     }
@@ -91,30 +108,32 @@ public class UIConfigurations {
             gameboards.add(file.getName());
         }
 
-        JComboBox<ArrayList<String>> gameConfigOptions = new JComboBox(gameboards.toArray());
-        JLabel gameConfigOptionsLabel = new JLabel("Choose a gameboard:");
-        panel.add(gameConfigOptionsLabel);
-        panel.add(gameConfigOptions);
+        JComboBox<ArrayList<String>> gameBoardOptions = new JComboBox(gameboards.toArray());
+        JLabel gameBoardOptionsLabel = new JLabel("Choose a gameboard:");
+        panel.add(gameBoardOptionsLabel);
+        panel.add(gameBoardOptions);
 
         gameOptions.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (gameOptions.getSelectedItem().equals("Create New Gameboard")) {
-                    gameConfigOptions.setVisible(false);
-                    gameConfigOptionsLabel.setVisible(false);
-                    newBoard = UIConfigurations.createBoard();
-//                    System.out.println(newBoard);
+                if (gameOptions.getSelectedItem().equals(options[1])) {
+                    gameBoardOptions.setVisible(false);
+                    gameBoardOptionsLabel.setVisible(false);
+                    selectedBoard = UIConfigurations.createBoard();
+
                 } else {
-                    gameConfigOptions.setVisible(true);
-                    gameConfigOptionsLabel.setVisible(true);
+                    gameBoardOptions.setVisible(true);
+                    gameBoardOptionsLabel.setVisible(true);
                 }
             }
         });
+        // TODO: Update the dropdown list to add selectedBoard
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Game Configuration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (result == JOptionPane.OK_OPTION) {
-            return (String) gameConfigOptions.getSelectedItem();
+            if (selectedBoard != null) return selectedBoard;
+            return (String) gameBoardOptions.getSelectedItem();
         } else {
             System.exit(0);
             return null;
