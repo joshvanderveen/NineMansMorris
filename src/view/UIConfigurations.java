@@ -35,7 +35,24 @@ public class UIConfigurations {
     }
 
     public static String chooseGameBoard() {
-        File[] gameboardDirectories = new File("src\\boards").listFiles(File::isDirectory);
+        // get os name
+        String os = System.getProperty("os.name").toLowerCase();
+
+        // Use forward slash for macOS and Linux
+        String filePath;
+        if (os.contains("mac") || os.contains("nix") || os.contains("nux")) {
+            filePath = "src/boards";
+        }
+        // Use backslash for Windows
+        else if (os.contains("win")) {
+            filePath = "src\\boards";
+        }
+        else {
+            // Default to forward slash
+            filePath = "src/boards";
+        }
+
+        File[] gameboardDirectories = new File(filePath).listFiles(File::isDirectory);
 
         ArrayList<String> gameboards = new ArrayList<>();
 
