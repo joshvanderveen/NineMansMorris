@@ -26,8 +26,15 @@ public final class FileReadAndWrite {
                 .setPrettyPrinting()
                 .create();
 
+        // Create new directory if it doesn't exist
+        File file = new File(filename);
+        File parentDirectory = file.getParentFile();
+        if (parentDirectory != null && !parentDirectory.exists()) {
+            parentDirectory.mkdirs();
+        }
+
         try {
-            FileWriter writer = new FileWriter(filename);
+            FileWriter writer = new FileWriter(file);
             writer.write(gson.toJson(intersections));
             writer.close();
         } catch (Exception e) {
@@ -45,6 +52,13 @@ public final class FileReadAndWrite {
                 .registerTypeAdapter(Intersection.class, new RelationshipsSerializer())
                 .setPrettyPrinting()
                 .create();
+
+        // Create new directory if it doesn't exist
+        File file = new File(filename);
+        File parentDirectory = file.getParentFile();
+        if (parentDirectory != null && !parentDirectory.exists()) {
+            parentDirectory.mkdirs();
+        }
 
         try {
             FileWriter writer = new FileWriter(filename);
