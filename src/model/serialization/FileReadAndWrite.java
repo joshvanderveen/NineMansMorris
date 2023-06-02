@@ -15,6 +15,11 @@ import java.util.List;
 
 public final class FileReadAndWrite {
 
+    /**
+     * Write the intersections that make up a gameboard to a file
+     * @param filename the name of the file to write to
+     * @param intersections the intersections being written to the file
+     */
     public static void writeIntersectionsToFile(String filename, List<Intersection> intersections) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Intersection.class, new IntersectionSerializer())
@@ -30,6 +35,11 @@ public final class FileReadAndWrite {
         }
     }
 
+    /**
+     * Write the relationships that make up a gameboard to a file
+     * @param filename the name of the file to write to
+     * @param intersections the intersections with the relationships that are being written to the file
+     */
     public static void writeRelationshipsToFile(String filename, List<Intersection> intersections) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Intersection.class, new RelationshipsSerializer())
@@ -45,6 +55,11 @@ public final class FileReadAndWrite {
         }
     }
 
+    /**
+     * Read the intersections stored in the specified file
+     * @param filename the name of the file to read from
+     * @return An ArrayList of intersections that were read from the file
+     */
     public static ArrayList<Intersection> readIntersectionsFromFile(String filename) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Intersection.class, new IntersectionDeserializer())
@@ -64,6 +79,16 @@ public final class FileReadAndWrite {
         }
     }
 
+    /**
+     * Read the relationships stored in the specified file.
+     *
+     * The hashmap values
+     * - Key - either sourceIntersection or destinationIntersection
+     * - Value - the id of the intersection the relationship is with
+     *
+     * @param filename the name of the file to read from
+     * @return An array of hashmaps that represent the relationships that were read from the file
+     */
     public static HashMap<String, Integer>[] readRelationshipsFromFile(String filename) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(HashMap.class, new RelationshipDeserializer())
