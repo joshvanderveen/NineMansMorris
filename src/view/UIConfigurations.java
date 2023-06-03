@@ -80,22 +80,14 @@ public class UIConfigurations {
         String os = System.getProperty("os.name").toLowerCase();
 
         // Use forward slash for macOS and Linux
-        String filePath;
-        if (os.contains("mac") || os.contains("nix") || os.contains("nux")) {
-            filePath = "src/boards";
-        }
-        // Use backslash for Windows
-        else if (os.contains("win")) {
-            filePath = "src\\boards";
-        }
-        else {
-            // Default to forward slash
-            filePath = "src/boards";
-        }
+        String filePath = os.contains("win") ? "src\\boards" : "src/boards";
 
         // options when opening game
-        String[] options = new String[] {"Choose Existing Gameboard", "Create New Gameboard"};
-        JComboBox<String> gameOptions = new JComboBox<>(options);
+        UIOpenGameboardOptions[] options = {UIOpenGameboardOptions.EXISTING_BOARD, UIOpenGameboardOptions.NEW_BOARD};
+
+        JComboBox<UIOpenGameboardOptions> gameOptions = new JComboBox<>(options);
+
+
         JPanel panel = new JPanel();
         panel.add(new JLabel("Choose an option:"));
         panel.add(gameOptions);
@@ -113,15 +105,15 @@ public class UIConfigurations {
         panel.add(gameBoardOptionsLabel);
         panel.add(gameBoardOptions);
 
-        gameOptions.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (gameOptions.getSelectedItem().equals(options[1])) {
+        gameOptions.addActionListener(e -> {
+            switch ((UIOpenGameboardOptions) Objects.requireNonNull(gameOptions.getSelectedItem())) {
+                case NEW_BOARD -> {
                     gameBoardOptions.setVisible(false);
                     gameBoardOptionsLabel.setVisible(false);
                     selectedBoard = UIConfigurations.createBoard();
+                }
 
-                } else {
+                case EXISTING_BOARD -> {
                     gameBoardOptions.setVisible(true);
                     gameBoardOptionsLabel.setVisible(true);
                 }
