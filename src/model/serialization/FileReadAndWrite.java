@@ -2,12 +2,9 @@ package model.serialization;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.TypeAdapter;
-import model.board.GameBoard;
 import model.board.Intersection;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -119,4 +116,47 @@ public final class FileReadAndWrite {
             throw new RuntimeException(e);
         }
     }
+
+
+    public static boolean deleteBoard(String directoryName) {
+        File directory = new File(directoryName);
+
+        if (directory.exists() && directory.isDirectory()) {
+            try {
+                File[] files = directory.listFiles();
+
+                if (files != null) {
+                    for (File file : files) {
+                        if (file.isDirectory()) {
+                            // Recursive call to delete subdirectories
+                            deleteBoard(file.getAbsolutePath());
+                        } else {
+                            if (file.delete()) {
+                                System.out.println("File deleted successfully: " + file.getAbsolutePath());
+                            } else {
+                                System.out.println("Failed to delete the file: " + file.getAbsolutePath());
+                            }
+                        }
+                    }
+                }
+
+                if (directory.delete()) {
+                    System.out.println("Directory deleted successfully: " + directory.getAbsolutePath());
+                    return true;
+                } else {
+                    System.out.println("Failed to delete the directory: " + directory.getAbsolutePath());
+                    return false;
+                }
+            } catch (SecurityException e) {
+                System.out.println("Permission denied while deleting the directory: " + directory.getAbsolutePath());
+                e.printStackTrace();
+                return false;
+            }
+        } else {
+            System.out.println("Directory does not exist: " + directory.getAbsolutePath());
+            return false;
+        }
+    }
+
+
 }

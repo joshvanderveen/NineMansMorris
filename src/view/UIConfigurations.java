@@ -13,6 +13,8 @@ import java.util.Objects;
 public class UIConfigurations {
 
     private static String selectedBoard;
+    private static JComboBox<ArrayList<String>> gameBoardOptions;
+    private static ArrayList<String> gameboards = new ArrayList<>();
 
     public static String createBoard() {
         ArrayList<Intersection> intersections = new ArrayList<>();
@@ -28,7 +30,6 @@ public class UIConfigurations {
 
         // convert boardName to a file name friendly string
         String boardNameString = boardName.getText().replaceAll("[^a-zA-Z0-9]", "");
-        System.out.println(boardNameString);
         if (result == JOptionPane.OK_OPTION) {
             // check that boardName is not empty
             if (boardName.getText().equals("")) {
@@ -68,7 +69,6 @@ public class UIConfigurations {
             // write intersections and relationships to file
             FileReadAndWrite.writeIntersectionsToFile(filePath + boardNameString + fileSeparator + "intersections.json", intersections);
             FileReadAndWrite.writeRelationshipsToFile(filePath + boardNameString + fileSeparator + "paths.json", intersections);
-//            return intersections;
             return boardNameString;
         } else {
             return null;
@@ -94,13 +94,13 @@ public class UIConfigurations {
 
         File[] gameboardDirectories = new File(filePath).listFiles(File::isDirectory);
 
-        ArrayList<String> gameboards = new ArrayList<>();
+        gameboards = new ArrayList<>();
 
         for (File file : gameboardDirectories) {
             gameboards.add(file.getName());
         }
 
-        JComboBox<ArrayList<String>> gameBoardOptions = new JComboBox(gameboards.toArray());
+        gameBoardOptions = new JComboBox(gameboards.toArray());
         JLabel gameBoardOptionsLabel = new JLabel("Choose a gameboard:");
         panel.add(gameBoardOptionsLabel);
         panel.add(gameBoardOptions);
@@ -111,6 +111,14 @@ public class UIConfigurations {
                     gameBoardOptions.setVisible(false);
                     gameBoardOptionsLabel.setVisible(false);
                     selectedBoard = UIConfigurations.createBoard();
+
+                    // after board is created we want to show the dropdown again and reload the items in the dropdown
+                    reloadBoards(filePath, panel);
+                    gameOptions.setSelectedItem(UIOpenGameboardOptions.EXISTING_BOARD);
+                    gameBoardOptions.setVisible(true);
+                    gameBoardOptionsLabel.setVisible(true);
+                    // get the index of the newly created board and set it as the selected item
+                    gameBoardOptions.setSelectedIndex(gameboards.indexOf(selectedBoard));
                 }
 
                 case EXISTING_BOARD -> {
@@ -119,7 +127,6 @@ public class UIConfigurations {
                 }
             }
         });
-        // TODO: Update the dropdown list to add selectedBoard
 
         int result = JOptionPane.showConfirmDialog(null, panel, "Game Configuration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
@@ -130,6 +137,21 @@ public class UIConfigurations {
             System.exit(0);
             return null;
         }
+    }
+
+    private static void reloadBoards(String filePath, JPanel panel) {
+        File[] gameboardDirectories = new File(filePath).listFiles(File::isDirectory);
+
+        gameboards = new ArrayList<>();
+
+        for (File file : gameboardDirectories) {
+            gameboards.add(file.getName());
+        }
+
+        // load in new board
+        gameBoardOptions = new JComboBox(gameboards.toArray());
+        panel.add(gameBoardOptions);
+        panel.repaint();
     }
 
     public static ArrayList<String> choosePlayerNames() {
