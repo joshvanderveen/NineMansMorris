@@ -81,9 +81,10 @@ public class UIConfigurations {
 
         // Use forward slash for macOS and Linux
         String filePath = os.contains("win") ? "src\\boards" : "src/boards";
+        String fileSeparator = os.contains("win") ? "\\" : "/";
 
         // options when opening game
-        UIOpenGameboardOptions[] options = {UIOpenGameboardOptions.EXISTING_BOARD, UIOpenGameboardOptions.NEW_BOARD};
+        UIOpenGameboardOptions[] options = {UIOpenGameboardOptions.EXISTING_BOARD, UIOpenGameboardOptions.NEW_BOARD, UIOpenGameboardOptions.DELETE_BOARD};
 
         JComboBox<UIOpenGameboardOptions> gameOptions = new JComboBox<>(options);
 
@@ -105,6 +106,7 @@ public class UIConfigurations {
         panel.add(gameBoardOptionsLabel);
         panel.add(gameBoardOptions);
 
+
         gameOptions.addActionListener(e -> {
             switch ((UIOpenGameboardOptions) Objects.requireNonNull(gameOptions.getSelectedItem())) {
                 case NEW_BOARD -> {
@@ -122,6 +124,24 @@ public class UIConfigurations {
                 }
 
                 case EXISTING_BOARD -> {
+                    gameBoardOptions.setVisible(true);
+                    gameBoardOptionsLabel.setVisible(true);
+                }
+
+                case DELETE_BOARD -> {
+                    gameBoardOptions.setVisible(false);
+                    gameBoardOptionsLabel.setVisible(false);
+
+                    String boardToDelete = (String) gameBoardOptions.getSelectedItem();
+                    String fileToDelete = filePath + fileSeparator + boardToDelete;
+                    // show confirmation popup
+                    int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + boardToDelete + "?", "Delete Board", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    // check result and delete if yes
+                    if (result == JOptionPane.YES_OPTION)
+                        FileReadAndWrite.deleteBoard(fileToDelete);
+                    // reload boards
+                    reloadBoards(filePath, panel);
+                    gameOptions.setSelectedItem(UIOpenGameboardOptions.EXISTING_BOARD);
                     gameBoardOptions.setVisible(true);
                     gameBoardOptionsLabel.setVisible(true);
                 }

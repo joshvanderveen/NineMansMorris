@@ -2,7 +2,8 @@ package view;
 
 public enum UIOpenGameboardOptions {
     EXISTING_BOARD("Open Existing Board"),
-    NEW_BOARD("Create New Board");
+    NEW_BOARD("Create New Board"),
+    DELETE_BOARD("Delete Existing Board");
 
     private final String name;
 
