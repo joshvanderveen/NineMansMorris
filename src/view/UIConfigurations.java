@@ -5,6 +5,7 @@ import model.serialization.FileReadAndWrite;
 import view.boardmaker.UIBoardMaker;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -165,16 +166,18 @@ public class UIConfigurations {
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new JLabel("Enter player names:"));
+
+        JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        labelPanel.add(new JLabel("Enter player names:"));
+        panel.add(labelPanel);
 
         JTextField textField = new JTextField(10);
         panel.add(textField);
 
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        JList<String> scrollPaneList = new JList<>(listModel);
+
         JButton addButton = new JButton("Add");
-        
-        DefaultListModel listModel = new DefaultListModel();
-
-
         addButton.addActionListener(e -> {
             String name = textField.getText();
             if (name.length() > 0) {
@@ -185,12 +188,20 @@ public class UIConfigurations {
             }
         });
 
-        JPanel inputPanel = new JPanel();
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(e -> {
+            int selectedIndex = scrollPaneList.getSelectedIndex();
+            if (selectedIndex != -1) {
+                playerNames.remove(selectedIndex);
+                listModel.remove(selectedIndex);
+            }
+        });
+
+        JPanel inputPanel = new JPanel(new FlowLayout());
         inputPanel.add(textField);
         inputPanel.add(addButton);
+        inputPanel.add(deleteButton);
         panel.add(inputPanel);
-
-        JList scrollPaneList = new JList<>(listModel);
 
         panel.add(new JScrollPane(scrollPaneList));
 
@@ -200,11 +211,11 @@ public class UIConfigurations {
             int result = JOptionPane.showConfirmDialog(null, panel, "Game Configuration",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-            if (playerNames.size() < 2) JOptionPane.showMessageDialog(null, "Please enter at least two player names.");
-
             if (result != JOptionPane.OK_OPTION) {
                 System.exit(0);
             }
+
+            if (playerNames.size() < 2) JOptionPane.showMessageDialog(null, "Please enter at least two player names.");
         }
 
         return playerNames;
