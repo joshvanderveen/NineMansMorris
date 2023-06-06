@@ -1,7 +1,6 @@
 package model.serialization;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.*;
 import model.board.Intersection;
 
 import java.io.*;
@@ -59,12 +58,44 @@ public final class FileReadAndWrite {
 
         try {
             FileWriter writer = new FileWriter(filename);
-            writer.write(gson.toJson(intersections));
+            String result = gson.toJson(intersections);
+            result = flattenJsonArray(result);
+            System.out.println(result);
+            writer.write(result);
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public static String flattenJsonArray(String jsonArrayString) {
+        // Parse the JSON string into a JsonArray
+        JsonArray jsonArray = JsonParser.parseString(jsonArrayString).getAsJsonArray();
+
+        // Create a new JsonArray to store the flattened objects
+        JsonArray flattenedArray = new JsonArray();
+
+        // Iterate over the elements in the input JsonArray
+        for (JsonElement element : jsonArray) {
+            // Check if the element is an array
+            if (element.isJsonArray()) {
+                // If it is an array, iterate over its elements and add them to the flattened array
+                JsonArray subArray = element.getAsJsonArray();
+                for (JsonElement subElement : subArray) {
+                    flattenedArray.add(subElement);
+                }
+            } else {
+                // If it is not an array, add the element directly to the flattened array
+                flattenedArray.add(element);
+            }
+        }
+
+        // Convert the flattened JsonArray back to a JSON string
+        Gson gson = new Gson();
+        return gson.toJson(flattenedArray);
+    }
+
+
 
     /**
      * Read the intersections stored in the specified file

@@ -1,9 +1,6 @@
 package model.serialization;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
+import com.google.gson.*;
 import model.board.Intersection;
 import model.board.Path;
 
@@ -12,13 +9,17 @@ import java.lang.reflect.Type;
 public class RelationshipsSerializer implements JsonSerializer<Intersection> {
     @Override
     public JsonElement serialize(Intersection intersection, Type type, JsonSerializationContext jsonSerializationContext) {
-        JsonObject mainObject = new JsonObject();
+        JsonArray pathsArray = new JsonArray();
 
         for (Path path : intersection.getPaths()) {
-            mainObject.addProperty("sourceIntersection", path.getSourceIntersection().getId());
-            mainObject.addProperty("destinationIntersection", path.getDestinationIntersection().getId());
+            // we need to create a new object since an intersection with multiple paths will override the previous property.
+            // this was painful to debug and find :/
+            JsonObject pathObject = new JsonObject();
+            pathObject.addProperty("sourceIntersection", path.getSourceIntersection().getId());
+            pathObject.addProperty("destinationIntersection", path.getDestinationIntersection().getId());
+            pathsArray.add(pathObject);
         }
 
-        return mainObject;
+        return pathsArray;
     }
 }
