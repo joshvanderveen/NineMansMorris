@@ -176,13 +176,12 @@ public class UIConfigurations {
 
     public static ArrayList<String> choosePlayerNames() {
         ArrayList<String> playerNames = new ArrayList<>();
-        
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(new JLabel("Enter player names:"));
 
         JTextField textField = new JTextField(10);
-
         panel.add(textField);
 
         JButton addButton = new JButton("Add");
@@ -203,7 +202,6 @@ public class UIConfigurations {
         JPanel inputPanel = new JPanel();
         inputPanel.add(textField);
         inputPanel.add(addButton);
-
         panel.add(inputPanel);
 
         JList scrollPaneList = new JList<>(listModel);
@@ -212,14 +210,18 @@ public class UIConfigurations {
 
         panel.setVisible(true);
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Game Configuration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        while (playerNames.size() < 2) {
+            int result = JOptionPane.showConfirmDialog(null, panel, "Game Configuration",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        if (result == JOptionPane.OK_OPTION) {
-            return playerNames;
-        } else {
-            System.exit(0);
-            return null;
+            if (playerNames.size() < 2) JOptionPane.showMessageDialog(null, "Please enter at least two player names.");
+
+            if (result != JOptionPane.OK_OPTION) {
+                System.exit(0);
+            }
         }
+
+        return playerNames;
     }
 
     public static Integer chooseMillLength() {
