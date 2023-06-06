@@ -250,4 +250,34 @@ public class UIConfigurations {
 
         return null;
     }
+
+    public static Integer chooseNumberOfPieces() {
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Choose a number of pieces:"));
+
+        String response;
+        do {
+            response = (String) JOptionPane.showInputDialog(null, panel, "Choose a number of pieces", JOptionPane.OK_CANCEL_OPTION, null, null, "9");
+
+            if (response == null) {
+                System.exit(0);
+                return null;
+            }
+
+            try {
+                int numberOfPieces = Integer.parseInt(response);
+                if (numberOfPieces <= 0) {
+                    JOptionPane.showMessageDialog(null, "Number of pieces must be greater than 0.");
+                    response = null;
+                } else {
+                    return numberOfPieces;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number of pieces.");
+                response = null;
+            }
+        } while (response == null);
+
+        return null;
+    }
 }

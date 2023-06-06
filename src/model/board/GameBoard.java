@@ -9,6 +9,7 @@ import java.util.List;
 
 public class GameBoard {
 
+    private Integer NUMBER_OF_PIECES = 9;
     private Integer MILL_LENGTH = 3;
     protected ArrayList<Intersection> intersections = new ArrayList<>();
     protected ArrayList<Piece> unplacedPieces = new ArrayList<>();
@@ -354,5 +355,13 @@ public class GameBoard {
 
     public void setMillLength(int length) {
         MILL_LENGTH = length;
+    }
+
+    public void setNumberOfPieces(int numberOfPieces) {
+        NUMBER_OF_PIECES = numberOfPieces;
+    }
+
+    public int getNumberOfPieces() {
+        return NUMBER_OF_PIECES;
     }
 }

@@ -4,13 +4,10 @@ import model.board.*;
 import controller.Game;
 import view.UIConfigurations;
 import view.UIMainGui;
-import view.boardmaker.UIBoardMaker;
 
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Application {
 
@@ -26,6 +23,7 @@ public class Application {
 
         ArrayList<String> playerNames = UIConfigurations.choosePlayerNames();
         Integer millLength = UIConfigurations.chooseMillLength();
+        Integer numberOfPieces = UIConfigurations.chooseNumberOfPieces();
 
         ArrayList<Color> colours = new ArrayList<>();
 
@@ -42,7 +40,7 @@ public class Application {
         }
 
         // Model
-        GameBoard gameBoard = initialiseGameboard(gameBoardName);
+        GameBoard gameBoard = initialiseGameboard(gameBoardName, numberOfPieces);
 
         gameBoard.setMillLength(millLength);
 
@@ -66,12 +64,15 @@ public class Application {
 
     /**
      * Initialises the GameBoard based on the game configuration
-     * @param gameboardName the gameboard name to initialise the GameBoard with
+     *
+     * @param gameboardName  the gameboard name to initialise the GameBoard with
+     * @param numberOfPieces
      * @return the initialised GameBoard
      */
-    public static GameBoard initialiseGameboard(String gameboardName) {
+    public static GameBoard initialiseGameboard(String gameboardName, int numberOfPieces) {
 
         GameBoard gameBoard = new GameBoard();
+        gameBoard.setNumberOfPieces(numberOfPieces);
 
         String os = System.getProperty("os.name").toLowerCase();
         String fileSeparator = os.contains("win") ? "\\" : "/";
@@ -111,8 +112,7 @@ public class Application {
             }
         }
 
-        // TODO: Change to when amount of pieces gets picked
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < gameBoard.getNumberOfPieces(); i++) {
             for (Player player : players) {
                 gameBoard.addUnplacedPiece(new Piece(player));
             }
