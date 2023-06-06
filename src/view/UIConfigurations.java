@@ -238,16 +238,16 @@ public class UIConfigurations {
                 int millLength = Integer.parseInt(response);
                 if (millLength <= 1) {
                     JOptionPane.showMessageDialog(null, "Mill length must be greater than 1.");
-                    response = null; // Clear the response to show the input dialog again
+                    response = null;
                 } else {
                     return millLength;
                 }
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid mill length.");
-                response = null; // Clear the response to show the input dialog again
+                response = null;
             }
         } while (response == null);
 
-        return null; // This line should never be reached, added for completeness
+        return null;
     }
 }
