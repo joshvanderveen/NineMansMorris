@@ -49,22 +49,8 @@ public class UIConfigurations {
             String os = System.getProperty("os.name").toLowerCase();
 
             // Use forward slash for macOS and Linux
-            String filePath;
-            String fileSeparator;
-            if (os.contains("mac") || os.contains("nix") || os.contains("nux")) {
-                filePath = "src/boards/";
-                fileSeparator = "/";
-            }
-            // Use backslash for Windows
-            else if (os.contains("win")) {
-                filePath = "src\\boards\\";
-                fileSeparator = "\\";
-            }
-            else {
-                // Default to forward slash
-                filePath = "src/boards/";
-                fileSeparator = "/";
-            }
+            String filePath = os.contains("win") ? "src\\boards\\" : "src/boards/";
+            String fileSeparator = os.contains("win") ? "\\" : "/";
 
             // write intersections and relationships to file
             FileReadAndWrite.writeIntersectionsToFile(filePath + boardNameString + fileSeparator + "intersections.json", intersections);
