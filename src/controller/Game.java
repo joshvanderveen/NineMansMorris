@@ -37,7 +37,6 @@ public class Game implements PieceListener {
      */
     @Override
     public void positionSelected(Intersection intersection) {
-
         // Check if removing stage
         if (MillManager.playerHasUnusedMill(currentPlayer)) {
             handleRemovingStage(intersection);
@@ -78,11 +77,12 @@ public class Game implements PieceListener {
         ArrayList<Mill> mills = gameBoard.checkForMills();
         MillManager.updateMills(mills);
 
+        // Are there valid pieces the player can remove
         boolean areFreePieces = false;
 
         for (Intersection _intersection : gameBoard.getIntersections()) {
             if (_intersection.getPiece() == null) continue;
-            if (_intersection.getPiece().getOwner() != currentPlayer) continue;
+            if (_intersection.getPiece().getOwner() == currentPlayer) continue;
             if (!MillManager.intersectionIsInMill(_intersection)) {
                 areFreePieces = true;
             }
@@ -215,8 +215,7 @@ public class Game implements PieceListener {
      */
     public void checkGameOver() {
         if (gameBoard.isGameOver(currentPlayer)) {
-            System.out.println("Player " + currentPlayer + " has lost!");
-            gui.notifyOfWin(players.get(1 - players.indexOf(currentPlayer)));
+            gui.notifyOfLoss(players.get(1 - players.indexOf(currentPlayer)));
             System.exit(0);
         }
     }

@@ -1,0 +1,86 @@
+[
+  {
+    "id": 0,
+    "coordinate": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  {
+    "id": 1,
+    "coordinate": {
+      "x": 2,
+      "y": 2
+    }
+  },
+  {
+    "id": 2,
+    "coordinate": {
+      "x": 4,
+      "y": 4
+    }
+  },
+  {
+    "id": 3,
+    "coordinate": {
+      "x": 6,
+      "y": 6
+    }
+  },
+  {
+    "id": 4,
+    "coordinate": {
+      "x": 6,
+      "y": 0
+    }
+  },
+  {
+    "id": 5,
+    "coordinate": {
+      "x": 4,
+      "y": 2
+    }
+  },
+  {
+    "id": 6,
+    "coordinate": {
+      "x": 2,
+      "y": 4
+    }
+  },
+  {
+    "id": 7,
+    "coordinate": {
+      "x": 0,
+      "y": 6
+    }
+  },
+  {
+    "id": 8,
+    "coordinate": {
+      "x": 5,
+      "y": 1
+    }
+  },
+  {
+    "id": 9,
+    "coordinate": {
+      "x": 1,
+      "y": 1
+    }
+  },
+  {
+    "id": 10,
+    "coordinate": {
+      "x": 1,
+      "y": 5
+    }
+  },
+  {
+    "id": 11,
+    "coordinate": {
+      "x": 5,
+      "y": 5
+    }
+  }
+]

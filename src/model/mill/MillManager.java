@@ -14,7 +14,7 @@ public final class MillManager {
      */
     public static void addMill(Mill mill) {
         for (Mill existingMill : mills) {
-            if (existingMill.compareMill(mill)) return;
+            if (existingMill.equals(mill)) return;
         }
         mills.add(mill);
     }
@@ -79,7 +79,6 @@ public final class MillManager {
      */
     public static void updateMills(ArrayList<Mill> newMills) {
         if (newMills.size() == 0) return;
-        System.out.println(MillManager.mills);
         ArrayList<Mill> oldMills = new ArrayList<>();
 
         for (Mill mill : MillManager.mills) {
@@ -94,7 +93,7 @@ public final class MillManager {
             boolean inNewMill = false;
 
             for (Mill mill : newMills) {
-                if (mill.compareMill(newMill)) {
+                if (mill.equals(newMill)) {
                     inNewMill = true;
                 }
             }
@@ -103,7 +102,19 @@ public final class MillManager {
         }
 
         for (Mill oldMill : newMills) {
+            // if the same mill is on the board, add it, otherwise dont
+            for (Mill mill : mills) {
+                if (mill.equals(oldMill)) break;
+            }
             MillManager.addMill(oldMill);
         }
+    }
+
+    public static String printString() {
+        StringBuilder outputString = new StringBuilder();
+        for (Mill mill : mills) {
+            outputString.append(mill);
+        }
+        return outputString.toString();
     }
 }

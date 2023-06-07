@@ -173,10 +173,10 @@ public class UIMainGui extends JFrame {
     }
 
     /**
-     * Notifies the user that they have won the game by creating an alert
-     * @param player the player that has won
+     * Notifies the user that they have lost the game by creating an alert
+     * @param player the player that has lost
      */
-    public void notifyOfWin(Player player) {
-        JOptionPane.showMessageDialog(UIBoardPanel, "Congratulations! " + player.getName() + " has won the game!");
+    public void notifyOfLoss(Player player) {
+        JOptionPane.showMessageDialog(UIBoardPanel, player.getName() + " has lost the game!");
     }
 }

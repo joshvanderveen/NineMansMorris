@@ -38,15 +38,6 @@ public class Mill {
     }
 
     /**
-     * Compare the current mill to another mill to check whether they have the same intersections
-     * @param otherMill The mill to compare
-     * @return Whether the mills are the same
-     */
-    public boolean compareMill(Mill otherMill) {
-        return this.getIntersections().containsAll(otherMill.intersections);
-    }
-
-    /**
      * Check whether an intersection is part of the mill or not
      * @param intersection The intersection to check
      * @return Whether the intersection is part of the mill
@@ -63,10 +54,16 @@ public class Mill {
         return this.intersections.get(0).getPiece().getOwner();
     }
 
+
+    /**
+     * Compare the current mill to another mill to check whether they have the same intersections
+     * @param object The mill to compare
+     * @return Whether the mills are the same
+     */
     @Override
     public boolean equals(Object object) {
         if (object == null) return false;
         if (!(object instanceof Mill)) return false;
-        return this.compareMill((Mill) object);
+        return this.getIntersections().containsAll(((Mill) object).intersections);
     }
 }
