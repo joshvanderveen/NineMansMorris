@@ -1,0 +1,170 @@
+[
+  {
+    "id": 0,
+    "coordinate": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  {
+    "id": 1,
+    "coordinate": {
+      "x": 3,
+      "y": 0
+    }
+  },
+  {
+    "id": 2,
+    "coordinate": {
+      "x": 6,
+      "y": 0
+    }
+  },
+  {
+    "id": 3,
+    "coordinate": {
+      "x": 1,
+      "y": 1
+    }
+  },
+  {
+    "id": 4,
+    "coordinate": {
+      "x": 3,
+      "y": 1
+    }
+  },
+  {
+    "id": 5,
+    "coordinate": {
+      "x": 5,
+      "y": 1
+    }
+  },
+  {
+    "id": 6,
+    "coordinate": {
+      "x": 2,
+      "y": 2
+    }
+  },
+  {
+    "id": 7,
+    "coordinate": {
+      "x": 3,
+      "y": 2
+    }
+  },
+  {
+    "id": 8,
+    "coordinate": {
+      "x": 4,
+      "y": 2
+    }
+  },
+  {
+    "id": 9,
+    "coordinate": {
+      "x": 0,
+      "y": 3
+    }
+  },
+  {
+    "id": 10,
+    "coordinate": {
+      "x": 1,
+      "y": 3
+    }
+  },
+  {
+    "id": 11,
+    "coordinate": {
+      "x": 2,
+      "y": 3
+    }
+  },
+  {
+    "id": 12,
+    "coordinate": {
+      "x": 4,
+      "y": 3
+    }
+  },
+  {
+    "id": 13,
+    "coordinate": {
+      "x": 5,
+      "y": 3
+    }
+  },
+  {
+    "id": 14,
+    "coordinate": {
+      "x": 6,
+      "y": 3
+    }
+  },
+  {
+    "id": 15,
+    "coordinate": {
+      "x": 2,
+      "y": 4
+    }
+  },
+  {
+    "id": 16,
+    "coordinate": {
+      "x": 3,
+      "y": 4
+    }
+  },
+  {
+    "id": 17,
+    "coordinate": {
+      "x": 4,
+      "y": 4
+    }
+  },
+  {
+    "id": 18,
+    "coordinate": {
+      "x": 1,
+      "y": 5
+    }
+  },
+  {
+    "id": 19,
+    "coordinate": {
+      "x": 3,
+      "y": 5
+    }
+  },
+  {
+    "id": 20,
+    "coordinate": {
+      "x": 5,
+      "y": 5
+    }
+  },
+  {
+    "id": 21,
+    "coordinate": {
+      "x": 0,
+      "y": 6
+    }
+  },
+  {
+    "id": 22,
+    "coordinate": {
+      "x": 3,
+      "y": 6
+    }
+  },
+  {
+    "id": 23,
+    "coordinate": {
+      "x": 6,
+      "y": 6
+    }
+  }
+]

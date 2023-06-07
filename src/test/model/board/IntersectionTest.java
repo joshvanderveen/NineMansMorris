@@ -1,23 +1,18 @@
 package test.model.board;
 
-import junit.framework.TestCase;
 import model.Player;
 import model.board.Coordinate;
 import model.board.Intersection;
 import model.board.Path;
 import model.board.Piece;
-import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class IntersectionTest {
 

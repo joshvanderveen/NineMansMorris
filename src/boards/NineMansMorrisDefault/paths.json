@@ -1,0 +1,135 @@
+[
+  {
+    "sourceIntersection": 0,
+    "destinationIntersection": 1
+  },
+  {
+    "sourceIntersection": 1,
+    "destinationIntersection": 2
+  },
+  {
+    "sourceIntersection": 3,
+    "destinationIntersection": 4
+  },
+  {
+    "sourceIntersection": 4,
+    "destinationIntersection": 5
+  },
+  {
+    "sourceIntersection": 6,
+    "destinationIntersection": 7
+  },
+  {
+    "sourceIntersection": 7,
+    "destinationIntersection": 8
+  },
+  {
+    "sourceIntersection": 9,
+    "destinationIntersection": 10
+  },
+  {
+    "sourceIntersection": 10,
+    "destinationIntersection": 11
+  },
+  {
+    "sourceIntersection": 12,
+    "destinationIntersection": 13
+  },
+  {
+    "sourceIntersection": 13,
+    "destinationIntersection": 14
+  },
+  {
+    "sourceIntersection": 15,
+    "destinationIntersection": 16
+  },
+  {
+    "sourceIntersection": 16,
+    "destinationIntersection": 17
+  },
+  {
+    "sourceIntersection": 18,
+    "destinationIntersection": 19
+  },
+  {
+    "sourceIntersection": 19,
+    "destinationIntersection": 20
+  },
+  {
+    "sourceIntersection": 21,
+    "destinationIntersection": 22
+  },
+  {
+    "sourceIntersection": 22,
+    "destinationIntersection": 23
+  },
+  {
+    "sourceIntersection": 23,
+    "destinationIntersection": 24
+  },
+  {
+    "sourceIntersection": 0,
+    "destinationIntersection": 9
+  },
+  {
+    "sourceIntersection": 1,
+    "destinationIntersection": 4
+  },
+  {
+    "sourceIntersection": 2,
+    "destinationIntersection": 14
+  },
+  {
+    "sourceIntersection": 3,
+    "destinationIntersection": 10
+  },
+  {
+    "sourceIntersection": 4,
+    "destinationIntersection": 7
+  },
+  {
+    "sourceIntersection": 5,
+    "destinationIntersection": 13
+  },
+  {
+    "sourceIntersection": 6,
+    "destinationIntersection": 11
+  },
+  {
+    "sourceIntersection": 8,
+    "destinationIntersection": 12
+  },
+  {
+    "sourceIntersection": 9,
+    "destinationIntersection": 21
+  },
+  {
+    "sourceIntersection": 10,
+    "destinationIntersection": 18
+  },
+  {
+    "sourceIntersection": 11,
+    "destinationIntersection": 15
+  },
+  {
+    "sourceIntersection": 12,
+    "destinationIntersection": 17
+  },
+  {
+    "sourceIntersection": 13,
+    "destinationIntersection": 20
+  },
+  {
+    "sourceIntersection": 14,
+    "destinationIntersection": 23
+  },
+  {
+    "sourceIntersection": 16,
+    "destinationIntersection": 19
+  },
+
+  {
+    "sourceIntersection": 19,
+    "destinationIntersection": 22
+  }
+]
