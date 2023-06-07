@@ -1,0 +1,37 @@
+[
+  {
+    "id": 0,
+    "coordinate": {
+      "x": 0,
+      "y": 0
+    }
+  },
+  {
+    "id": 1,
+    "coordinate": {
+      "x": 2,
+      "y": 0
+    }
+  },
+  {
+    "id": 2,
+    "coordinate": {
+      "x": 2,
+      "y": 2
+    }
+  },
+  {
+    "id": 3,
+    "coordinate": {
+      "x": 0,
+      "y": 2
+    }
+  },
+  {
+    "id": 4,
+    "coordinate": {
+      "x": 1,
+      "y": 1
+    }
+  }
+]

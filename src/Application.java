@@ -19,11 +19,18 @@ public class Application {
      */
     public static void main(String[] args) {
 
-        String gameBoardName = UIConfigurations.chooseGameBoard();
+        String gameboardName = UIConfigurations.chooseGameBoard();
+
+        String os = System.getProperty("os.name").toLowerCase();
+        String fileSeparator = os.contains("win") ? "\\" : "/";
+        String gameboardPath = "src" + fileSeparator + "boards" + fileSeparator + gameboardName + fileSeparator;
+        String intersectionsFilePath = gameboardPath + "intersections.json";
+
+        ArrayList<Intersection> intersectionsFromFile = FileReadAndWrite.readIntersectionsFromFile(intersectionsFilePath);
 
         ArrayList<String> playerNames = UIConfigurations.choosePlayerNames();
         Integer millLength = UIConfigurations.chooseMillLength();
-        Integer numberOfPieces = UIConfigurations.chooseNumberOfPieces();
+        Integer numberOfPieces = UIConfigurations.chooseNumberOfPieces((int) Math.floor(intersectionsFromFile.size() / playerNames.size()));
 
         ArrayList<Color> colours = new ArrayList<>();
 
@@ -40,21 +47,9 @@ public class Application {
         }
 
         // Model
-        GameBoard gameBoard = initialiseGameboard(gameBoardName, numberOfPieces);
+        GameBoard gameBoard = initialiseGameboard(gameboardName, numberOfPieces);
 
         gameBoard.setMillLength(millLength);
-
-
-
-        // Examples of how to read and write intersections and relationships
-
-//        FileReadAndWrite.writeIntersectionsToFile("src\\boards\\GAMEBOARD_1\\intersections.json", intersections);
-
-//        FileReadAndWrite.writeRelationshipsToFile("src\\boards\\GAMEBOARD_1\\paths.json", intersections);
-
-//        ArrayList<Intersection> intersectionsFromFile = FileReadAndWrite.readIntersectionsFromFile("src\\boards\\GAMEBOARD_1\\intersections.json");
-
-//        HashMap[] relationshipsFromFile = FileReadAndWrite.readRelationshipsFromFile("src\\boards\\GAMEBOARD_1\\paths.json");
 
         // View
         UIMainGui gui = new UIMainGui();
@@ -71,6 +66,8 @@ public class Application {
      */
     public static GameBoard initialiseGameboard(String gameboardName, int numberOfPieces) {
 
+
+
         GameBoard gameBoard = new GameBoard();
         gameBoard.setNumberOfPieces(numberOfPieces);
 
@@ -80,6 +77,7 @@ public class Application {
         String gameboardPath = "src" + fileSeparator + "boards" + fileSeparator + gameboardName + fileSeparator;
         String intersectionsFilePath = gameboardPath + "intersections.json";
         String relationshipsFilePath = gameboardPath + "paths.json";
+
 
         ArrayList<Intersection> intersectionsFromFile = FileReadAndWrite.readIntersectionsFromFile(intersectionsFilePath);
         HashMap<String, Integer>[] relationshipsFromFile = FileReadAndWrite.readRelationshipsFromFile(relationshipsFilePath);

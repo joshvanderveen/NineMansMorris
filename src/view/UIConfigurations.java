@@ -227,7 +227,7 @@ public class UIConfigurations {
 
         String response;
         do {
-            response = JOptionPane.showInputDialog(null, panel, "Choose a mill length", JOptionPane.OK_CANCEL_OPTION);
+            response = (String) JOptionPane.showInputDialog(null, panel, "Choose a mill length", JOptionPane.OK_CANCEL_OPTION, null, null, "3");
 
             if (response == null) {
                 System.exit(0);
@@ -251,7 +251,7 @@ public class UIConfigurations {
         return null;
     }
 
-    public static Integer chooseNumberOfPieces() {
+    public static Integer chooseNumberOfPieces(int maxNumber) {
         JPanel panel = new JPanel();
         panel.add(new JLabel("Choose a number of pieces:"));
 
@@ -268,6 +268,9 @@ public class UIConfigurations {
                 int numberOfPieces = Integer.parseInt(response);
                 if (numberOfPieces <= 0) {
                     JOptionPane.showMessageDialog(null, "Number of pieces must be greater than 0.");
+                    response = null;
+                } else if (numberOfPieces > maxNumber) {
+                    JOptionPane.showMessageDialog(null, "Number of pieces must be less than the amount of intersections");
                     response = null;
                 } else {
                     return numberOfPieces;
