@@ -60,7 +60,6 @@ public final class FileReadAndWrite {
             FileWriter writer = new FileWriter(filename);
             String result = gson.toJson(intersections);
             result = flattenJsonArray(result);
-            System.out.println(result);
             writer.write(result);
             writer.close();
         } catch (Exception e) {

@@ -5,6 +5,7 @@ import model.serialization.FileReadAndWrite;
 import view.boardmaker.UIBoardMaker;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -49,22 +50,8 @@ public class UIConfigurations {
             String os = System.getProperty("os.name").toLowerCase();
 
             // Use forward slash for macOS and Linux
-            String filePath;
-            String fileSeparator;
-            if (os.contains("mac") || os.contains("nix") || os.contains("nux")) {
-                filePath = "src/boards/";
-                fileSeparator = "/";
-            }
-            // Use backslash for Windows
-            else if (os.contains("win")) {
-                filePath = "src\\boards\\";
-                fileSeparator = "\\";
-            }
-            else {
-                // Default to forward slash
-                filePath = "src/boards/";
-                fileSeparator = "/";
-            }
+            String filePath = os.contains("win") ? "src\\boards\\" : "src/boards/";
+            String fileSeparator = os.contains("win") ? "\\" : "/";
 
             // write intersections and relationships to file
             FileReadAndWrite.writeIntersectionsToFile(filePath + boardNameString + fileSeparator + "intersections.json", intersections);
@@ -176,20 +163,21 @@ public class UIConfigurations {
 
     public static ArrayList<String> choosePlayerNames() {
         ArrayList<String> playerNames = new ArrayList<>();
-        
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(new JLabel("Enter player names:"));
+
+        JPanel labelPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        labelPanel.add(new JLabel("Enter player names:"));
+        panel.add(labelPanel);
 
         JTextField textField = new JTextField(10);
-
         panel.add(textField);
 
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+        JList<String> scrollPaneList = new JList<>(listModel);
+
         JButton addButton = new JButton("Add");
-        
-        DefaultListModel listModel = new DefaultListModel();
-
-
         addButton.addActionListener(e -> {
             String name = textField.getText();
             if (name.length() > 0) {
@@ -200,39 +188,96 @@ public class UIConfigurations {
             }
         });
 
-        JPanel inputPanel = new JPanel();
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.addActionListener(e -> {
+            int selectedIndex = scrollPaneList.getSelectedIndex();
+            if (selectedIndex != -1) {
+                playerNames.remove(selectedIndex);
+                listModel.remove(selectedIndex);
+            }
+        });
+
+        JPanel inputPanel = new JPanel(new FlowLayout());
         inputPanel.add(textField);
         inputPanel.add(addButton);
-
+        inputPanel.add(deleteButton);
         panel.add(inputPanel);
-
-        JList scrollPaneList = new JList<>(listModel);
 
         panel.add(new JScrollPane(scrollPaneList));
 
         panel.setVisible(true);
 
-        int result = JOptionPane.showConfirmDialog(null, panel, "Game Configuration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+        while (playerNames.size() < 2) {
+            int result = JOptionPane.showConfirmDialog(null, panel, "Game Configuration",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
-        if (result == JOptionPane.OK_OPTION) {
-            return playerNames;
-        } else {
-            System.exit(0);
-            return null;
+            if (result != JOptionPane.OK_OPTION) {
+                System.exit(0);
+            }
+
+            if (playerNames.size() < 2) JOptionPane.showMessageDialog(null, "Please enter at least two player names.");
         }
+
+        return playerNames;
     }
 
     public static Integer chooseMillLength() {
         JPanel panel = new JPanel();
         panel.add(new JLabel("Choose a mill length:"));
 
-        String response = JOptionPane.showInputDialog(null, panel, "Choose a mill length", JOptionPane.OK_CANCEL_OPTION);
+        String response;
+        do {
+            response = JOptionPane.showInputDialog(null, panel, "Choose a mill length", JOptionPane.OK_CANCEL_OPTION);
 
-        try {
-            return Integer.parseInt(response);
-        } catch (Exception e) {
-            System.exit(0);
-            return null;
-        }
+            if (response == null) {
+                System.exit(0);
+                return null;
+            }
+
+            try {
+                int millLength = Integer.parseInt(response);
+                if (millLength <= 1) {
+                    JOptionPane.showMessageDialog(null, "Mill length must be greater than 1.");
+                    response = null;
+                } else {
+                    return millLength;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid mill length.");
+                response = null;
+            }
+        } while (response == null);
+
+        return null;
+    }
+
+    public static Integer chooseNumberOfPieces() {
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Choose a number of pieces:"));
+
+        String response;
+        do {
+            response = (String) JOptionPane.showInputDialog(null, panel, "Choose a number of pieces", JOptionPane.OK_CANCEL_OPTION, null, null, "9");
+
+            if (response == null) {
+                System.exit(0);
+                return null;
+            }
+
+            try {
+                int numberOfPieces = Integer.parseInt(response);
+                if (numberOfPieces <= 0) {
+                    JOptionPane.showMessageDialog(null, "Number of pieces must be greater than 0.");
+                    response = null;
+                } else {
+                    return numberOfPieces;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number of pieces.");
+                response = null;
+            }
+        } while (response == null);
+
+        return null;
     }
 }
