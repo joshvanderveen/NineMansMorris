@@ -1,5 +1,2 @@
-# FIT3077_project
-
-Notes:
-- SomeGithubNoob is my (Josh's) personal account which was not configured to student before commiting
-- '=' is also my (Josh's) account which wasn't wasn't configured properly
+This game was a uni project.
+It is a Java implementation of the game Nine Mans Morris
